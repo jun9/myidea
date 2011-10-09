@@ -1,0 +1,10 @@
+zh-CN:
+  activerecord:
+    attributes:
+      idea:
+        title: "主意"
+        description: "内容"
+        category: "分类"
+      user:
+        username: "账号"
+        password: "密码"

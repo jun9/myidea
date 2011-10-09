@@ -1,0 +1,18 @@
+    <!-- category select -->
+    <div class="category-select-box">
+	  <label>选择类别:</label>&nbsp;
+      <%= select("category", "id", @categories.collect {|c| [ c.name, c.id ] }, {:include_blank => '全部'}) %>
+	</div>
+	<!-- pagination -->
+  <div class="pagination-box-top">
+    <%= will_paginate %><div class="clear"></div>
+    </div>
+  <!-- begin of ideas -->
+  <div class="ideas-all" id="ideas">
+    <%= render @ideas %>
+  </div>	
+  <!-- end of ideas -->
+    <!-- pagination -->
+  <div class="pagination-box-bottom">
+    <%= will_paginate %><div class="clear"></div>
+  </div>
