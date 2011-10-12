@@ -1,5 +1,12 @@
 $(function(){
-    prepareIdeas(); 
+    prepareIdeas();
+    /* dialog */
+    $promotionDialog=$('#promotion-dialog').dialog({
+        height: 500,
+        width: 600,
+        modal:true,
+        autoOpen:false
+    });
     /* tabs */
 	$('#tabs').tabs({
       select:function(event,ui){
@@ -14,6 +21,13 @@ $(function(){
     });
     /* buttons */
     $('#add-idea').button();
+    /* input */
+    $('#idea_title').focus().focusout(function(){
+      $.get('/ideas/promotion',{title:this.value},function(data){
+        $promotionDialog.html(data);
+        $promotionDialog.dialog('open');
+      });
+    });
 });
 /* make ideas ui and event ready */
 function prepareIdeas(){

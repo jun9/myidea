@@ -295,7 +295,7 @@ div.ideas-all span.end {
     overflow: hidden;
     width: 0;
 }
-div.ideas-all div.idea {
+div.ideas-all div.idea{
     border-bottom: 1px solid #BDBCB7;
     padding: 20px 0 15px;
 }
@@ -333,15 +333,15 @@ div.imessage {
     float: right;
     width: 506px;
 }
-div.imessage a {
+div.imessage a,div.promotion-imessage a {
     color: #5c9ccc;
     font-weight: bold;
     text-decoration: none;
 }
-div.imessage a:hover {
+div.imessage a:hover,div.promotion-imessage a:hover{
     color: #e17009;
 }
-div.imessage h2 {
+div.imessage h2{
     font-size: 1.55em;
     font-weight: 100;
     margin: 0 0 20px;
@@ -431,4 +431,14 @@ div.idea div.imessage ul.actions li.category span {
     display: block;
     float: left;
     margin: 0 5px 0 0;
+}
+div.promotion-idea {
+    border-bottom: 1px solid #BDBCB7;
+    margin:5px 15px 15px;
+}
+div.promotion-imessage h2{
+    font-size: 1.4em;
+    font-weight: 100;
+    overflow: hidden;
+    margin:0 0 10px;
 }

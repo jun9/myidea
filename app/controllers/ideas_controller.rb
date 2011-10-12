@@ -1,12 +1,15 @@
 # encoding: utf-8
 class IdeasController < ApplicationController
-  skip_before_filter :authorize,:only => [:index,:tab,:page]
+  skip_before_filter :authorize,:only => [:index,:tab]
   
   def index
   end
+
+  def promotion
+    @ideas = Idea.where("title LIKE ? ","%#{params[:title]}%")
+    render :layout => false
+  end
   
-  # GET /ideas/1
-  # GET /ideas/1.json
   def show
     @idea = Idea.find(params[:id])
 
@@ -20,50 +23,15 @@ class IdeasController < ApplicationController
     @idea = Idea.new
   end
 
-  # GET /ideas/1/edit
-  def edit
-    @idea = Idea.find(params[:id])
-  end
-
   def create
     @idea = Idea.new(params[:idea])
     @idea.user = current_user
     respond_to do |format|
       if @idea.save
         format.html { redirect_to @idea, notice: 'Idea was successfully created.' }
-        format.json { render json: @idea, status: :created, location: @idea }
       else
         format.html { render action: "new" }
-        format.json { render json: @idea.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # PUT /ideas/1
-  # PUT /ideas/1.json
-  def update
-    @idea = Idea.find(params[:id])
-
-    respond_to do |format|
-      if @idea.update_attributes(params[:idea])
-        format.html { redirect_to @idea, notice: 'Idea was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @idea.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /ideas/1
-  # DELETE /ideas/1.json
-  def destroy
-    @idea = Idea.find(params[:id])
-    @idea.destroy
-
-    respond_to do |format|
-      format.html { redirect_to ideas_url }
-      format.json { head :ok }
     end
   end
 

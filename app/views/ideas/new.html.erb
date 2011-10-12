@@ -4,19 +4,21 @@
 <%= form_for(@idea) do |f| %>
 
   <% if @idea.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@idea.errors.count, "error") %> prohibited this idea from being saved:</h2>
-
-      <ul>
-      <% @idea.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <div class="ui-widget">
+    <div class="ui-state-highlight ui-corner-all" style="padding:0 .7em">
+    <% @idea.errors.full_messages.each do |msg| %>
+      <p>
+        <span class="ui-icon ui-icon-alert" style="float:left;margin-right:.3em"></span>
+        <%= msg %>
+      </P>
+    <% end %>
     </div>
+  </div>
   <% end %>
+
   <div class="item">
     <%= f.label :title,:class => "text" %>
-    <%= f.text_field :title, :class => "text" %>
+    <%= f.text_field :title, :class => "text", :maxlength => 30 %>
   </div>
   <div class="item">
     <%= f.label :description,:class => "text" %>
@@ -25,11 +27,13 @@
   </div>
   <div class="item">
     <%= f.label :category,:class=>"text"%>
-    <%= select("idea", "category_id", @categories.collect {|c| [ c.name, c.id ] }, {:include_blank => 'None'},:class => "text" ) %>
+    <%= select("idea", "category_id", @categories.collect {|c| [ c.name, c.id ] },:class => "text") %>
   </div>
   <div class="item">
     <label class="text">&nbsp;</label>
     <%= f.submit "发布",:id => "add-idea" %>
   </div>
 <% end %>
+  <div id="promotion-dialog" title="看看大家的Idea，是否已经有了">
+  </div>
 </div>
