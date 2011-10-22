@@ -76,4 +76,19 @@ class IdeasController < ApplicationController
     end
   end
 
+  def like
+    idea = Idea.find(params[:id])
+    idea.likers << current_user
+    idea.update_attribute("points",idea.points+1)
+    render :json => idea.to_json(:only => :points) 
+  end
+  
+  def unlike
+    idea = Idea.find(params[:id])
+    idea.likers.delete(current_user)
+    if idea.points > 0
+      idea.update_attribute("points",idea.points-1)
+    end
+    render :json => idea.to_json(:only => :points) 
+  end
 end

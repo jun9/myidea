@@ -281,7 +281,9 @@ div.page-actions {
       color: #000000;
       border-color: #5c9ccc; 
 }
-
+div.idea-one{
+   width:580px;
+}
 div.ideas-all {
     clear: both;
     margin: 0 0 15px;
@@ -307,6 +309,12 @@ ul.idea-vote {
     overflow: hidden;
     padding: 10px 0 0;
     width: 50px;
+}
+li.vote-btn{
+  text-align:center;
+}
+button.vote-toggle span{
+  font-size:1.1em;
 }
 ul.idea-vote li h6 {
     border-bottom: 1px solid #BDBCB7;
@@ -386,7 +394,7 @@ div.idea div.imessage ul.actions {
     list-style: none outside none;
     margin: 0;
     overflow: hidden;
-    padding: 20px 0 0;
+    padding: 10px 0 0;
 }
 div.idea div.imessage ul.actions li {
     display: inline;

@@ -3,7 +3,8 @@
   <!-- begin of vote -->
   <ul class="idea-vote">
     <li><h6>投票</h6></li>
-    <li class="vote-yes"><input type="checkbox" class="vote-toggle" id="vote-toggle<%= idea_counter %>"/><label for="vote-toggle<%= idea_counter %>">喜欢</label></li>
+    <li class="vote-btn">
+      <%= like_button_tag session[:login_user],idea %>
 	<li class="score">
 	  <span>
 	    <strong><%= idea.points %></strong><br>
@@ -13,22 +14,19 @@
   </ul>
   <!-- end of vote -->
   <!-- begin of message -->
-						<div class="imessage"> 
-							<h2>
-								<span><%= link_to idea.title,idea,:title => idea.title %></span>
-								<span class="launched">Under Review</span>
-							</h2>
-							<div class="date">发布于&nbsp;<%= l idea.created_at,:format => :long %></div>
-							<div class="username">由&nbsp;<%= link_to idea.user.username,user_path(idea.user) %></div>
-
-							<div class="entry"><p><%= raw idea.description %></p>
-							</div>
-					
-							<ul class="actions"> 
-								<li class="comment"><a href="#">评论[30]</a></li>
-							</ul> 
-						</div>
-						<!-- end of message -->
-						<div class="clear"></div>
-				  </div>
-				  <!-- end of idea -->
+  <div class="imessage"> 
+	<h2>
+	  <span><%= link_to idea.title,idea,:title => idea.title %></span>
+	  <span class="launched">Under Review</span>
+	</h2>
+	<div class="date">发布于&nbsp;<%= l idea.created_at,:format => :long %></div>
+	<div class="username">由&nbsp;<%= link_to idea.user.username,user_path(idea.user) %></div>
+    <div class="entry"><p><%= raw idea.description %></p></div>
+	<ul class="actions"> 
+	  <li class="comment"><a href="#">评论[30]</a></li>
+	</ul> 
+  </div>
+  <!-- end of message -->
+  <div class="clear"></div>
+</div>
+<!-- end of idea -->

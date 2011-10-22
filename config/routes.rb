@@ -2,6 +2,8 @@ Myidea::Application.routes.draw do
   resources :ideas do
     match 'tab',:on => :collection
     match 'promotion',:on => :collection
+    match 'like',:on => :member
+    match 'unlike',:on => :member
   end
   resources :users
   get "login" => "users#new"

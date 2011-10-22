@@ -7,6 +7,11 @@ $(function(){
         modal:true,
         autoOpen:false
     });
+    $('#login-dialog').dialog({
+        modal:true,
+        autoOpen:false
+    });
+
     /* tabs */
 	$('#tabs').tabs({
       select:function(event,ui){
@@ -31,7 +36,29 @@ $(function(){
 });
 /* make ideas ui and event ready */
 function prepareIdeas(){
-  $('.vote-toggle').button();    
+  $('.vote-toggle').button().click(function(){
+      $vote_btn = $(this);
+      $vote_span = $vote_btn.children();
+      $point_text = $vote_btn.parent().next().find("strong");
+      if($vote_btn.hasClass("vote-yes")){
+        $.post('/ideas/'+$vote_btn.val()+'/like',function(idea){
+          $vote_btn.removeClass("vote-yes");
+          $vote_btn.addClass("vote-no");
+          $vote_span.text("踩");
+          $point_text.text(idea.points);
+        });
+      }else if($vote_btn.hasClass("vote-no")){
+        $.post('/ideas/'+$vote_btn.val()+'/unlike',function(idea){
+          $vote_btn.removeClass("vote-no");
+          $vote_btn.addClass("vote-yes");
+          $vote_span.text("顶");
+          $point_text.text(idea.points);
+        });
+      }else{
+        $('#login-dialog').dialog("open");
+      }
+    });
+ 
   /* category select */
   $('#category_id').change(function(){
     var style = $('#tabs').tabs('option','selected')
