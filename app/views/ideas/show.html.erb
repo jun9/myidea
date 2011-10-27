@@ -1,3 +1,32 @@
 <div class="idea-one">
   <%= render @idea %>
 </div>
+<div class="comments" id="comments">
+  <%= render :partial => "comments", :locals => { :comments => @comments } %>
+</div>
+<% if session[:login_user] %>
+<div class="comment-form">
+<a href="#" name="comment-form"></a>
+<% if flash[:alert] %>
+  <div class="ui-widget">
+    <div class="ui-state-highlight ui-corner-all" style="padding:0 .7em">
+      <p>
+        <span class="ui-icon ui-icon-alert" style="float:left;margin-right:.3em"></span>
+        <strong>提示:</strong>
+        <%= flash[:alert] %>
+      </P>
+    </div>
+  </div>
+<% end %>
+<%= form_for([@idea,@comment]) do |f| %>
+<div class="item">
+    <%= f.label :content,:class => "text",:style=>"width:50px"%>
+	<%= f.text_area :content,:class => "xheditor {width:480,height:200,tools:'Bold,Italic,Underline,Strikethrough,List,Link,Unlink'}" %>
+  </div>
+ <div class="item">
+    <label class="text" style="width:50px">&nbsp;</label>
+    <%= f.submit "发布",:id => "add-comment" %>
+  </div>
+<% end %>
+</div>
+<% end %>

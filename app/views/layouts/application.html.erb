@@ -57,7 +57,7 @@
 				<!-- begin of category -->
 				<div class="partner-category"> 
 					<ul>
-                      <% @categories.each do |category|%>
+                      <% Category.all.each do |category|%>
 						<li><span><%= category.ideas.count %></span><%= link_to category.name,tab_ideas_path(:cate_id => category.id ),:class => 'cate_link',:remote => true %></li>
                       <% end %>
 					</ul>

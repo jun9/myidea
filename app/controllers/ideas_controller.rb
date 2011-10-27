@@ -1,7 +1,7 @@
 # encoding: utf-8
 class IdeasController < ApplicationController
-  skip_before_filter :authorize,:only => [:index,:tab]
-  
+  skip_before_filter :authorize,:only => [:index,:tab,:show]
+
   def index
   end
 
@@ -11,33 +11,36 @@ class IdeasController < ApplicationController
   end
   
   def show
-    @idea = Idea.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @idea }
+    if request.xhr?
+      @comments = Comment.where(:idea_id => params[:id]).order("created_at asc").paginate(:page => params[:comments_page])
+      render :partial => "comments",:locals => {:comments => @comments}
+    else
+      comments_page = session[:comments_page]?session[:comments_page]:params[:comments_page]
+      session[:comments_page] = nil
+      @categories = Category.all 
+      @idea = Idea.find(params[:id])
+      @comments = Comment.where(:idea_id => @idea.id).order("created_at asc").paginate(:page => comments_page)
+      @comment = Comment.new
     end
   end
 
   def new
+    @categories = Category.all 
     @idea = Idea.new
   end
 
   def create
     @idea = Idea.new(params[:idea])
     @idea.user = current_user
-    respond_to do |format|
-      if @idea.save
-        format.html { redirect_to @idea, notice: 'Idea was successfully created.' }
-      else
-        format.html { render action: "new" }
-      end
+    if @idea.save
+      redirect_to @idea
+    else
+      render action: "new"
     end
   end
 
   def tab
-    logger.debug("cate_id = #{params[:cate_id]}")
-    logger.debug("style = #{params[:style]}")
+    @categories = Category.all 
     cate_id = session[:cate_id]?session[:cate_id]:params[:cate_id]
     session[:cate_id] = nil  
     if request.xhr?
@@ -45,28 +48,28 @@ class IdeasController < ApplicationController
         @category = Category.find(cate_id)
         case params[:style]
         when '0'
-          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:page]).order("updated_at desc")
+          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:ideas_page]).order("updated_at desc")
         when '1'
-          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:page]).order("created_at desc")
+          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:ideas_page]).order("created_at desc")
         when '2'
-          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:page]).order("points desc")
+          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:ideas_page]).order("points desc")
         when '3'
-          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:page]).order("updated_at desc")
+          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:ideas_page]).order("comments_count desc")
         else
-          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:page]).order("updated_at desc")
+          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:ideas_page]).order("updated_at desc")
         end
       else
         case params[:style]
         when '0'
-          @ideas = Idea.paginate(:page => params[:page]).order("updated_at desc")
+          @ideas = Idea.paginate(:page => params[:ideas_page]).order("updated_at desc")
         when '1'
-          @ideas = Idea.paginate(:page => params[:page]).order("created_at desc")
+          @ideas = Idea.paginate(:page => params[:ideas_page]).order("created_at desc")
         when '2'
-          @ideas = Idea.paginate(:page => params[:page]).order("points desc")
+          @ideas = Idea.paginate(:page => params[:ideas_page]).order("points desc")
         when '3'
-          @ideas = Idea.paginate(:page => params[:page]).order("updated_at desc")
+          @ideas = Idea.paginate(:page => params[:ideas_page]).order("comments_count desc")
         else
-          @ideas = Idea.paginate(:page => params[:page]).order("updated_at desc")
+          @ideas = Idea.paginate(:page => params[:ideas_page]).order("updated_at desc")
         end
       end
       render :layout => false
@@ -86,9 +89,7 @@ class IdeasController < ApplicationController
   def unlike
     idea = Idea.find(params[:id])
     idea.likers.delete(current_user)
-    if idea.points > 0
-      idea.update_attribute("points",idea.points-1)
-    end
+    idea.update_attribute("points",idea.points-1)
     render :json => idea.to_json(:only => :points) 
   end
 end

@@ -1,5 +1,6 @@
 $(function(){
     prepareIdeas();
+    prepareComments();
     /* dialog */
     $promotionDialog=$('#promotion-dialog').dialog({
         height: 500,
@@ -26,6 +27,7 @@ $(function(){
     });
     /* buttons */
     $('#add-idea').button();
+    $('#add-comment').button();
     /* input */
     $('#idea_title').focus().focusout(function(){
       $.get('/ideas/promotion',{title:this.value},function(data){
@@ -36,26 +38,27 @@ $(function(){
 });
 /* make ideas ui and event ready */
 function prepareIdeas(){
+  $('.vote-disabled').button({disabled:true});
   $('.vote-toggle').button().click(function(){
-      $vote_btn = $(this);
-      $vote_span = $vote_btn.children();
-      $point_text = $vote_btn.parent().next().find("strong");
-      if($vote_btn.hasClass("vote-yes")){
-        $.post('/ideas/'+$vote_btn.val()+'/like',function(idea){
-          $vote_btn.removeClass("vote-yes");
-          $vote_btn.addClass("vote-no");
-          $vote_span.text("踩");
-          $point_text.text(idea.points);
-        });
-      }else if($vote_btn.hasClass("vote-no")){
-        $.post('/ideas/'+$vote_btn.val()+'/unlike',function(idea){
-          $vote_btn.removeClass("vote-no");
-          $vote_btn.addClass("vote-yes");
-          $vote_span.text("顶");
-          $point_text.text(idea.points);
-        });
-      }else{
+      vote_btns = $(this).parent().children();
+      $vote_btn_y = $(vote_btns[0]);
+      $vote_btn_n = $(vote_btns[1]);
+      $point_text = $vote_btn_y.parent().next().find("strong");
+      if(this.title){
         $('#login-dialog').dialog("open");
+      }
+      else if(vote_btns[0] == this){
+        $.post('/ideas/'+vote_btns[0].value+'/like',function(idea){
+          $vote_btn_y.button({disabled:true});
+          $vote_btn_n.button({disabled:true});
+          $point_text.text(idea.points);
+        });
+      }else if(vote_btns[1] == this){
+        $.post('/ideas/'+vote_btns[1].value+'/unlike',function(idea){
+          $vote_btn_y.button({disabled:true});
+          $vote_btn_n.button({disabled:true});
+          $point_text.text(idea.points);
+        });
       }
     });
  
@@ -66,8 +69,8 @@ function prepareIdeas(){
       showIdeasTab(data);
     })
   });
-  /* make pagination ajax */
-  $('.pagination > a').attr('data-remote','true')
+  /* make ideas pagination ajax */
+  $('.ideas-pagination a').attr('data-remote','true')
   .bind("ajax:success", function(evt, data, status, xhr){
     showIdeasTab(xhr.responseText);
   });
@@ -76,4 +79,12 @@ function prepareIdeas(){
 function showIdeasTab(data){
   $('#tab-box').html(data);
   prepareIdeas(); 
+}
+function prepareComments(){
+  /* make ideas pagination ajax */
+  $('.comments-pagination a').attr('data-remote','true')
+  .bind('ajax:complete', function(evt, xhr, status){
+    $("#comments").html(xhr.responseText);
+    prepareComments();
+  });
 }

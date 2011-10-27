@@ -9,3 +9,5 @@ zh-CN:
       user:
         username: "账号"
         password: "密码"
+      comment:
+        content: "评论"

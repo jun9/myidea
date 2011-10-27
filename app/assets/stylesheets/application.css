@@ -281,7 +281,7 @@ div.page-actions {
       color: #000000;
       border-color: #5c9ccc; 
 }
-div.idea-one{
+div.idea-one,div.comments,div.comment-form{
    width:580px;
 }
 div.ideas-all {
@@ -313,8 +313,12 @@ ul.idea-vote {
 li.vote-btn{
   text-align:center;
 }
+button.vote-toggle{
+  margin:2px 0;
+}
 button.vote-toggle span{
   font-size:1.1em;
+  margin:5px 0;
 }
 ul.idea-vote li h6 {
     border-bottom: 1px solid #BDBCB7;
@@ -406,13 +410,17 @@ div.idea div.imessage ul.actions li a, div.idea div.imessage ul.actions li span 
     background-repeat: no-repeat;
     display: block;
     font-size: 0.9em;
-    line-height: 1.75em;
+    line-height: 2em;
     text-decoration: none;
 }
 div.idea div.imessage ul.actions li a:hover {
 }
 div.idea div.imessage ul.actions li.comment a, div.idea div.imessage ul.actions li.comment span {
     background-image: url("global/icon_comment.png");
+    padding: 0 0 0 30px;
+}
+div.idea div.imessage ul.actions li.commenting a, div.idea div.imessage ul.actions li.commenting span {
+    background-image: url("global/icon_write.gif");
     padding: 0 0 0 30px;
 }
 div.idea div.imessage ul.actions li.favorite a, div.idea div.imessage ul.actions li.favorite span {
@@ -449,4 +457,35 @@ div.promotion-imessage h2{
     font-weight: 100;
     overflow: hidden;
     margin:0 0 10px;
+}
+div.comments{
+  margin-top:20px;
+  border-top:1px solid #BDBCB7;
+}
+div.comment{
+  padding:15px 0;
+  border-bottom:1px solid #BDBCB7;
+}
+div.comment div.poster{
+    display: inline;
+    float: left;
+    margin: 0;
+    overflow: hidden;
+    padding: 10px 0 0 10px;
+    width: 100px;
+}
+div.comment div.poster span.username{
+  margin-bottom:10px;
+  display:block;
+}
+div.comment div.poster span.date{
+  display:block;
+}
+div.comment div.entry{
+    display: inline;
+    float: right;
+    width: 456px;
+}
+div.comment-form{
+  margin-top:40px;
 }

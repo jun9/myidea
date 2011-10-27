@@ -1,16 +1,16 @@
 # encoding: utf-8
 module IdeasHelper
 
-  def like_button_tag(login_user,idea)
+  def like_button_tag(name,style,login_user,idea)
+    options = {:value => idea.id,:type => "button",:class => style}
     if login_user
       if idea.likers.exists?(login_user.id)
-        button_tag "踩",:value => idea.id,:type => "button",:class => "vote-toggle vote-no"
-      else
-        button_tag "顶",:value => idea.id,:type => "button",:class => "vote-toggle vote-yes"
+        options[:class] = options[:class]+" vote-disabled"
       end
     else
-      button_tag "顶",:value => idea.id,:type => "button",:class => "vote-toggle",:title => "请先登录"
+      options[:title] = "请先登录"
     end
+      button_tag name,options
   end
 
 end
