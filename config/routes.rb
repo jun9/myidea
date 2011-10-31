@@ -4,6 +4,7 @@ Myidea::Application.routes.draw do
     match 'promotion',:on => :collection
     match 'like',:on => :member
     match 'unlike',:on => :member
+    get "search",:on => :collection
     resources :comments,:shallow => :true
   end
   resources :users

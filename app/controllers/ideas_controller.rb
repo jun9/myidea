@@ -1,8 +1,21 @@
 # encoding: utf-8
 class IdeasController < ApplicationController
-  skip_before_filter :authorize,:only => [:index,:tab,:show]
+  skip_before_filter :authorize,:only => [:index,:tab,:show,:search]
 
   def index
+  end
+  
+  def search
+    search = Idea.search do
+      keywords params[:q]
+      paginate :page => params[:ideas_page],:per_page => Idea.per_page 
+    end
+    @ideas = search.results
+    @total = search.total
+    @query = params[:q]
+    if request.xhr?
+      render :partial => "search_tab",:locals => { :ideas => @ideas }
+    end
   end
 
   def promotion

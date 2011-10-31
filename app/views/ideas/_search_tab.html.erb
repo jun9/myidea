@@ -1,10 +1,8 @@
-    <!-- category select -->
-    <div class="category-select-box">
-	  <label>选择类别:</label>&nbsp;
-      <%= select("category", "id", @categories.collect {|c| [ c.name, c.id ] }, {:include_blank => '全部'}) %>
-	</div>
+<div class="category-select-box">
+  <label>您搜索 [<span class="highlight"><%= @query %></span>] 共返回 <span class="highlight"><%= @total %></span> 条记录</label>
+</div>
 	<!-- pagination -->
-  <div class="pagination-box-top ideas-pagination">
+  <div class="pagination-box-top search-pagination">
     <%= will_paginate @ideas,:param_name => :ideas_page %><div class="clear"></div>
     </div>
   <!-- begin of ideas -->
@@ -13,6 +11,6 @@
   </div>	
   <!-- end of ideas -->
     <!-- pagination -->
-  <div class="pagination-box-bottom ideas-pagination">
+  <div class="pagination-box-bottom search-pagination">
     <%= will_paginate @ideas,:param_name => :ideas_page  %><div class="clear"></div>
   </div>

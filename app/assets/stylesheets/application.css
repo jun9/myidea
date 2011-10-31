@@ -69,6 +69,10 @@ div.title{
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+span.highlight{
+  font-weight:bold;
+  color:#E17009;
+}
 #header {
     background-color: #FFFFFF;
     min-width: 990px;

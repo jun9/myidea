@@ -38,7 +38,7 @@
 	<div id="main">
 		<div class="content">
 			<!-- begin of right -->
-			<div class="col-a">
+			<div class="col-a" id="rightBox">
               <%= yield %>
 			</div> 
 			<!-- end of right -->
@@ -46,12 +46,12 @@
 			<div class="col-b">
 				<!-- begin of search -->
 				<div class="search-panel">
-					<form>
+					<%= form_tag(search_ideas_path,:method => "get",:id => "search-form") do %>
 						<div class="search-panel-fields ">                    
-							<input id="query" value="搜索Ideas">
+							<%=text_field_tag(:q,@query,:placeholder => "搜索Ideas",:id=> "query") %>
 						</div>
-						<button type="button" id="searchBtn">GO</button>
-					</form>
+                        <%= submit_tag "GO",:id => "searchBtn" %>
+					<% end %>
 				</div>
 				<!-- end of search -->
 				<!-- begin of category -->
