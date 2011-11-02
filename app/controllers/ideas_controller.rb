@@ -19,7 +19,10 @@ class IdeasController < ApplicationController
   end
 
   def promotion
-    @ideas = Idea.where("title LIKE ? ","%#{params[:title]}%")
+    @ideas=Idea.search do
+      keywords params[:title]
+      paginate :per_page => 20 
+    end.results
     render :layout => false
   end
   

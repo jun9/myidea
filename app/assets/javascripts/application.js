@@ -33,12 +33,17 @@ $(function(){
   }else{
     $('.cate_link').removeAttr('data-remote');
   }
+  var $searchform=$('#search-form').submit(function(){
+    if($.trim($('#query').val())=='')
+      return false;
+  });
   if($('#search-tabs').length > 0){
-    $('#search-form').attr('data-remote','true')
+    $searchform.attr('data-remote','true')
     .bind("ajax:complete", function(evt, xhr, status){
       showSearchTab(xhr.responseText);
     });
   }
+  
 });
 /* make ideas ui and event ready */
 function prepareIdeas(){

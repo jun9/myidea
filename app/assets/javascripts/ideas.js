@@ -31,10 +31,14 @@ $(function(){
     $('#add-comment').button();
     /* input */
     $('#idea_title').focus().focusout(function(){
-      $.get('/ideas/promotion',{title:this.value},function(data){
-        $promotionDialog.html(data);
-        $promotionDialog.dialog('open');
-      });
+      if($.trim(this.value)!=''){
+        $.get('/ideas/promotion',{title:this.value},function(data){
+          if(data){
+            $promotionDialog.html(data);
+            $promotionDialog.dialog('open');
+          }
+        });
+      }
     });
 });
 
