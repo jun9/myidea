@@ -1,15 +1,13 @@
 # encoding: utf-8
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :authorize
-
-  def authorize
-    unless session[:login_user]
-      redirect_to login_path, :alert => "请登录"
-    end
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to login_path, :alert => exception.message
   end
   
   def current_user
-    User.find(session[:login_user].id)
+    if(session[:login_user])
+      User.find(session[:login_user].id)
+    end
   end
 end

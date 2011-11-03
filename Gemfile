@@ -19,6 +19,8 @@ end
 gem 'jquery-rails'
 gem 'will_paginate','~> 3.0'
 gem 'sunspot_rails'
+gem 'cancan'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

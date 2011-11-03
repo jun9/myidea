@@ -1,7 +1,7 @@
 # encoding: utf-8
 class UsersController < ApplicationController
-  skip_before_filter :authorize,:only => [:new, :create]
-  
+  authorize_resource 
+
   def new
   end
 

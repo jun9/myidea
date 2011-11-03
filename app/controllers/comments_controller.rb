@@ -1,5 +1,7 @@
 # encoding: utf-8
 class CommentsController < ApplicationController
+  authorize_resource
+
   def create
     comment = Comment.new(params[:comment])
     comment.user = current_user

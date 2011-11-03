@@ -1,4 +1,5 @@
 Myidea::Application.routes.draw do
+  root :to => "ideas#index" 
   resources :ideas do
     match 'tab',:on => :collection
     match 'promotion',:on => :collection
@@ -11,7 +12,6 @@ Myidea::Application.routes.draw do
   get "login" => "users#new"
   post 'login' => "users#create"
   get 'logout' => "users#destroy"
- 
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

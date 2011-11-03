@@ -1,6 +1,6 @@
 # encoding: utf-8
 class IdeasController < ApplicationController
-  skip_before_filter :authorize,:only => [:index,:tab,:show,:search]
+  authorize_resource
 
   def index
   end

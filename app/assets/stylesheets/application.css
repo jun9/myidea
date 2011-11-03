@@ -200,46 +200,11 @@ span.highlight{
 #footer .content {
     margin: 0 auto;
     overflow: hidden;
-    padding: 48px 30px 20px;
+    padding: 15px 30px;
     width: 930px;
-}
-#nav3 {
-    list-style: none outside none;
-    margin: 0;
-    padding: 0;
-}
-#nav3 li {
     color: #FFFFFF;
-    float: left;
-    margin: 0 0 40px;
-    width: 165px;
-}
-#nav3 li h5 {
     font-size: 1.2em;
-    margin: 0 0 10px;
-}
-#nav3 li ul {
-    list-style: none outside none;
-    margin: 0;
-    padding: 0;
-}
-#nav3 li ul li {
-    line-height: 1.2em;
-    margin: 0 0 5px;
-}
-#nav3 li ul li a {
-    color: #FFFFFF;
-    font-size: 1.0em;
-    text-decoration: none;
-}
-#nav3 li ul li a:hover {
-}
-#sf-link a {
-    background: url("global/icon.gif") no-repeat scroll 0 0 transparent;
-    display: block;
-    height: 55px;
-    text-indent: -10000px;
-    width: 235px;
+    text-align:right;
 }
 div.page-actions {
     padding-bottom: 30px;
