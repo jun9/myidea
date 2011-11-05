@@ -18,7 +18,7 @@
   <div class="imessage"> 
 	<h2>
 	  <span><%= link_to idea.title,idea,:title => idea.title %></span>
-	  <span class="launched">Under Review</span>
+      <%= status_span_tag idea %>
 	</h2>
 	<div class="date">发布于&nbsp;<%= l idea.created_at,:format => :long %></div>
 	<div class="username">由&nbsp;<%= link_to idea.user.username,user_path(idea.user) %></div>

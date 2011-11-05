@@ -209,8 +209,14 @@ span.highlight{
 div.page-actions {
     padding-bottom: 30px;
 }
-.category-select-box {
+.tab-header {
     margin:5px 0;
+}
+.category-select-box{
+  float:left;
+}
+.status-button-set{
+  float:right;
 }
 .pagination-box-top{
   border-bottom: 1px solid #BDBCB7; 

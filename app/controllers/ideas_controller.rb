@@ -58,39 +58,31 @@ class IdeasController < ApplicationController
   def tab
     @categories = Category.all 
     cate_id = session[:cate_id]?session[:cate_id]:params[:cate_id]
+    status = session[:status]?session[:stauts]:params[:status]
     session[:cate_id] = nil  
+    session[:status] = nil  
     if request.xhr?
-      if cate_id && !cate_id.empty?
+      conditions = {}
+      unless cate_id.blank?
+        conditions[:category_id] = cate_id 
         @category = Category.find(cate_id)
-        case params[:style]
-        when '0'
-          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:ideas_page]).order("updated_at desc")
-        when '1'
-          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:ideas_page]).order("created_at desc")
-        when '2'
-          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:ideas_page]).order("points desc")
-        when '3'
-          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:ideas_page]).order("comments_count desc")
-        else
-          @ideas = Idea.where(:category_id => cate_id).paginate(:page => params[:ideas_page]).order("updated_at desc")
-        end
-      else
-        case params[:style]
-        when '0'
-          @ideas = Idea.paginate(:page => params[:ideas_page]).order("updated_at desc")
-        when '1'
-          @ideas = Idea.paginate(:page => params[:ideas_page]).order("created_at desc")
-        when '2'
-          @ideas = Idea.paginate(:page => params[:ideas_page]).order("points desc")
-        when '3'
-          @ideas = Idea.paginate(:page => params[:ideas_page]).order("comments_count desc")
-        else
-          @ideas = Idea.paginate(:page => params[:ideas_page]).order("updated_at desc")
-        end
       end
+      unless status.blank?
+        @status = status
+        conditions[:status] = status 
+      end
+      order = case 
+      when params[:style]=='0' then "updated_at desc"
+      when params[:style]=='1' then "created_at desc"
+      when params[:style]=='2' then "points desc"
+      when params[:style]=='3' then "comments_count desc"
+      else "updated_at desc"
+      end
+      @ideas = Idea.where(conditions).paginate(:page => params[:ideas_page]).order(order)
       render :layout => false
     else
       session[:cate_id] = params[:cate_id]
+      session[:status] = params[:status]
       render :action => :index
     end
   end

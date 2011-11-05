@@ -47,6 +47,30 @@ $(function(){
 });
 /* make ideas ui and event ready */
 function prepareIdeas(){
+  $statusButtonSet = $( "#status-button-set" );
+  $statusButtonSet.buttonset()
+  .children(":nth-child(2)").button({
+      text: false,
+      icons: {
+          primary: "ui-icon-pencil"
+      }
+  }).next().next().button({
+      text: false,
+      icons: {
+          primary: "ui-icon-document"
+      }
+  }).next().next().button({
+      text: false,
+      icons: {
+          primary: "ui-icon-gear",
+      }
+  }).next().next().button({
+      text: false,
+      icons: {
+          primary: "ui-icon-check",
+      }
+  });
+ 
   $('.vote-disabled').button({disabled:true});
   $('.vote-toggle').button().click(function(){
       vote_btns = $(this).parent().children();
@@ -70,13 +94,14 @@ function prepareIdeas(){
         });
       }
     });
- 
   /* category select */
-  $('#category_id').change(function(){
-    var style = $('#tabs').tabs('option','selected')
-    $.get('/ideas/tab',{cate_id:this.value,style:style},function(data){
-      showIdeasTab(data);
-    })
+  $categorySel = $('#category_id');
+  $categorySel.change(function(){
+    searchIdeas(this.value,$statusButtonSet);
+  });
+  /* idea status button set */
+  $statusButtonSet.children("input").change(function(){
+    searchIdeas($categorySel.val(),$statusButtonSet);
   });
   /* make ideas pagination ajax */
   $('.ideas-pagination a').attr('data-remote','true')
@@ -89,6 +114,14 @@ function prepareIdeas(){
     showSearchTab(xhr.responseText);
   });
 }
+function prepareComments(){
+  /* make ideas pagination ajax */
+  $('.comments-pagination a').attr('data-remote','true')
+  .bind('ajax:complete', function(evt, xhr, status){
+    $("#comments").html(xhr.responseText);
+    prepareComments();
+  });
+}
 /* ajax show ideas tab partial */
 function showIdeasTab(data){
   $('#tab-box').html(data);
@@ -97,13 +130,14 @@ function showIdeasTab(data){
 function showSearchTab(data){
   $("#search-tabs-box").html(data);
   prepareIdeas();
-
 }
-function prepareComments(){
-  /* make ideas pagination ajax */
-  $('.comments-pagination a').attr('data-remote','true')
-  .bind('ajax:complete', function(evt, xhr, status){
-    $("#comments").html(xhr.responseText);
-    prepareComments();
+function searchIdeas(cate_id,statusButtonSet){
+  var style = $('#tabs').tabs('option','selected')
+  var status = [];
+  statusButtonSet.children("input:checked").each(function(){
+    status.push(this.value);
+  });
+  $.get('/ideas/tab',{cate_id:cate_id,style:style,status:status},function(data){
+    showIdeasTab(data);
   });
 }
