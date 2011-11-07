@@ -1,9 +1,10 @@
 <div class="idea-one">
-  <%= render @idea %>
+<%= render @idea %>
+<% unless @comments.empty? %>
+<div id="comments-box">
+<%= render :partial => "comments", :locals => { :comments => @comments } %>
 </div>
-<div class="comments" id="comments">
-  <%= render :partial => "comments", :locals => { :comments => @comments } %>
-</div>
+<% end %>
 <% if session[:login_user] %>
 <div class="comment-form">
 <a href="#" name="comment-form"></a>
@@ -30,3 +31,4 @@
 <% end %>
 </div>
 <% end %>
+</div>

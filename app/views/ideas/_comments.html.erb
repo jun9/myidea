@@ -1,10 +1,12 @@
-<a href="#" name="comments-top"></a>
 <!-- pagination -->
 <div class="pagination-box-top comments-pagination">
   <%= will_paginate @comments,:param_name => :comments_page %><div class="clear"></div>
 </div>
+<div class="comments" id="comments">
 <% @comments.each do |comment| %>
   <div class="comment">
+  <%= comment_anchor_tag comment,@comments.first,'first' %>
+  <%= comment_anchor_tag comment,@comments.last,'last' %>
     <div class="poster">
       <span class="username">
         <%= link_to comment.user.username,user_path(comment.user) %>
@@ -13,12 +15,11 @@
         <em><%= l comment.created_at ,:format => :long %></em>
       </span>
     </div>
-    <div class="entry">
-    <p><%= raw comment.content %></p>
-    </div>
+    <%= comment_entry_tag comment %>
     <div class="clear"></div>
   </div>
 <% end %>
+</div>
 <!-- pagination -->
 <div class="pagination-box-bottom comments-pagination" style="padding-top:10px;">
   <%= will_paginate @comments,:param_name => :comments_page %><div class="clear"></div>

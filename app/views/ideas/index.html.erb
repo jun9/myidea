@@ -1,9 +1,9 @@
 <div id="tabs">
 	<ul>
-	  <li><%= link_to '热门',tab_ideas_path(:style => 0),:title =>'tab-box' %></li>
-	  <li><%= link_to '最新',tab_ideas_path(:style => 1),:title =>'tab-box'%></li>
-	  <li><%= link_to '评分最高',tab_ideas_path(:style => 2),:title =>'tab-box' %></li>
-	  <li><%= link_to '评论最多',tab_ideas_path(:style => 3),:title =>'tab-box' %></li>
+	  <li><%= link_to '热门',tab_ideas_path(:style => IDEA_SORT_HOT),:title =>'tab-box' %></li>
+	  <li><%= link_to '最新',tab_ideas_path(:style => IDEA_SORT_NEW),:title =>'tab-box'%></li>
+	  <li><%= link_to '评分最高',tab_ideas_path(:style => IDEA_SORT_POINTS),:title =>'tab-box' %></li>
+	  <li><%= link_to '评论最多',tab_ideas_path(:style => IDEA_SORT_COMMENTS),:title =>'tab-box' %></li>
 	</ul>
 </div>
 <div id="login-dialog">

@@ -4,8 +4,8 @@
   <ul class="idea-vote">
     <li><h6>投票</h6></li>
     <li class="vote-btn">
-      <%= like_button_tag "顶","vote-toggle",session[:login_user],idea %>
-      <%= like_button_tag "踩","vote-toggle",session[:login_user],idea %>
+      <%= like_button_tag "顶","vote-toggle",:like,idea %>
+      <%= like_button_tag "踩","vote-toggle",:unlike,idea %>
 	<li class="score">
 	  <span>
 	    <strong><%= idea.points %></strong><br>
@@ -25,11 +25,12 @@
     <div class="entry"><p><%= raw idea.description %></p></div>
 	<ul class="actions">
       <% if idea.comments_count > 0 %>
-	  <li class="comment"><%= link_to "评论[#{idea.comments_count}]",idea_path(idea,:anchor => "comments-top") %></li>
+	  <li class="comment"><%= link_to "评论[#{idea.comments_count}]",idea_path(idea,:anchor => "first") %></li>
       <% end %>
-      <% if session[:login_user] %>
-	  <li class="commenting"><%= link_to "发表评论",idea_path(idea,:anchor => "comment-form") %></li>
+      <% if can? :create,Comment %>
+	  <li class="write"><%= link_to "发表评论",idea_path(idea,:anchor => "comment-form") %></li>
       <% end %>
+      <%= handle_idea_tag idea %>
 	</ul> 
   </div>
   <!-- end of message -->

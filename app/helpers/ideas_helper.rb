@@ -1,10 +1,10 @@
 # encoding: utf-8
 module IdeasHelper
 
-  def like_button_tag(name,style,login_user,idea)
+  def like_button_tag(name,style,action,idea)
     options = {:value => idea.id,:type => "button",:class => style}
-    if login_user
-      if idea.likers.exists?(login_user.id)
+    if can? action,idea
+      if idea.likers.exists?(session[:login_user].id)
         options[:class] = options[:class]+" vote-disabled"
       end
     else
@@ -39,5 +39,39 @@ module IdeasHelper
       checked = true
     end
     check_box_tag 'status-checkbox',status,checked,options    
+  end
+
+  def comment_entry_tag(comment)
+    entryClass = "entry"
+    if comment.user.admin
+      entryClass = entryClass + " admin"
+    end
+    content_tag(:div,content_tag(:p,(raw comment.content)),:class => entryClass)
+  end
+
+  def handle_idea_tag(idea)
+    if can? :handle,idea
+      if idea.status
+        case idea.status
+        when IDEA_STATUS_UNDER_REVIEW
+          linkName = "完成审核"
+        when IDEA_STATUS_REVIEWED
+          linkName = "开始实施"
+        when IDEA_STATUS_IN_THE_WORKS
+          linkName = "完成实施"
+        end
+      else
+        linkName = "开始审核"
+      end
+      if linkName
+        content_tag(:li,(link_to linkName,handle_idea_path(idea),:confirm => "确定要#{linkName}吗？"),:class => "manage")
+      end
+    end
+  end
+
+  def comment_anchor_tag(current,other,name)
+    if current == other
+      content_tag(:a,nil,:name => name)
+    end
   end
 end

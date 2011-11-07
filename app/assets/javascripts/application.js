@@ -47,6 +47,7 @@ $(function(){
 });
 /* make ideas ui and event ready */
 function prepareIdeas(){
+  $("#ideas > div:first").addClass("first");
   $statusButtonSet = $( "#status-button-set" );
   $statusButtonSet.buttonset()
   .children(":nth-child(2)").button({
@@ -115,10 +116,11 @@ function prepareIdeas(){
   });
 }
 function prepareComments(){
+  $("#comments > div:first").addClass("first");
   /* make ideas pagination ajax */
   $('.comments-pagination a').attr('data-remote','true')
   .bind('ajax:complete', function(evt, xhr, status){
-    $("#comments").html(xhr.responseText);
+    $("#comments-box").html(xhr.responseText);
     prepareComments();
   });
 }

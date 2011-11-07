@@ -72,10 +72,10 @@ class IdeasController < ApplicationController
         conditions[:status] = status 
       end
       order = case 
-      when params[:style]=='0' then "updated_at desc"
-      when params[:style]=='1' then "created_at desc"
-      when params[:style]=='2' then "points desc"
-      when params[:style]=='3' then "comments_count desc"
+      when params[:style] == "#{IDEA_SORT_HOT}" then "updated_at desc"
+      when params[:style] == "#{IDEA_SORT_NEW}" then "created_at desc"
+      when params[:style] == "#{IDEA_SORT_POINTS}" then "points desc"
+      when params[:style] == "#{IDEA_SORT_COMMENTS}" then "comments_count desc"
       else "updated_at desc"
       end
       @ideas = Idea.where(conditions).paginate(:page => params[:ideas_page]).order(order)
@@ -99,5 +99,16 @@ class IdeasController < ApplicationController
     idea.likers.delete(current_user)
     idea.update_attribute("points",idea.points-1)
     render :json => idea.to_json(:only => :points) 
+  end
+
+  def handle
+    idea = Idea.find(params[:id])
+    if idea.status
+      status = idea.status + 1 unless idea.status == IDEA_STATUS_LAUNCHED
+    else
+      status = IDEA_STATUS_UNDER_REVIEW
+    end
+    idea.update_attribute("status",status)
+    redirect_to idea
   end
 end

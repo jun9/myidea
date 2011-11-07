@@ -219,7 +219,6 @@ div.page-actions {
   float:right;
 }
 .pagination-box-top{
-  border-bottom: 1px solid #BDBCB7; 
   padding:10px 0 15px 0;
 }
 .pagination-box-bottom{
@@ -256,7 +255,7 @@ div.page-actions {
       color: #000000;
       border-color: #5c9ccc; 
 }
-div.idea-one,div.comments,div.comment-form{
+div.idea-one{
    width:580px;
 }
 div.ideas-all {
@@ -275,6 +274,9 @@ div.ideas-all span.end {
 div.ideas-all div.idea{
     border-bottom: 1px solid #BDBCB7;
     padding: 20px 0 15px;
+}
+div.ideas-all div.first{
+    border-top: 1px solid #BDBCB7;
 }
 ul.idea-vote {
     display: inline;
@@ -314,7 +316,6 @@ ul.idea-vote li.score span {
     text-align: center;
     width: 100%;
 }
-
 div.imessage {
     display: inline;
     float: right;
@@ -369,6 +370,9 @@ div.imessage div.date,div.imessage div.username{
 div.imessage div.date{
 	margin-bottom:5px;
 }
+div.imessage div.entry{
+  min-height:74px;
+}
 div.idea div.imessage ul.actions {
     list-style: none outside none;
     margin: 0;
@@ -385,7 +389,7 @@ div.idea div.imessage ul.actions li a, div.idea div.imessage ul.actions li span 
     background-repeat: no-repeat;
     display: block;
     font-size: 0.9em;
-    line-height: 2em;
+    line-height: 2.2em;
     text-decoration: none;
 }
 div.idea div.imessage ul.actions li a:hover {
@@ -394,8 +398,12 @@ div.idea div.imessage ul.actions li.comment a, div.idea div.imessage ul.actions 
     background-image: url("global/icon_comment.png");
     padding: 0 0 0 30px;
 }
-div.idea div.imessage ul.actions li.commenting a, div.idea div.imessage ul.actions li.commenting span {
-    background-image: url("global/icon_write.gif");
+div.idea div.imessage ul.actions li.write a, div.idea div.imessage ul.actions li.write span {
+    background-image: url("global/icon_write.png");
+    padding: 0 0 0 30px;
+}
+div.idea div.imessage ul.actions li.manage a, div.idea div.imessage ul.actions li.manage span {
+    background-image: url("global/icon_manage.png");
     padding: 0 0 0 30px;
 }
 div.idea div.imessage ul.actions li.favorite a, div.idea div.imessage ul.actions li.favorite span {
@@ -433,13 +441,12 @@ div.promotion-imessage h2{
     overflow: hidden;
     margin:0 0 10px;
 }
-div.comments{
-  margin-top:20px;
-  border-top:1px solid #BDBCB7;
-}
-div.comment{
+div.comments div.comment{
   padding:15px 0;
   border-bottom:1px solid #BDBCB7;
+}
+div.comments div.first{
+  border-top:1px solid #BDBCB7;
 }
 div.comment div.poster{
     display: inline;
@@ -460,6 +467,9 @@ div.comment div.entry{
     display: inline;
     float: right;
     width: 456px;
+}
+div.comment div.admin{
+  color:#E17009;
 }
 div.comment-form{
   margin-top:40px;
