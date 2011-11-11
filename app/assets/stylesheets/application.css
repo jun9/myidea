@@ -61,6 +61,9 @@ div.title{
     margin-bottom:10px;
     padding-bottom:5px;
 }
+div.tab-content{
+  min-height:300px; 
+}
 .t2{
     background-color:#5C9CCC;
     font-size:18px;
@@ -73,6 +76,25 @@ span.highlight{
   font-weight:bold;
   color:#E17009;
 }
+table.tt{
+  display: table;
+  border: medium none;
+  border-collapse: collapse;
+  border-spacing: 2px;
+  border-color: gray;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+table.tt tr.title{
+  color:#2E6E9E;
+  font-weight:bold
+}
+table.tt td {
+  border-bottom: 1px dashed #DDDDDD;
+  padding: 3px 3px 3px 0;
+}
+
 #header {
     background-color: #FFFFFF;
     min-width: 990px;
@@ -84,13 +106,8 @@ span.highlight{
     position: relative;
     width: 990px;
 }
-#header h1.logo a {
-    background: url("customer/logo.png") no-repeat scroll 0 0 transparent;
-    display: block;
-}
-#header h1.logo,#header h1.logo a {
-    height: 72px;
-    width: 300px;
+#header h1.logo{
+    padding: 10px 0 0 30px;
 }
 #header #welcome{
     font-size: 1.25em;
@@ -110,7 +127,7 @@ span.highlight{
 #main .content {
     margin: 0 auto;
     overflow: hidden;
-    padding: 40px 30px 100px;
+    padding: 40px 30px;
     width: 930px;
 }
 #main .content .col-a {
@@ -290,12 +307,12 @@ ul.idea-vote {
 li.vote-btn{
   text-align:center;
 }
-button.vote-toggle{
+li.vote-btn a{
   margin:2px 0;
 }
-button.vote-toggle span{
+li.vote-btn a span{
   font-size:1.1em;
-  margin:5px 0;
+  margin:3px 0;
 }
 ul.idea-vote li h6 {
     border-bottom: 1px solid #BDBCB7;
@@ -341,25 +358,25 @@ div.imessage h2 span {
 	padding: 0 6px 0 0;
 }
 div.imessage h2 span.launched {
-    background: url("global/icon_ok.png") no-repeat scroll 0 0 transparent;
+    background: url("icon_ok.png") no-repeat scroll 0 0 transparent;
     height: 24px;
     text-indent: -10000px;
     width: 24px;
 }
 div.imessage h2 span.reviewed {
-    background: url("global/icon_reviewed.png") no-repeat scroll 0 0 transparent;
+    background: url("icon_reviewed.png") no-repeat scroll 0 0 transparent;
     height: 24px;
     text-indent: -10000px;
     width: 24px;
 }
 div.imessage h2 span.in-the-works {
-    background: url("global/icon_gear.png") no-repeat scroll 0 0 transparent;
+    background: url("icon_gear.png") no-repeat scroll 0 0 transparent;
     height: 24px;
     text-indent: -10000px;
     width: 24px;
 }
 div.imessage h2 span.under-review {
-    background: url("global/icon_review.png") no-repeat scroll 0 0 transparent;
+    background: url("icon_review.png") no-repeat scroll 0 0 transparent;
     height: 24px;
     text-indent: -10000px;
     width: 24px;
@@ -395,27 +412,27 @@ div.idea div.imessage ul.actions li a, div.idea div.imessage ul.actions li span 
 div.idea div.imessage ul.actions li a:hover {
 }
 div.idea div.imessage ul.actions li.comment a, div.idea div.imessage ul.actions li.comment span {
-    background-image: url("global/icon_comment.png");
+    background-image: url("icon_comment.png");
     padding: 0 0 0 30px;
 }
 div.idea div.imessage ul.actions li.write a, div.idea div.imessage ul.actions li.write span {
-    background-image: url("global/icon_write.png");
+    background-image: url("icon_write.png");
     padding: 0 0 0 30px;
 }
 div.idea div.imessage ul.actions li.manage a, div.idea div.imessage ul.actions li.manage span {
-    background-image: url("global/icon_manage.png");
+    background-image: url("icon_manage.png");
     padding: 0 0 0 30px;
 }
 div.idea div.imessage ul.actions li.favorite a, div.idea div.imessage ul.actions li.favorite span {
-    background-image: url("global/icon_favorite.gif");
+    background-image: url("icon_favorite.gif");
     padding: 0 0 0 20px;
 }
 div.idea div.imessage ul.actions li.unfavorite a, div.idea div.imessage ul.actions li.unfavorite span {
-    background-image: url("global/icon_unfav.gif");
+    background-image: url("icon_unfav.gif");
     padding: 0 0 0 20px;
 }
 div.idea div.imessage ul.actions li.flag a, div.idea div.imessage ul.actions li.flag span {
-    background-image: url("global/icon_flag.gif");
+    background-image: url("icon_flag.gif");
     padding: 0 0 0 20px;
 }
 div.idea div.imessage ul.actions li.category {

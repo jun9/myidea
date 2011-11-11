@@ -11,3 +11,8 @@ zh-CN:
         password: "密码"
       comment:
         content: "评论"
+      category:
+        name: "类别名称"
+  errors:
+    category:
+      zero_products: "属于此类别的主意数量不为零，不能删除"

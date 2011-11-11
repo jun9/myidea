@@ -4,7 +4,11 @@ class IdeasController < ApplicationController
 
   def index
   end
-  
+ 
+  def dashboard
+    render :layout => "admin"
+  end
+ 
   def search
     search = Idea.search do
       keywords params[:q]
@@ -89,14 +93,15 @@ class IdeasController < ApplicationController
 
   def like
     idea = Idea.find(params[:id])
-    idea.likers << current_user
-    idea.update_attribute("points",idea.points+1)
+    vote = Vote.new(:idea => idea,:user => current_user,:like => true)
+    vote.save
     render :json => idea.to_json(:only => :points) 
   end
   
   def unlike
     idea = Idea.find(params[:id])
-    idea.likers.delete(current_user)
+    vote = Vote.new(:idea => idea,:user => current_user,:like => false)
+    vote.save
     idea.update_attribute("points",idea.points-1)
     render :json => idea.to_json(:only => :points) 
   end

@@ -4,8 +4,8 @@
   <ul class="idea-vote">
     <li><h6>投票</h6></li>
     <li class="vote-btn">
-      <%= like_button_tag "顶","vote-toggle",:like,idea %>
-      <%= like_button_tag "踩","vote-toggle",:unlike,idea %>
+      <%= like_button_tag "顶",like_idea_path(idea),:like,idea %>
+      <%= like_button_tag "踩",unlike_idea_path(idea),:unlike,idea %>
 	<li class="score">
 	  <span>
 	    <strong><%= idea.points %></strong><br>

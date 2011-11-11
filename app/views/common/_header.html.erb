@@ -1,0 +1,28 @@
+	<div id="header">
+		<div class="content">
+			<h1 class="logo"><%= link_to "MyIdea产品交流",root_path %></h1>
+            <div>
+			  <div id="welcome">
+				  <span>你好</span>
+                  <% if can? :logout,User %>
+				    <span><%= session[:login_user].username %></span>
+                    <span>,<%= link_to "退出",logout_path %></span>
+                  <% else %>
+                    <%= link_to "登录",login_path %>
+					<span>发布评论</span>
+                  <% end %>
+			  </div>
+              <div id="action">
+                <% if can? :dashboard,Idea %>
+                  <%= link_to dashboard_path do%>
+                  <button id="dashboard">控制面板</button>
+                  <% end %>
+                <% end %>
+
+                  <%= link_to new_idea_path do%>
+                  <button id="pub-idea">发布主意</button>
+                  <% end %>
+              </div><div class="clear"></div>
+            </div>
+		</div>
+	</div>

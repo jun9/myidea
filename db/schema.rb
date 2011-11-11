@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111107024557) do
+ActiveRecord::Schema.define(:version => 20111111085421) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -48,11 +48,12 @@ ActiveRecord::Schema.define(:version => 20111107024557) do
     t.boolean  "admin"
   end
 
-  create_table "users_like_ideas", :id => false, :force => true do |t|
+  create_table "votes", :force => true do |t|
     t.integer "user_id"
     t.integer "idea_id"
+    t.boolean "like"
   end
 
-  add_index "users_like_ideas", ["user_id", "idea_id"], :name => "index_users_like_ideas_on_user_id_and_idea_id", :unique => true
+  add_index "votes", ["user_id", "idea_id"], :name => "index_votes_on_user_id_and_idea_id", :unique => true
 
 end

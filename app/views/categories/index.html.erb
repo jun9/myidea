@@ -1,0 +1,39 @@
+<table class="tt">
+  <tbody>
+	<tr class="title">
+	  <td>类别名称</td>
+	  <td>主意数量</td>
+	  <td>操作</td>
+	</tr>
+    <% @categories.each do |category| %>
+      <tr>
+		<td><%= category.name %></td>
+		<td><%= category.ideas.count %></td>
+		<td><%= link_to "删除",category,:method => :delete,:remote => true,:confirm => '确认删除？',:class => "cate-del" %><%= button_tag "修改",:value => category.id,:class => "cate-edit",:id => "edit-cate-btn#{category.id}" %></td>
+	  </tr>
+    <% end %>
+      <tr id="cate-last">
+		<td></td>
+		<td></td>
+		<td><button class="cate-add">添加</button></td>
+	  </tr>
+  </tbody>
+</table>
+<div id="edit-cate-dialog" title="修改类别">
+  <div></div>
+  <%= form_tag category_path(0),:method => :put,:remote => true,:id => "edit-cate-form" do %>
+    <div class="item">
+      <%= label_tag  :name,t("activerecord.attributes.category.name"),:class=>"text" %>
+	  <%= text_field_tag(:name,params[:name],:class => "text",:maxlength => 30) %>
+    </div>
+  <% end %>  	
+</div>
+<div id="add-cate-dialog" title="新增类别" >
+  <div></div>
+  <%= form_tag :categories,:remote => true,:id => "add-cate-form" do %>
+    <div class="item">
+      <%= label_tag  :name,t("activerecord.attributes.category.name"),:class=>"text" %>
+	  <%= text_field_tag(:name,params[:name],:class => "text",:maxlength => 30) %>
+    </div>
+  <% end %>  	
+</div>

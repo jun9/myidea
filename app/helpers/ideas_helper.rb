@@ -1,16 +1,16 @@
 # encoding: utf-8
 module IdeasHelper
 
-  def like_button_tag(name,style,action,idea)
-    options = {:value => idea.id,:type => "button",:class => style}
+  def like_button_tag(body,url,action,idea)
+    options  = {:remote => true,:class => "vote-toggle"}
     if can? action,idea
-      if idea.likers.exists?(session[:login_user].id)
+      if idea.voters.exists?(session[:login_user].id)
         options[:class] = options[:class]+" vote-disabled"
       end
     else
       options[:title] = "请先登录"
     end
-      button_tag name,options
+      link_to body,url,options
   end
 
   def status_span_tag(idea)

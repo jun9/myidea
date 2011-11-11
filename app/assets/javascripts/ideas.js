@@ -1,7 +1,6 @@
 $(function(){
     prepareIdeas();
     prepareComments();
-    /* dialog */
     $promotionDialog=$('#promotion-dialog').dialog({
         height: 500,
         width: 600,
@@ -12,8 +11,6 @@ $(function(){
         modal:true,
         autoOpen:false
     });
-
-    /* tabs */
 	$('#tabs').tabs({
       select:function(event,ui){
         var style = ui.index 
@@ -26,10 +23,14 @@ $(function(){
       }
     });
     $("#search-tabs").tabs();
-    /* buttons */
+    $("#admin-tabs").tabs({
+      load: function(event, ui) {
+        prepareDashboard();
+      } 
+    });
     $('#add-idea').button();
     $('#add-comment').button();
-    /* input */
+    $('#add-cate').button();
     $('#idea_title').focus().focusout(function(){
       if($.trim(this.value)!=''){
         $.get('/ideas/promotion',{title:this.value},function(data){

@@ -7,44 +7,13 @@
   <%= csrf_meta_tags %>
 </head>
     <body>
-	<!-- begin of header -->
-	<div id="header">
-		<div class="content">
-			<h1 class="logo">
-				<a title="MyIdea Home" href="index.html"></a>
-			</h1>
-            <div>
-			  <div id="welcome">
-				  <span>你好</span>
-                  <% if session[:login_user] %>
-				    <span><%= session[:login_user].username %></span>
-                    <span>,<%= link_to "退出",logout_path %></span>
-                  <% else %>
-                    <%= link_to "登录",login_path %>
-					<span>发布评论</span>
-                  <% end %>
-			  </div>
-              <div id="action">
-                  <%= link_to new_idea_path do%>
-                  <button id="pub-idea">发布Idea</button>
-                  <% end %>
-              </div><div class="clear"></div>
-            </div>
-		</div>
-	</div>
-	<!-- end of header -->
-
-	<!-- begin of main -->
+    <%= render "common/header"%>
 	<div id="main">
 		<div class="content">
-			<!-- begin of right -->
 			<div class="col-a" id="rightBox">
               <%= yield %>
 			</div> 
-			<!-- end of right -->
-			<!-- begin of left -->
 			<div class="col-b">
-				<!-- begin of search -->
 				<div class="search-panel">
 					<%= form_tag(search_ideas_path,:method => "get",:id => "search-form") do %>
 						<div class="search-panel-fields ">                    
@@ -53,8 +22,6 @@
                         <%= submit_tag "GO",:id => "searchBtn" %>
 					<% end %>
 				</div>
-				<!-- end of search -->
-				<!-- begin of category -->
 				<div class="partner-category"> 
 					<ul>
                       <% Category.all.each do |category|%>
@@ -62,19 +29,9 @@
                       <% end %>
 					</ul>
 				</div>
-				<!-- end of category -->
 			</div>
-			<!-- end of left -->
 		</div>
 	</div>
-	<!-- end of main -->
-
-	<!-- begin of footer -->
-	<div id="footer">
-		<div class="content">
-	      Powered By <a target="_blank" href="https://github.com/danjiang/myidea">MyIdea</a>
-		</div>
-	</div>
-	<!-- end of footer -->
+    <%= render "common/footer"%>
     </body>
 </html>

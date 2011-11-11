@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Myidea</title>
+  <%= stylesheet_link_tag    "application","redmond/jquery-ui" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+    <body>
+    <%= render "common/header"%>
+	<div id="main">
+		<div class="content">
+              <%= yield %>
+		</div>
+	</div>
+    <%= render "common/footer"%>
+    </body>
+</html>
