@@ -49,26 +49,6 @@ module IdeasHelper
     content_tag(:div,content_tag(:p,(raw comment.content)),:class => entryClass)
   end
 
-  def handle_idea_tag(idea)
-    if can? :handle,idea
-      if idea.status
-        case idea.status
-        when IDEA_STATUS_UNDER_REVIEW
-          linkName = "完成审核"
-        when IDEA_STATUS_REVIEWED
-          linkName = "开始实施"
-        when IDEA_STATUS_IN_THE_WORKS
-          linkName = "完成实施"
-        end
-      else
-        linkName = "开始审核"
-      end
-      if linkName
-        content_tag(:li,(link_to linkName,handle_idea_path(idea),:confirm => "确定要#{linkName}吗？"),:class => "manage")
-      end
-    end
-  end
-
   def comment_anchor_tag(current,other,name)
     if current == other
       content_tag(:a,nil,:name => name)

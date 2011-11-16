@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111111085421) do
+ActiveRecord::Schema.define(:version => 20111114022811) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -45,7 +45,8 @@ ActiveRecord::Schema.define(:version => 20111111085421) do
     t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin"
+    t.boolean  "admin",      :default => false
+    t.boolean  "active",     :default => true
   end
 
   create_table "votes", :force => true do |t|

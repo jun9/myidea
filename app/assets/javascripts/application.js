@@ -19,12 +19,13 @@ $(function(){
 	}
   });
   $('#searchBtn').button({
+    text:false, 
     icons: {
 	  primary: "ui-icon-search"
 	}
   });
   var $tabs = $('#tabs');
-  if($('#tabs').length > 0){
+  if($tabs.length > 0){
     $('.cate_link')
     .bind("ajax:beforeSend", function(evt, xhr , settings){
         var style = $tabs.tabs('option','selected');
@@ -118,7 +119,7 @@ function prepareComments(){
     prepareComments();
   });
 }
-function prepareDashboard(){
+function prepareCategories(){
   $editCateForm = $("#edit-cate-form");
   $addCateDialog = $('#add-cate-dialog').dialog({
         width: 400,
@@ -180,6 +181,85 @@ function prepareDashboard(){
       $addCateDialog.dialog('open');
   });
 }
+function prepareUsers(){
+  $("#search-user-btn").button({
+      text: false,
+      icons: {
+          primary: "ui-icon-search"
+      }
+    });
+  $tabBox = $('#tab-box').addClass("tab-content");
+  $("#user-search-form")
+  .bind("ajax:success", function(evt, data, status, xhr){
+    $tabBox.html(xhr.responseText);
+    prepareUsers(); 
+  });
+  $('.users-pagination a').attr('data-remote','true')
+  .bind("ajax:complete", function(evt, xhr, status){
+    $tabBox.html(xhr.responseText);
+    prepareUsers(); 
+  });
+  $editUserForm = $('#edit-user-form')
+  .bind('ajax:error', function(evt, xhr, status, error){
+    var user = $.parseJSON(xhr.responseText);
+    if(user.admin)
+      $("#admin_radio"+user.id+"_yes").attr("checked","checked").button("refresh");
+    else
+      $("#admin_radio"+user.id+"_no").attr("checked","checked").button("refresh");
+    if(user.active)
+      $("#active_radio"+user.id+"_yes").attr("checked","checked").button("refresh");
+    else
+      $("#active_radio"+user.id+"_no").attr("checked","checked").button("refresh");
+    alert("操作失败");
+  });
+  $adminInput =$("#admin");
+  $activeInput =$("#active");
+  $adminRadioSets = $("div.admin-radio").buttonset();
+  $activeRadioSets = $("div.active-radio").buttonset();
+  for(var i=0;i<$adminRadioSets.length;i++){
+    $($adminRadioSets[i]).children(":first").button({
+      text: false,
+      icons: {
+          primary: "ui-icon-check"
+      }
+    }).change(function(){ 
+      submitEditUserForm(this.value,true,null,$editUserForm,$adminInput,$activeInput);
+    })
+    .next().next().button({
+      text: false,
+      icons: {
+          primary: "ui-icon-close"
+      }
+    }).change(function(){
+      submitEditUserForm(this.value,false,null,$editUserForm,$adminInput,$activeInput);
+    });
+  }
+  for(var i=0;i<$activeRadioSets.length;i++){
+    $($activeRadioSets[i]).children(":first").button({
+      text: false,
+      icons: {
+          primary: "ui-icon-unlocked"
+      }
+    }).change(function(){ 
+      submitEditUserForm(this.value,null,true,$editUserForm,$adminInput,$activeInput);
+    })
+    .next().next().button({
+      text: false,
+      icons: {
+          primary: "ui-icon-locked"
+      }
+    }).change(function(){
+      submitEditUserForm(this.value,null,false,$editUserForm,$adminInput,$activeInput);
+    });
+  }
+}
+function submitEditUserForm(id,admin,active,$editUserForm,$adminInput,$activeInput){
+  var action = $editUserForm.attr("action");
+  $editUserForm.attr("action",action.substring(0,action.lastIndexOf("/")+1)+id);
+  $adminInput.val(admin);
+  $activeInput.val(active);
+  $editUserForm.submit();
+} 
 function showIdeasTab(data){
   $('#tab-box').html(data);
   prepareIdeas(); 

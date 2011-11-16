@@ -6,6 +6,7 @@ zh-CN:
         description: "内容"
         category_id: "分类"
         category: "分类"
+        status: "状态"
       user:
         username: "账号"
         password: "密码"
@@ -16,3 +17,13 @@ zh-CN:
   errors:
     category:
       zero_products: "属于此类别的主意数量不为零，不能删除"
+    user:
+      login: "登录失败，账号或密码错误"
+      locked: "登录失败，您的账号被管理员锁定，请联系管理员"
+  user:
+    admin:
+      radio_yes: "添加管理员"
+      radio_no: "移动管理员"
+    active:
+      radio_yes: "解除锁定"
+      radio_no: "锁定帐号"

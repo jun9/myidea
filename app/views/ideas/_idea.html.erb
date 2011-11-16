@@ -30,7 +30,9 @@
       <% if can? :create,Comment %>
 	  <li class="write"><%= link_to "发表评论",idea_path(idea,:anchor => "comment-form") %></li>
       <% end %>
-      <%= handle_idea_tag idea %>
+      <% if can? :edit,idea %>
+	    <li class="manage"><%= link_to "编辑主意",edit_idea_path(idea) %></li>
+      <% end %>
 	</ul> 
   </div>
   <!-- end of message -->

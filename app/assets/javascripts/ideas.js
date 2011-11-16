@@ -25,7 +25,10 @@ $(function(){
     $("#search-tabs").tabs();
     $("#admin-tabs").tabs({
       load: function(event, ui) {
-        prepareDashboard();
+        switch(ui.index){
+          case 0:prepareCategories();break
+          case 1:prepareUsers();break
+        }
       } 
     });
     $('#add-idea').button();

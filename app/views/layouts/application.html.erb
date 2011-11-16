@@ -17,9 +17,9 @@
 				<div class="search-panel">
 					<%= form_tag(search_ideas_path,:method => "get",:id => "search-form") do %>
 						<div class="search-panel-fields ">                    
-							<%=text_field_tag(:q,@query,:placeholder => "搜索Ideas",:id=> "query") %>
+							<%=text_field_tag(:q,@query,:placeholder => "输入关键词",:id=> "query",:class=> "query") %>
 						</div>
-                        <%= submit_tag "GO",:id => "searchBtn" %>
+                        <%= button_tag "搜索主意",:id => "searchBtn" %>
 					<% end %>
 				</div>
 				<div class="partner-category"> 

@@ -22,13 +22,21 @@ var el = $('#add-cate-dialog');
   });
 
   td = $("<td></td>").append(btn1);
-  var btn2 = $('<button class="cate-edit">修改</button>').button({
+  var btn2 = $('<%= button_tag "修改",:value =>@category.id,:class => "cate-edit",:id => "edit-cate-btn#{@category.id}" %>').button({
       text: false,
       icons: {
           primary: "ui-icon-pencil"
       }
   }).click(function(){
-      alert("edit");
+      var $btn = $(this)
+      $editCateForm = $("#edit-cate-form");
+      $editCateDialog = $('#edit-cate-dialog');
+      var name = $btn.parent().prev().prev().text();
+      var id = $btn.val();
+      var action = $editCateForm.attr("action");
+      $editCateForm.attr("action",action.substring(0,action.lastIndexOf("/")+1)+id);
+      $editCateDialog.find("#name").val(name);
+      $editCateDialog.dialog('open');
   });
   tr.append(td.append(btn2));
   $('#cate-last').before(tr);

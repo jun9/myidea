@@ -1,7 +1,7 @@
   <div class="tab-header">
     <div class="category-select-box">
 	  <label>选择类别:</label>&nbsp;
-      <%= select("category", "id", @categories.collect {|c| [ c.name, c.id ] }, {:include_blank => '全部'}) %>
+      <%= select("category", "id", Category.all.collect {|c| [ c.name, c.id ] }, {:include_blank => '全部'}) %>
     </div>
     <div id="status-button-set" class="status-button-set">
 	  <label>选择状态:</label>&nbsp;

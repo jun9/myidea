@@ -1,4 +1,3 @@
-# encoding: utf-8
 class IdeasController < ApplicationController
   authorize_resource
 
@@ -37,7 +36,6 @@ class IdeasController < ApplicationController
     else
       comments_page = session[:comments_page]?session[:comments_page]:params[:comments_page]
       session[:comments_page] = nil
-      @categories = Category.all 
       @idea = Idea.find(params[:id])
       @comments = Comment.where(:idea_id => @idea.id).order("created_at asc").paginate(:page => comments_page)
       @comment = Comment.new
@@ -45,7 +43,6 @@ class IdeasController < ApplicationController
   end
 
   def new
-    @categories = Category.all 
     @idea = Idea.new
   end
 
@@ -59,8 +56,22 @@ class IdeasController < ApplicationController
     end
   end
 
+  def edit
+    @idea = Idea.find(params[:id])
+  end
+
+  def update
+    idea = Idea.find(params[:id])
+    if idea.status
+      status = idea.status + 1 unless idea.status == IDEA_STATUS_LAUNCHED
+    else
+      status = IDEA_STATUS_UNDER_REVIEW
+    end
+    idea.update_attribute("status",status)
+    redirect_to idea
+  end
+
   def tab
-    @categories = Category.all 
     cate_id = session[:cate_id]?session[:cate_id]:params[:cate_id]
     status = session[:status]?session[:stauts]:params[:status]
     session[:cate_id] = nil  
@@ -95,6 +106,7 @@ class IdeasController < ApplicationController
     idea = Idea.find(params[:id])
     vote = Vote.new(:idea => idea,:user => current_user,:like => true)
     vote.save
+    idea.update_attribute("points",idea.points+1)
     render :json => idea.to_json(:only => :points) 
   end
   
@@ -106,14 +118,4 @@ class IdeasController < ApplicationController
     render :json => idea.to_json(:only => :points) 
   end
 
-  def handle
-    idea = Idea.find(params[:id])
-    if idea.status
-      status = idea.status + 1 unless idea.status == IDEA_STATUS_LAUNCHED
-    else
-      status = IDEA_STATUS_UNDER_REVIEW
-    end
-    idea.update_attribute("status",status)
-    redirect_to idea
-  end
 end

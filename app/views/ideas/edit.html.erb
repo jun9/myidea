@@ -1,8 +1,6 @@
-<div class="title"><span class="t2">你有什么好主意？</span></div>
-
+<div class="title"><span class="t2">编辑主意</span></div>
 <div class="submit-idea">
 <%= form_for(@idea) do |f| %>
-
   <% if @idea.errors.any? %>
   <div class="ui-widget">
     <div class="ui-state-highlight ui-corner-all" style="padding:0 .7em">
@@ -15,25 +13,28 @@
     </div>
   </div>
   <% end %>
-
   <div class="item">
     <%= f.label :title,:class => "text" %>
-    <%= f.text_field :title, :class => "text", :maxlength => 30 %>
+    <div class="text"><%= @idea.title %></div>
+    <div class="clear"></div>
   </div>
   <div class="item">
     <%= f.label :description,:class => "text" %>
-	<%= f.text_area :description,:class => "xheditor {width:505,height:300,tools:'Bold,Italic,Underline,Strikethrough,List,Link,Unlink'}" %>
-
+    <div class="text"><%= raw @idea.description %></div>
+    <div class="clear"></div>
   </div>
   <div class="item">
     <%= f.label :category,:class=>"text"%>
-    <%= select("idea", "category_id", Category.all.collect {|c| [ c.name, c.id ] },:class => "text") %>
+    <%= f.select(:category_id, Category.all.collect {|c| [ c.name, c.id ] },:class => "text") %>
+  </div>
+  <div class="item">
+    <%= f.label :status,:class=>"text"%>
+    <%= f.select(:status,[["审核中",IDEA_STATUS_UNDER_REVIEW],["已审核",IDEA_STATUS_REVIEWED],["实施中",IDEA_STATUS_IN_THE_WORKS],["已实施",IDEA_STATUS_LAUNCHED],["无状态",IDEA_STATUS_DEFAULT]],:class => "text") %>
   </div>
   <div class="item">
     <label class="text">&nbsp;</label>
-    <%= f.submit "发布",:id => "add-idea" %>
+    <%= f.submit "修改",:id => "add-idea" %>
   </div>
 <% end %>
-  <div id="promotion-dialog" title="看看大家的Idea，你的Idea是否已经有了">
-  </div>
 </div>
+
