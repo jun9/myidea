@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20111114022811) do
     t.string   "title"
     t.text     "description"
     t.integer  "points",         :default => 0
-    t.integer  "status"
+    t.integer  "status",         :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category_id"

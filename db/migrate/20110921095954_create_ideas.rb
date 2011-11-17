@@ -4,7 +4,7 @@ class CreateIdeas < ActiveRecord::Migration
       t.string :title
       t.text :description
       t.integer :points,:default => 0
-      t.integer :status
+      t.integer :status,:default => 0
 
       t.timestamps
     end

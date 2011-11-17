@@ -33,6 +33,30 @@ module IdeasHelper
     end
   end
 
+  def handle_idea_tag(idea)
+      if idea.status
+        case idea.status
+        when IDEA_STATUS_DEFAULT
+          name = "开始审核"
+        when IDEA_STATUS_UNDER_REVIEW
+          name = "完成审核"
+        when IDEA_STATUS_REVIEWED
+          name = "开始实施"
+        when IDEA_STATUS_IN_THE_WORKS
+          name = "完成实施"
+        end
+      end
+      if name
+        submit_tag(name,:id=>"handle-idea")
+      end
+  end
+  
+  def status_span_tag2(idea,status,content)
+    statusClass ="ui-corner-all status" 
+    statusClass = statusClass+" current" if idea.status == status 
+    content_tag(:span,content,:class => statusClass)
+  end
+
   def checkbox_status_tag(status,statusChecked,options)
     checked = false
     if statusChecked && statusChecked.include?("#{status}") 

@@ -1,17 +1,6 @@
 <div class="title"><span class="t2">登录</span></div>
 <div>
-<% if flash[:alert] %>
-  <div class="ui-widget">
-    <div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;">
-    <p>
-      <span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-      <strong>提示:</strong>
-      <%= flash[:alert] %>
-    </p>
-    </div>
-  </div>
-<% end %>
-
+<%= errors_flash_tag flash[:alert] %>
 <%= form_tag :login do %>
   <div class="item">
     <%= label_tag  :username,t("activerecord.attributes.user.username"),:class=>"text" %>

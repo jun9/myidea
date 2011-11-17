@@ -1,6 +1,4 @@
-<!-- begin of idea -->
-<div style="margin-right:-3px;" class="idea">
-  <!-- begin of vote -->
+<div class="idea">
   <ul class="idea-vote">
     <li><h6>投票</h6></li>
     <li class="vote-btn">
@@ -13,15 +11,14 @@
 	  </span>
 	</li> 
   </ul>
-  <!-- end of vote -->
-  <!-- begin of message -->
   <div class="imessage"> 
 	<h2>
 	  <span><%= link_to idea.title,idea,:title => idea.title %></span>
       <%= status_span_tag idea %>
 	</h2>
-	<div class="date">发布于&nbsp;<%= l idea.created_at,:format => :long %></div>
-	<div class="username">由&nbsp;<%= link_to idea.user.username,user_path(idea.user) %></div>
+	<div class="info">类别:&nbsp;<%= idea.category.name %></div>
+	<div class="info">发布于&nbsp;<%= l idea.created_at,:format => :long %></div>
+	<div class="info">由&nbsp;<%= link_to idea.user.username,user_path(idea.user) %></div>
     <div class="entry"><p><%= raw idea.description %></p></div>
 	<ul class="actions">
       <% if idea.comments_count > 0 %>
@@ -31,11 +28,14 @@
 	  <li class="write"><%= link_to "发表评论",idea_path(idea,:anchor => "comment-form") %></li>
       <% end %>
       <% if can? :edit,idea %>
-	    <li class="manage"><%= link_to "编辑主意",edit_idea_path(idea) %></li>
+	    <li class="edit"><%= link_to "编辑",edit_idea_path(idea) %></li>
+      <% end %>
+      <% if can? :handle,idea %>
+        <% if idea.status != IDEA_STATUS_LAUNCHED %>
+	    <li class="manage"><%= link_to "修改状态",handle_idea_path(idea) %></li>
+        <% end %>
       <% end %>
 	</ul> 
   </div>
-  <!-- end of message -->
   <div class="clear"></div>
 </div>
-<!-- end of idea -->

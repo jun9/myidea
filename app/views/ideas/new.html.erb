@@ -2,20 +2,7 @@
 
 <div class="submit-idea">
 <%= form_for(@idea) do |f| %>
-
-  <% if @idea.errors.any? %>
-  <div class="ui-widget">
-    <div class="ui-state-highlight ui-corner-all" style="padding:0 .7em">
-    <% @idea.errors.full_messages.each do |msg| %>
-      <p>
-        <span class="ui-icon ui-icon-alert" style="float:left;margin-right:.3em"></span>
-        <%= msg %>
-      </P>
-    <% end %>
-    </div>
-  </div>
-  <% end %>
-
+  <%= errors_msg_tag(@idea) %>
   <div class="item">
     <%= f.label :title,:class => "text" %>
     <%= f.text_field :title, :class => "text", :maxlength => 30 %>

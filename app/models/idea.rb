@@ -14,4 +14,23 @@ class Idea < ActiveRecord::Base
   searchable do
    text :title,:description
   end
+
+  def change_status
+    case self.status
+      when IDEA_STATUS_DEFAULT
+        status = IDEA_STATUS_UNDER_REVIEW
+      when IDEA_STATUS_UNDER_REVIEW
+        status = IDEA_STATUS_REVIEWED
+      when IDEA_STATUS_REVIEWED
+        status = IDEA_STATUS_IN_THE_WORKS
+      when IDEA_STATUS_IN_THE_WORKS
+        status = IDEA_STATUS_LAUNCHED
+    end
+    if status
+      self.update_attribute("status",status)
+    else
+      errors.add(:status,I18n.t('errors.idea.wrong_status'))
+      false
+    end
+  end
 end

@@ -1,11 +1,6 @@
 var el = $('#edit-cate-dialog');
 <% if @category.errors.any? %>
-  var errors = $('<div class="ui-state-highlight ui-corner-all" style="padding:0 .7em"></div>');
-  <% @category.errors.full_messages.each do |error| %>
-    $('<p><span class="ui-icon ui-icon-alert" style="float:left;margin-right:.3em"></span><%= escape_javascript(error) %></p>').appendTo(errors);
-  <% end %>
-  errors.appendTo('<div class="ui-widget"></div>');
-  el.children(":first").html(errors);
+  el.children(":first").html('<%= errors_msg_tag(@category) %>');
 <% else %>
   el.dialog("close");
   $("#edit-cate-btn<%= @category.id %>").parent().prev().prev().text("<%= escape_javascript(@category.name) %>")

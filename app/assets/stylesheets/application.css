@@ -48,9 +48,17 @@ input.text {
    height: 18px;
 }
 input.text,textarea.text {
-    border: 1px solid #006699;
-    padding: 1px 3px;
-    vertical-align: middle;
+  border: 1px solid #006699;
+  padding: 1px 3px;
+  vertical-align: middle;
+}
+div.error-msg{
+  margin:8px 0;
+  padding:.3em .7em; 
+}
+div.error-msg span.msg{
+  float:left;
+  margin-right:.3em;
 }
 div.text{
   width: 500px;
@@ -65,9 +73,6 @@ div.title{
     margin-bottom:10px;
     padding-bottom:5px;
 }
-div.tab-content{
-  min-height:300px; 
-}
 .t2{
     background-color:#5C9CCC;
     font-size:18px;
@@ -80,25 +85,6 @@ span.highlight{
   font-weight:bold;
   color:#E17009;
 }
-table.tt{
-  display: table;
-  border: medium none;
-  border-collapse: collapse;
-  border-spacing: 2px;
-  border-color: gray;
-  margin: 10px 0 0 0;
-  padding: 0;
-  width: 100%;
-}
-table.tt tr.title{
-  color:#2E6E9E;
-  font-weight:bold
-}
-table.tt td {
-  border-bottom: 1px dashed #DDDDDD;
-  padding: 3px 3px 3px 0;
-}
-
 #header {
     background-color: #FFFFFF;
     min-width: 990px;
@@ -133,6 +119,7 @@ table.tt td {
     overflow: hidden;
     padding: 40px 30px;
     width: 930px;
+    min-height:350px; 
 }
 #main .content .col-a {
     float: right;
@@ -276,13 +263,41 @@ div.page-actions {
       color: #000000;
       border-color: #5c9ccc; 
 }
-div.idea-one{
-   width:580px;
+div.idea-one,div.idea-edit{
+  width:580px;
+}
+div.idea-edit div.idea-status{
+  margin-top:10px;
+}
+div.idea-status div.idea-all-status{
+  margin:10px 0;
+}
+div.idea-status span{
+  display: block;
+  float: left;
+  margin-right:10px;
+}
+div.idea-status .arrow{
+    background: url("arrow_right.png") no-repeat scroll 0 0 transparent;
+    height: 18px;
+    text-indent: -10000px;
+    width: 24px;
+}
+div.idea-status .status{
+  color: #363636;
+  background: #fbec88;
+  border: 1px solid #fad42e; 
+  padding:2px 5px;
+  font-size:1.2em;
+}
+div.idea-status .current{
+  color: #FFFFFF;
+  background: #E17009;
+  border: 1px solid #E17009; 
 }
 div.ideas-all {
     clear: both;
     margin: 0 0 15px;
-    min-height: 200px;
     overflow: hidden;
 }
 div.ideas-all span.end {
@@ -350,46 +365,48 @@ div.imessage a,div.promotion-imessage a {
 div.imessage a:hover,div.promotion-imessage a:hover{
     color: #e17009;
 }
-div.imessage h2{
+div.imessage h2,div.idea-edit h2{
     font-size: 1.55em;
     font-weight: 100;
     margin: 0 0 20px;
     overflow: hidden;
 }
-div.imessage h2 span {
+div.imessage h2 span,div.idea-edit h2 span{
     display: block;
     float: left;
 	padding: 0 6px 0 0;
 }
-div.imessage h2 span.launched {
+div.imessage h2 span.launched,div.idea-edit h2 span.launched {
     background: url("icon_ok.png") no-repeat scroll 0 0 transparent;
     height: 24px;
     text-indent: -10000px;
     width: 24px;
 }
-div.imessage h2 span.reviewed {
+div.imessage h2 span.reviewed,div.idea-edit h2 span.reviewed {
     background: url("icon_reviewed.png") no-repeat scroll 0 0 transparent;
     height: 24px;
     text-indent: -10000px;
     width: 24px;
 }
-div.imessage h2 span.in-the-works {
+div.imessage h2 span.in-the-works,div.idea-edit h2 span.in-the-works {
     background: url("icon_gear.png") no-repeat scroll 0 0 transparent;
     height: 24px;
     text-indent: -10000px;
     width: 24px;
 }
-div.imessage h2 span.under-review {
+div.imessage h2 span.under-review,div.idea-edit h2 span.under-review {
     background: url("icon_review.png") no-repeat scroll 0 0 transparent;
     height: 24px;
     text-indent: -10000px;
     width: 24px;
 }
-div.imessage div.date,div.imessage div.username{
+div.imessage div.info{
 	font-size: 0.85em;
+	margin-top:5px;
 }
-div.imessage div.date{
-	margin-bottom:5px;
+div.idea-edit div.info{
+	font-size: 1em;
+	margin-top:5px;
 }
 div.imessage div.entry{
   min-height:74px;
@@ -405,7 +422,7 @@ div.idea div.imessage ul.actions li {
     float: left;
     margin: 0 25px 0 0;
 }
-div.idea div.imessage ul.actions li a, div.idea div.imessage ul.actions li span {
+div.idea div.imessage ul.actions li a{
     background-position: 0 60%;
     background-repeat: no-repeat;
     display: block;
@@ -415,29 +432,21 @@ div.idea div.imessage ul.actions li a, div.idea div.imessage ul.actions li span 
 }
 div.idea div.imessage ul.actions li a:hover {
 }
-div.idea div.imessage ul.actions li.comment a, div.idea div.imessage ul.actions li.comment span {
+div.idea div.imessage ul.actions li.comment a {
     background-image: url("icon_comment.png");
     padding: 0 0 0 30px;
 }
-div.idea div.imessage ul.actions li.write a, div.idea div.imessage ul.actions li.write span {
+div.idea div.imessage ul.actions li.write a{
     background-image: url("icon_write.png");
     padding: 0 0 0 30px;
 }
-div.idea div.imessage ul.actions li.manage a, div.idea div.imessage ul.actions li.manage span {
+div.idea div.imessage ul.actions li.manage a{
     background-image: url("icon_manage.png");
     padding: 0 0 0 30px;
 }
-div.idea div.imessage ul.actions li.favorite a, div.idea div.imessage ul.actions li.favorite span {
-    background-image: url("icon_favorite.gif");
-    padding: 0 0 0 20px;
-}
-div.idea div.imessage ul.actions li.unfavorite a, div.idea div.imessage ul.actions li.unfavorite span {
-    background-image: url("icon_unfav.gif");
-    padding: 0 0 0 20px;
-}
-div.idea div.imessage ul.actions li.flag a, div.idea div.imessage ul.actions li.flag span {
-    background-image: url("icon_flag.gif");
-    padding: 0 0 0 20px;
+div.idea div.imessage ul.actions li.edit a{
+    background-image: url("icon_edit.png");
+    padding: 0 0 0 30px;
 }
 div.idea div.imessage ul.actions li.category {
     float: right;
@@ -493,5 +502,24 @@ div.comment div.admin{
   color:#E17009;
 }
 div.comment-form{
+  width:580px;
   margin-top:40px;
+}
+table.tt{
+  display: table;
+  border: medium none;
+  border-collapse: collapse;
+  border-spacing: 2px;
+  border-color: gray;
+  margin: 10px 0 0 0;
+  padding: 0;
+  width: 100%;
+}
+table.tt tr.title{
+  color:#2E6E9E;
+  font-weight:bold
+}
+table.tt td {
+  border-bottom: 1px dashed #DDDDDD;
+  padding: 3px 3px 3px 0;
 }

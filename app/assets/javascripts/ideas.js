@@ -32,6 +32,8 @@ $(function(){
       } 
     });
     $('#add-idea').button();
+    $('#edit-idea').button();
+    $('#handle-idea').button();
     $('#add-comment').button();
     $('#add-cate').button();
     $('#idea_title').focus().focusout(function(){

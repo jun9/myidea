@@ -52,7 +52,7 @@ class IdeasController < ApplicationController
     if @idea.save
       redirect_to @idea
     else
-      render action: "new"
+      render action: 'new'
     end
   end
 
@@ -61,14 +61,22 @@ class IdeasController < ApplicationController
   end
 
   def update
-    idea = Idea.find(params[:id])
-    if idea.status
-      status = idea.status + 1 unless idea.status == IDEA_STATUS_LAUNCHED
+    @idea = Idea.find(params[:id])
+    @idea.category_id = params[:cate][:id]
+    if @idea.save
+      redirect_to @idea
     else
-      status = IDEA_STATUS_UNDER_REVIEW
+      render action: 'edit'
     end
-    idea.update_attribute("status",status)
-    redirect_to idea
+  end
+
+  def handle
+    @idea = Idea.find(params[:id])
+    if request.post?
+      if @idea.change_status
+        redirect_to @idea
+      end
+    end
   end
 
   def tab
