@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     can [:read,:search,:tab],Idea
-    can :login,User
+    can [:login,:new,:create],User
     if user
       can [:promotion,:new,:create,:like,:unlike], Idea
       can :manage, Comment

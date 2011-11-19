@@ -8,8 +8,8 @@
 				    <span><%= session[:login_user].username %></span>
                     <span>,<%= link_to "退出",logout_path %></span>
                   <% else %>
-                    <%= link_to "登录",login_path %>
-					<span>发布评论</span>
+                    <%= link_to "登录",login_path %>|<%= link_to "注册",new_user_path %>
+					<span>发布主意</span>
                   <% end %>
 			  </div>
               <div id="action">

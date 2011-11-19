@@ -3,8 +3,8 @@
 <%= errors_flash_tag flash[:alert] %>
 <%= form_tag :login do %>
   <div class="item">
-    <%= label_tag  :username,t("activerecord.attributes.user.username"),:class=>"text" %>
-	<%= text_field_tag(:username,params[:username],:class => "text",:maxlength => 30) %>
+    <%= label_tag  :username,t("user.login"),:class=>"text" %>
+	<%= text_field_tag(:account,params[:account],:class => "text",:placeholder => "输入用户名或邮箱",:maxlength => 30) %>
   </div>
   <div class="item">
     <%= label_tag :password,t("activerecord.attributes.user.password"),:class => "text" %>
@@ -13,6 +13,10 @@
   <div class="item">
     <label class="text">&nbsp;</label>
     <%= submit_tag "登录",:id => "login" %>
+  </div>
+  <div class="item">
+    <label class="text">&nbsp;</label>
+    还没有有账号，点击&gt;&gt;<%= link_to "注册",new_user_path %>
   </div>
 <% end %>
 </div>

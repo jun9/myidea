@@ -40,13 +40,14 @@ ActiveRecord::Schema.define(:version => 20111114022811) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "username"
-    t.string   "email"
-    t.string   "password"
+    t.string   "username",                           :null => false
+    t.string   "email",                              :null => false
+    t.string   "hashed_password"
+    t.string   "salt"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",      :default => false
-    t.boolean  "active",     :default => true
+    t.boolean  "admin",           :default => false
+    t.boolean  "active",          :default => true
   end
 
   create_table "votes", :force => true do |t|

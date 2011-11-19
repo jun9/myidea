@@ -255,6 +255,5 @@ zh-CN:
     page_gap: "…"
   #for cancan
   unauthorized:
-    manage:
-      idea: "请先登录"
-      user: "您还没有登录"
+   manage:
+      all: "您的权限不够"
