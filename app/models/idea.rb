@@ -3,6 +3,8 @@ class Idea < ActiveRecord::Base
   belongs_to :user
   has_many :voters,:through => :votes,:source =>:user
   has_many :votes
+  has_many :favorers,:through => :favors,:source =>:user
+  has_many :favors
   has_many :comments
 
   self.per_page = 5
@@ -10,6 +12,10 @@ class Idea < ActiveRecord::Base
   validates :title,:presence =>true,:length => {:maximum => 30}
   validates :description,:presence =>true,:length => {:maximum => 1000}
   validates :category_id,:presence =>true
+
+  after_create do |idea|
+    Activity.create(:action =>ACTIVITY_CREATE_IDEA,:idea => idea,:user => idea.user)
+  end 
 
   searchable do
    text :title,:description
@@ -33,4 +39,5 @@ class Idea < ActiveRecord::Base
       false
     end
   end
+
 end

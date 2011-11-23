@@ -4,6 +4,8 @@ class CreateUsersVoteIdeas < ActiveRecord::Migration
       t.integer :user_id
       t.integer :idea_id
       t.boolean :like
+  
+      t.timestamps
     end
 
     add_index :votes,[:user_id,:idea_id],:unique => true

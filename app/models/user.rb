@@ -1,6 +1,14 @@
 require 'digest/sha2'
 
 class User < ActiveRecord::Base
+  has_many :ideas
+  has_many :voted_ideas,:through => :votes,:source =>:idea
+  has_many :votes
+  has_many :favored_ideas,:through => :favors,:source =>:idea
+  has_many :favors
+  has_many :commented_ideas,:through => :comments,:source =>:idea
+  has_many :comments
+  has_many :activities
 
   self.per_page = 3
 

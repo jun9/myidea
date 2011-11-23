@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Myidea</title>
+  <%= stylesheet_link_tag    "application","redmond/jquery-ui" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+    <body>
+    <%= render "common/header"%>
+	<div id="main">
+		<div class="content">
+			<div class="col-a" id="rightBox">
+              <%= yield %>
+			</div> 
+			<div class="col-b">
+				<div class="profile ui-corner-all">
+                  <div class="username"><%= @user.username %></div>
+                  <div class="role">
+                    <% if @user.admin %>管理员<% else %>普通用户<% end %>
+                  </div>
+                  <div class="date">注册于 <%= l @user.created_at.to_date,:format => :long %></div>
+                  <div class="edit"><a href="#">编辑</a></div>
+				</div>
+				<div class="summary ui-corner-all">
+                  <div class="count">发布的主意数量&nbsp;&nbsp;<%= @user.ideas.count %></div>
+                  <div class="count">发布的评论数量&nbsp;&nbsp;<%= @user.commented_ideas.count %></div>
+                  <div class="count">投票的主意数量&nbsp;&nbsp;<%= @user.voted_ideas.count %></div>
+                  <div>收藏的主意数量&nbsp;&nbsp;<%= @user.favored_ideas.count %></div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <%= render "common/footer"%>
+    </body>
+</html>

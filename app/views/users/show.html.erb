@@ -1,0 +1,9 @@
+  <div id="user-tabs">
+	<ul>
+	  <li><%= link_to '近期活动',act_user_path,:title =>'tab-box' %></li>
+	  <li><%= link_to '发布的',act_user_path(:activity => ACTIVITY_CREATE_IDEA),:title =>'tab-box'%></li>
+	  <li><%= link_to '评论的',act_user_path(:activity => ACTIVITY_COMMENT_IDEA),:title =>'tab-box' %></li>
+	  <li><%= link_to '投票的',act_user_path(:activity => ACTIVITY_LIKE_IDEA),:title =>'tab-box' %></li>
+	  <li><%= link_to '收藏的',act_user_path(:activity => ACTIVITY_FAVORITE_IDEA),:title =>'tab-box' %></li>
+	</ul>
+  </div>

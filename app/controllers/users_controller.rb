@@ -9,6 +9,11 @@ class UsersController < ApplicationController
     end
     render :layout => false
   end
+
+  def show
+    @user = User.find(params[:id])
+    render :layout => "account"
+  end
  
   def update
     user = User.find(params[:id])
@@ -57,5 +62,22 @@ class UsersController < ApplicationController
   def logout
     session[:login_user] = nil 
     redirect_to ideas_path
+  end
+
+  def act
+    user = User.find(params[:id])
+    if params[:activity]
+      template = "ideas" 
+      @ideas = case
+      when params[:activity] == ACTIVITY_CREATE_IDEA then user.ideas.paginate(:page => params[:page]).order("created_at desc")
+      when params[:activity] == ACTIVITY_COMMENT_IDEA then user.commented_ideas.paginate(:page => params[:page]).order("comments.created_at desc").group(:id)    
+      when params[:activity] == ACTIVITY_LIKE_IDEA then user.voted_ideas.paginate(:page => params[:page]).order("votes.created_at desc")    
+      when params[:activity] == ACTIVITY_FAVORITE_IDEA then user.favored_ideas.paginate(:page => params[:page]).order("favors.created_at desc")    
+      end
+    else
+      template = "act"
+      @activities = user.activities.order("created_at desc").limit(30) 
+    end
+    render template,:layout => false
   end
 end

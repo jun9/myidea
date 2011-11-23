@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111114022811) do
+ActiveRecord::Schema.define(:version => 20111122074919) do
+
+  create_table "activities", :force => true do |t|
+    t.string   "action"
+    t.integer  "user_id"
+    t.integer  "idea_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -26,6 +34,15 @@ ActiveRecord::Schema.define(:version => 20111114022811) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "favors", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "idea_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "favors", ["user_id", "idea_id"], :name => "index_favors_on_user_id_and_idea_id", :unique => true
 
   create_table "ideas", :force => true do |t|
     t.string   "title"
@@ -51,9 +68,11 @@ ActiveRecord::Schema.define(:version => 20111114022811) do
   end
 
   create_table "votes", :force => true do |t|
-    t.integer "user_id"
-    t.integer "idea_id"
-    t.boolean "like"
+    t.integer  "user_id"
+    t.integer  "idea_id"
+    t.boolean  "like"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "votes", ["user_id", "idea_id"], :name => "index_votes_on_user_id_and_idea_id", :unique => true

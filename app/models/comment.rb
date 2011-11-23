@@ -4,18 +4,12 @@ class Comment < ActiveRecord::Base
 
   self.per_page = 5
 
-  after_create :increase_comments_count
-  after_destroy :decrease_comments_count
-
   validates :content,:presence =>true
 
-  def increase_comments_count
-    self.idea.update_attribute("comments_count",self.idea.comments_count+1)
-  end
-  
-  def decrease_comments_count
-    self.idea.update_attribute("comments_count",self.idea.comments_count-1)
-  end
+  after_create do |comment|
+    comment.idea.update_attribute("comments_count",self.idea.comments_count+1)
+    Activity.create(:action =>ACTIVITY_COMMENT_IDEA,:idea => comment.idea,:user => comment.user)
+  end 
   
   def self.last_page_number(conditions=nil)
     total = count :all, :conditions => conditions

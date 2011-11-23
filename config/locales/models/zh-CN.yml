@@ -38,3 +38,10 @@ zh-CN:
     active:
       radio_yes: "解除锁定"
       radio_no: "锁定帐号"
+  activity:
+    create: "发布了"
+    comment: "评论了"
+    like: "顶了"
+    unlike: "踩了"
+    favorite: "收藏了"
+    unfavorite: "取消收藏"

@@ -3,9 +3,9 @@ class Ability
 
   def initialize(user)
     can [:read,:search,:tab],Idea
-    can [:login,:new,:create],User
+    can [:login,:new,:create,:show,:act],User
     if user
-      can [:promotion,:new,:create,:like,:unlike], Idea
+      can [:promotion,:new,:create,:like,:unlike,:favoriate,:unfavoriate], Idea
       can :manage, Comment
       can :logout, User
 

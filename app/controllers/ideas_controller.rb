@@ -126,4 +126,13 @@ class IdeasController < ApplicationController
     render :json => idea.to_json(:only => :points) 
   end
 
+  def favoriate
+    @idea = Idea.find(params[:id])
+    @idea.favorers << current_user
+  end
+
+  def unfavoriate
+    @idea = Idea.find(params[:id])
+    @idea.favorers.destroy(current_user)
+  end
 end

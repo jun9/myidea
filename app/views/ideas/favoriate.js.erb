@@ -1,0 +1,3 @@
+<% unless @idea.errors.any? %>
+  $("#favor-link-<%= @idea.id %>").parent().replaceWith('<li class="unfavor"><%= link_to "取消收藏",unfavoriate_idea_path(@idea),:remote => true,:id => "favor-link-#{@idea.id}" %></li>');
+<% end %>

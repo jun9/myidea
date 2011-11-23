@@ -1,0 +1,13 @@
+<div id="activities">
+  <% @ideas.each do |idea| %>
+    <div class="activity idea">
+      <div class="text"><%= link_to idea.title,idea %></div>
+      <div class="date"><%= l idea.created_at,:format => :long %></div>
+      <div class="clear"></div>
+    </div>
+    <div class="line"></div>
+  <% end %>
+<div class="pagination-box-bottom activities-pagination">
+  <%= will_paginate @ideas %><div class="clear"></div>
+</div>
+<div>

@@ -253,6 +253,14 @@ function prepareUsers(){
     });
   }
 }
+function prepareActivities(){
+  $('.activities-pagination a').attr('data-remote','true')
+  .bind('ajax:complete', function(evt, xhr, status){
+    $("#tab-box").html(xhr.responseText);
+    prepareActivities();
+  });
+}
+
 function submitEditUserForm(id,admin,active,$editUserForm,$adminInput,$activeInput){
   var action = $editUserForm.attr("action");
   $editUserForm.attr("action",action.substring(0,action.lastIndexOf("/")+1)+id);
