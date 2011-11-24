@@ -20,7 +20,9 @@
                     <% if @user.admin %>管理员<% else %>普通用户<% end %>
                   </div>
                   <div class="date">注册于 <%= l @user.created_at.to_date,:format => :long %></div>
-                  <div class="edit"><a href="#">编辑</a></div>
+                  <% if (can? :edit,@user) && session[:login_user].id == @user.id %>
+                    <div class="edit"><%= link_to '编辑',edit_user_path(@user) %></div>
+                  <% end %>
 				</div>
 				<div class="summary ui-corner-all">
                   <div class="count">发布的主意数量&nbsp;&nbsp;<%= @user.ideas.count %></div>

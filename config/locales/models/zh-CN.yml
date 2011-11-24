@@ -30,6 +30,7 @@ zh-CN:
   notice:
     user:
       registed: "您已成功注册账号"
+      updated: "您已成功修改账号"
   user:
     login: "账号"
     admin:

@@ -7,7 +7,7 @@ class Ability
     if user
       can [:promotion,:new,:create,:like,:unlike,:favoriate,:unfavoriate], Idea
       can :manage, Comment
-      can :logout, User
+      can [:logout,:edit,:update], User
 
       if user.admin?
         can :manage, :all

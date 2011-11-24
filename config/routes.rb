@@ -17,6 +17,7 @@ Myidea::Application.routes.draw do
   resources :users do
     get 'activity',:on => :member
     get 'act',:on => :member
+    put 'authority',:on => :member
   end
   resources :categories
 end

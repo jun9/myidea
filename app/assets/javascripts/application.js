@@ -263,7 +263,10 @@ function prepareActivities(){
 
 function submitEditUserForm(id,admin,active,$editUserForm,$adminInput,$activeInput){
   var action = $editUserForm.attr("action");
-  $editUserForm.attr("action",action.substring(0,action.lastIndexOf("/")+1)+id);
+  var i = action.lastIndexOf("/"); 
+  var last = action.substring(i);
+  var first = action.substring(0,i)
+  $editUserForm.attr("action",first.substring(0,first.lastIndexOf("/")+1)+id+last);
   $adminInput.val(admin);
   $activeInput.val(active);
   $editUserForm.submit();

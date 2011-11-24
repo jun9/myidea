@@ -3,9 +3,9 @@ class UsersController < ApplicationController
 
   def index
     if params[:q] && !params[:q].empty?
-      @users = User.where("username like ?","%#{params[:q]}%").paginate(:page => params[:page]).order("admin")
+      @users = User.where("username like ?","%#{params[:q]}%").paginate(:page => params[:page]).order("admin desc")
     else
-      @users = User.paginate(:page => params[:page]).order("admin")
+      @users = User.paginate(:page => params[:page]).order("admin desc")
     end
     render :layout => false
   end
@@ -15,11 +15,15 @@ class UsersController < ApplicationController
     render :layout => "account"
   end
  
-  def update
+  def authority
     user = User.find(params[:id])
+    invalid = false
+    if user.admin && (params[:admin] == 'false' || params[:active] == 'false')
+      invalid = User.where(:admin => true,:active => true).count == 1 
+    end
     user.admin = params[:admin] unless params[:admin].empty?
     user.active = params[:active] unless params[:active].empty?
-    if user.save(:validate => false)
+    if !invalid && user.save(:validate => false)
       head :ok
     else
       render :json => User.find(params[:id]),:status => :unprocessable_entity 
@@ -42,6 +46,28 @@ class UsersController < ApplicationController
     else
       render action:'new'
     end
+  end
+
+  def edit 
+    @user = User.find(params[:id])
+    if session[:login_user].id != @user.id 
+      redirect_to root_path, :alert => I18n.t('unauthorized.manage.all')
+    end
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if session[:login_user].id != @user.id 
+      redirect_to root_path, :alert => I18n.t('unauthorized.manage.all')
+    else
+      @user.check_password = params[:user][:password].empty? ? false : true
+      if @user.update_attributes(params[:user])
+        session[:login_user] = LoginUser.new(@user)
+        redirect_to root_path, :alert => I18n.t('notice.user.updated')
+      else
+        render action:'edit'
+      end
+    end    
   end
 
   def login

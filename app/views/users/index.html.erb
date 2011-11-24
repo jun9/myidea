@@ -29,7 +29,7 @@
 <div class="pagination-box-top users-pagination">
   <%= will_paginate @users %><div class="clear"></div>
 </div>
-<%= form_tag user_path(0),:method => :put ,:remote => true,:id => "edit-user-form" do %>
+<%= form_tag authority_user_path(0),:method => :put ,:remote => true,:id => "edit-user-form" do %>
   <%= hidden_field_tag(:admin,params[:admin]) %>
   <%= hidden_field_tag(:active,params[:active]) %>
 <% end %>  	
