@@ -1,4 +1,4 @@
-<div class="title"><span class="t2">编辑主意</span></div>
+<div class="title"><span class="ui-widget-header ui-corner-all">编辑主意</span></div>
 <div class="idea-edit">
   <%= form_tag idea_path(@idea),:method => :put do %>
   <%= errors_msg_tag(@idea) %>
@@ -11,7 +11,7 @@
   <div class="info">发布于&nbsp;<%= l @idea.created_at,:format => :long %></div>
   <div class="info">由&nbsp;<%= @idea.user.username %></div>
   <div class="entry"><p><%= raw @idea.description %></p></div>
-  <%= submit_tag "修改",:id => "edit-idea" %>
+  <%= submit_tag "修改",:id => "edit-idea",:class => "sub-btn" %>
   <% end %>
 </div>
 

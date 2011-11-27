@@ -15,6 +15,8 @@ class Idea < ActiveRecord::Base
 
   after_create do |idea|
     Activity.create(:action =>ACTIVITY_CREATE_IDEA,:idea => idea,:user => idea.user)
+    idea.user.points += 3
+    idea.user.save
   end 
 
   searchable do

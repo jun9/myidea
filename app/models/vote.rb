@@ -8,5 +8,7 @@ class Vote < ActiveRecord::Base
     else
       Activity.create(:action =>ACTIVITY_UNLIKE_IDEA,:idea => vote.idea,:user => vote.user)
     end
+    vote.user.points += 1
+    vote.user.save
   end 
 end

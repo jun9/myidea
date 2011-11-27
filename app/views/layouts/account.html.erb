@@ -14,7 +14,7 @@
               <%= yield %>
 			</div> 
 			<div class="col-b">
-				<div class="profile ui-corner-all">
+				<div class="profile ui-widget-content ui-corner-all">
                   <div class="username"><%= @user.username %></div>
                   <div class="role">
                     <% if @user.admin %>管理员<% else %>普通用户<% end %>
@@ -24,7 +24,7 @@
                     <div class="edit"><%= link_to '编辑',edit_user_path(@user) %></div>
                   <% end %>
 				</div>
-				<div class="summary ui-corner-all">
+				<div class="summary ui-widget-content ui-corner-all">
                   <div class="count">发布的主意数量&nbsp;&nbsp;<%= @user.ideas.count %></div>
                   <div class="count">发布的评论数量&nbsp;&nbsp;<%= @user.commented_ideas.count %></div>
                   <div class="count">投票的主意数量&nbsp;&nbsp;<%= @user.voted_ideas.count %></div>

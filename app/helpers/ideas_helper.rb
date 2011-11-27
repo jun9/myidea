@@ -47,13 +47,17 @@ module IdeasHelper
         end
       end
       if name
-        submit_tag(name,:id=>"handle-idea")
+        submit_tag(name,:id=>"handle-idea",:class => "sub-btn")
       end
   end
   
   def status_span_tag2(idea,status,content)
     statusClass ="ui-corner-all status" 
-    statusClass = statusClass+" current" if idea.status == status 
+    if idea.status == status 
+     statusClass = statusClass+" ui-state-active" 
+    else
+      statusClass = statusClass+" ui-state-default"
+    end
     content_tag(:span,content,:class => statusClass)
   end
 

@@ -1,4 +1,4 @@
-<div class="title"><span class="t2">你有什么好主意？</span></div>
+<div class="title"><span class="ui-widget-header ui-corner-all">你有什么好主意？</span></div>
 
 <div class="submit-idea">
 <%= form_for(@idea) do |f| %>
@@ -18,7 +18,7 @@
   </div>
   <div class="item">
     <label class="text">&nbsp;</label>
-    <%= f.submit "发布",:id => "add-idea" %>
+    <%= f.submit "发布",:id => "add-idea",:class => "sub-btn" %>
   </div>
 <% end %>
   <div id="promotion-dialog" title="看看大家的Idea，你的Idea是否已经有了">

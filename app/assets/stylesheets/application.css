@@ -9,7 +9,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
 }
 a {
-    color: #5c9ccc;
+    color: #2e6e9e;
     font-weight: bold;
     text-decoration: none;
 }
@@ -48,9 +48,12 @@ input.text {
    height: 18px;
 }
 input.text,textarea.text {
-  border: 1px solid #006699;
+  border: 1px solid #a6c9e2;
   padding: 1px 3px;
   vertical-align: middle;
+}
+input.sub-btn{
+  font-size:0.9em;
 }
 div.error-msg{
   margin:8px 0;
@@ -69,21 +72,35 @@ div.clear{
   clear:both;
 }
 div.title{
-    border-bottom:1px solid #79B7E7;
+    border-bottom:1px solid #4297d7;
     margin-bottom:10px;
     padding-bottom:5px;
 }
-.t2{
-    background-color:#5C9CCC;
+div.title span{
     font-size:18px;
     font-weight:bold;
     padding: 2px 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+}
+div.help{
+    float:right;
+    background: url("icon_help.png") no-repeat scroll 0 0 transparent;
+    height: 24px;
+    text-indent: -10000px;
+    width: 24px;
+    margin:5px 10px 0 0px;
+    cursor:pointer;
 }
 span.highlight{
   font-weight:bold;
   color:#E17009;
+}
+div.imessage a,div.promotion-imessage a,#activities a,table.tt a,div.category-summary a,div.leadboard a,div.profile a{
+    color: #2e6e9e;
+    font-weight: bold;
+    text-decoration: none;
+}
+div.imessage a:hover,div.promotion-imessage a:hover,#activities a:hover,table.tt a:hover,div.category-summary a:hover,div.leadboard a:hover,div.profile a:hover{
+    color: #e17009;
 }
 #header {
     background-color: #FFFFFF;
@@ -111,7 +128,7 @@ span.highlight{
 }
 #main {
     background-color: #FFFFFF;
-    border-top: 1px solid #79b7e7;
+    border-top: 1px solid #4297d7;
     min-width: 990px;
 }
 #main .content {
@@ -130,13 +147,11 @@ span.highlight{
     width: 262px;
 }
 .search-panel {
-    background: none repeat scroll 0 0 #fbec88;
-    border: 1px solid #fad42e;
     height: 36px;
     margin-top: 5px;
     margin-bottom:15px;
     position: relative;
-    width: 246px;
+    width: 260px;
 }
 .search-panel form {
     margin: 0;
@@ -146,13 +161,13 @@ span.highlight{
 .search-panel-fields {
     background-color: #FFFFFF;
     background-position: 0 0;
-    border-color: #C5DBEC;
+    border-color: #A6C9E2;
     border-style: solid;
     border-width: 1px;
     float: left;
     height: 30px;
     position: relative;
-    width: 200px;
+    width: 214px;
 }
 .search-panel-fields .query {
     border: 0 none;
@@ -164,7 +179,7 @@ span.highlight{
     padding: 6px 4px 6px 4px;
     position: absolute;
     top: 0;
-    width: 192px;
+    width: 206px;
 }
 .search-panel button {
     height: 32px;
@@ -174,34 +189,72 @@ span.highlight{
     top: 2px;
     width: 30px;
 }
-.partner-category {
-    margin: 11px 0 50px;
+.category-summary {
+    margin: 11px 0;
 }
-.partner-category ul {
+.category-summary ul {
     list-style: none outside none;
-    margin: 0 0 25px;
-    padding: 0 0 15px;
+    margin: 0;
+    padding: 0;
 }
-.partner-category ul li {
-    margin: 0 0 10px;
+.category-summary ul li {
+    margin: 10px 0;
     overflow: hidden;
 }
-.partner-category ul li span {
+.category-summary ul li span {
     display: block;
     float: left;
     font-size: 1.1em;
     text-align: center;
-    width: 60px;
+    width: 40%;
 }
-.partner-category ul li a {
+.category-summary ul li a {
     display: inline-block;
     float: right;
     font-size: 1.2em;
-    width: 200px;
+    width: 60%;
+}
+.leadboard h3,.category-summary h3{
+  margin:2px;
+  padding:0.4em;
+  text-align:center;
+}
+.leadboard table{
+  font-size: 1em;
+  width:99%;
+  margin:auto;
+}
+.leadboard table tr td{
+  border-bottom:1px solid #BDBCB7;
+  padding-bottom:3px;
+  padding-top:7px;
+}
+.leadboard table td.rank{
+  padding-left:9px;
+  padding-right:2px;
+}
+.leadboard table td.username{
+  padding-right:5px;
+}
+.leadboard table td span.create{
+  background: url("icon_light_small.png") no-repeat scroll 0 0 transparent;
+  padding-left:16px;
+}
+.leadboard table td span.comment{
+  background: url("icon_write_small.png") no-repeat scroll 0 0 transparent;
+  padding-left:16px;
+}
+.leadboard table td span.like{
+  background: url("icon_like_small.png") no-repeat scroll 0 0 transparent;
+  padding-left:16px;
+}
+.leadboard table td span.unlike{
+  background: url("icon_unlike_small.png") no-repeat scroll 0 0 transparent;
+  padding-left:16px;
 }
 #footer {
     background-color: #282828;
-    border-top: 5px solid #79b7e7;
+    border-top: 5px solid #4297D7;
     min-width: 990px;
     width: 100%;
 }
@@ -232,36 +285,40 @@ div.page-actions {
 .pagination-box-bottom{
   margin-bottom:2px;
 }
-.pagination {
-  background: white;
+div.pagination {
+  background: #FFFFFF;
   cursor: default;
   float:right;
 }
-.pagination a, .pagination span, .pagination em {
+div.pagination a, .pagination span, .pagination em {
     display: block;
     float: left;
     margin: 2px;
     padding: 2px 5px;
 }
-.pagination .disabled {
-    color: #DDDDDD;
+div.pagination .disabled {
+    color: #BDBCB7;
     border: 1px solid #EEEEEE; 
 }
-.pagination .current {
-    font-style: normal;
-    font-weight: bold;
-    background: #5c9ccc;
-    color: white;
-    border: 1px solid #5c9ccc;
+div.pagination a {
+  text-decoration: none;
+  border: 1px solid #C5DBEC;
+  background: #DFEFFC url(redmond/images/ui-bg_glass_85_dfeffc_1x400.png) 50% 50% repeat-x;
+  font-weight: bold;
+  color: #2E6E9E; 
 }
-.pagination a {
-    text-decoration: none;
-    color: #5c9ccc;
-    border: 1px solid #AAAADD; 
+div.pagination .current {
+  font-style: normal;
+  border: 1px solid #79B7E7;
+  background: #F5F8F9 url(images/ui-bg_inset-hard_100_f5f8f9_1x100.png) 50% 50% repeat-x;
+  font-weight: bold;
+  color: #E17009;
 }
-.pagination a:hover, .pagination a:focus {
-      color: #000000;
-      border-color: #5c9ccc; 
+div.pagination a:hover, .pagination a:focus {
+  background: #d0e5f5 url(redmond/images/ui-bg_glass_75_#d0e5f5_1x400.png) 50% 50% repeat-x;
+  color: #1d5987;
+  border-color: #79b7e7; 
+  font-weight: bold;
 }
 div.idea-one,div.idea-edit{
   width:580px;
@@ -284,16 +341,8 @@ div.idea-status .arrow{
     width: 24px;
 }
 div.idea-status .status{
-  color: #363636;
-  background: #fbec88;
-  border: 1px solid #fad42e; 
   padding:2px 5px;
-  font-size:1.2em;
-}
-div.idea-status .current{
-  color: #FFFFFF;
-  background: #E17009;
-  border: 1px solid #E17009; 
+  font-size:0.9em;
 }
 div.ideas-all {
     clear: both;
@@ -356,14 +405,6 @@ div.imessage {
     display: inline;
     float: right;
     width: 506px;
-}
-div.imessage a,div.promotion-imessage a,#activities a,table.tt a{
-    color: #5c9ccc;
-    font-weight: bold;
-    text-decoration: none;
-}
-div.imessage a:hover,div.promotion-imessage a:hover,#activities a:hover,table.tt a:hover{
-    color: #e17009;
 }
 div.imessage h2,div.idea-edit h2{
     font-size: 1.55em;
@@ -528,12 +569,11 @@ table.tt tr.title{
   font-weight:bold
 }
 table.tt td {
-  border-bottom: 1px dashed #DDDDDD;
+  border-bottom: 1px dashed #BDBCB7;
   padding: 3px 3px 3px 0;
 }
 div.profile,div.summary {
   padding:10px 20px;
-  border:1px solid #A6C9E2;
   margin-bottom:20px;
 }
 div.profile div.username,div.profile div.role,div.profile div.date{
@@ -557,7 +597,7 @@ div.summary div.count{
 #activities div.line{
   width:100%;
   height:1px;
-  border-bottom:1px solid #CCCCCC;
+  border-bottom:1px solid #BDBCB7;
   margin: 5px 0;
 }
 #activities div.activity .date{

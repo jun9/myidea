@@ -1,4 +1,4 @@
-<div class="title"><span class="t2">修改账号</span></div>
+<div class="title"><span class="ui-widget-header ui-corner-all">修改账号</span></div>
 <div>
 <%= form_for(@user) do |f| %>
   <%= errors_msg_tag(@user) %>
@@ -24,7 +24,7 @@
 
   <div class="item">
     <label class="text">&nbsp;</label>
-    <%= f.submit "修改",:id => "login" %>
+    <%= f.submit "修改",:id => "login",:class => "sub-btn"%>
   </div>
 <% end %>
 </div>

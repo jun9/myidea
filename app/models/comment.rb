@@ -9,6 +9,8 @@ class Comment < ActiveRecord::Base
   after_create do |comment|
     comment.idea.update_attribute("comments_count",self.idea.comments_count+1)
     Activity.create(:action =>ACTIVITY_COMMENT_IDEA,:idea => comment.idea,:user => comment.user)
+    comment.user.points += 1
+    comment.user.save
   end 
   
   def self.last_page_number(conditions=nil)
