@@ -1,4 +1,4 @@
-<div class="search-panel">
+<div class="search-panel ui-state-highlight">
   <%= form_tag(users_path,:method => "get",:remote => true,:id => "user-search-form") do %>
   <div class="search-panel-fields ">                    
 	<%=text_field_tag(:q,params[:q],:placeholder => "输入用户名",:class => "query") %>

@@ -31,6 +31,7 @@ gem 'cancan'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :test do
+  gem 'minitest'
   # Pretty printed test output
   gem 'turn', :require => false
 end

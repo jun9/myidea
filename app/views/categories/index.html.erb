@@ -9,7 +9,7 @@
       <tr>
 		<td><%= category.name %></td>
 		<td><%= category.ideas.count %></td>
-		<td><%= link_to "删除",category,:method => :delete,:remote => true,:confirm => '确认删除？',:class => "cate-del" %><%= button_tag "修改",:value => category.id,:class => "cate-edit",:id => "edit-cate-btn#{category.id}" %></td>
+		<td><%= link_to "删除",category,:method => :delete,:remote => true,:confirm => '确认删除？',:class => "cate-del" %><%= link_to "修改",'#',:class => "cate-edit",:id => "edit-cate-btn-#{category.id}" %></td>
 	  </tr>
     <% end %>
       <tr id="cate-last">

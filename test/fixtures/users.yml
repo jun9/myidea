@@ -1,11 +1,11 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+jack:
+  username: jack
+  email: jack@gmail.com
+  salt: kk2xg2d3d
+  hashed_password: <%= User.encrypt_password('123456','kk2xg2d3d') %> 
 
-one:
-  username: MyString
-  email: MyString
-  password: MyString
-
-two:
-  username: MyString
-  email: MyString
-  password: MyString
+tom:
+  username: tom
+  email: tom@gmail.com
+  salt: 99dd1oos 
+  hashed_password: <%= User.encrypt_password('111111','99dd1oos') %> 

@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Myidea</title>
-  <%= stylesheet_link_tag    "application","redmond/jquery-ui" %>
+  <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
@@ -12,6 +12,11 @@
 		<div class="content">
 			<div class="col-a" id="rightBox">
               <%= yield %>
+              <div id="login-dialog">
+              <p>
+               <span class="ui-icon ui-icon-alert" style="float:left;margin-right:.3em"></span>您还没有登录，请先&nbsp;<%= link_to "登录>>",login_path %>
+              </P>
+              </div>
 			</div> 
 			<div class="col-b">
 				<div class="search-panel ui-state-highlight">

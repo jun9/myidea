@@ -17,7 +17,7 @@ var el = $('#add-cate-dialog');
   });
 
   td = $("<td></td>").append(btn1);
-  var btn2 = $('<%= button_tag "修改",:value =>@category.id,:class => "cate-edit",:id => "edit-cate-btn#{@category.id}" %>').button({
+  var btn2 = $('<%= link_to "修改",'#',:class => "cate-edit",:id => "edit-cate-btn-#{@category.id}" %>').button({
       text: false,
       icons: {
           primary: "ui-icon-pencil"
@@ -27,7 +27,7 @@ var el = $('#add-cate-dialog');
       $editCateForm = $("#edit-cate-form");
       $editCateDialog = $('#edit-cate-dialog');
       var name = $btn.parent().prev().prev().text();
-      var id = $btn.val();
+      var id = $btn.attr("id").substring($btn.attr("id").lastIndexOf("-")+1);
       var action = $editCateForm.attr("action");
       $editCateForm.attr("action",action.substring(0,action.lastIndexOf("/")+1)+id);
       $editCateDialog.find("#name").val(name);

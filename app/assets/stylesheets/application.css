@@ -1,7 +1,12 @@
+/*
+ *= require redmond/jquery-ui
+ *= require_self
+ *= require_tree . 
+*/
 body {
     color: #000000;
-	font-family: tahoma,arial,宋体;
-	font-size: 0.8em; 
+	font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
     margin: 0;
     padding: 0;
 }
@@ -10,7 +15,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 a {
     color: #2e6e9e;
-    font-weight: bold;
     text-decoration: none;
 }
 a:hover {
@@ -30,13 +34,11 @@ form {
 }
 div.item{
     margin: 15px 0;
-    font-size: 1.2em;
 }
 label.text {
     display: inline-block;
     float: left;
     font-size: 14px;
-    font-weight:bold;
     line-height: 18px;
     margin-right: 15px;
     text-align: right;
@@ -53,7 +55,7 @@ input.text,textarea.text {
   vertical-align: middle;
 }
 input.sub-btn{
-  font-size:0.9em;
+  font-size:13px;
 }
 div.error-msg{
   margin:8px 0;
@@ -74,12 +76,11 @@ div.clear{
 div.title{
     border-bottom:1px solid #4297d7;
     margin-bottom:10px;
-    padding-bottom:5px;
+    padding-bottom:8px;
 }
 div.title span{
-    font-size:18px;
     font-weight:bold;
-    padding: 2px 5px;
+    padding: 5px;
 }
 div.help{
     float:right;
@@ -96,7 +97,6 @@ span.highlight{
 }
 div.imessage a,div.promotion-imessage a,#activities a,table.tt a,div.category-summary a,div.leadboard a,div.profile a{
     color: #2e6e9e;
-    font-weight: bold;
     text-decoration: none;
 }
 div.imessage a:hover,div.promotion-imessage a:hover,#activities a:hover,table.tt a:hover,div.category-summary a:hover,div.leadboard a:hover,div.profile a:hover{
@@ -114,12 +114,12 @@ div.imessage a:hover,div.promotion-imessage a:hover,#activities a:hover,table.tt
     width: 990px;
 }
 #header h1.logo{
-    padding: 10px 0 0 30px;
+    font-size:20px;
+    padding: 5px 0 0 30px;
 }
 #header #welcome{
-    font-size: 1.25em;
-    font-weight: bold;
-    padding: 10px 0 0 30px;
+    font-size: 1.1em;
+    padding: 5px 0 0 30px;
     float: left;
 }
 #header #action{
@@ -171,7 +171,6 @@ div.imessage a:hover,div.promotion-imessage a:hover,#activities a:hover,table.tt
 }
 .search-panel-fields .query {
     border: 0 none;
-    font-family: tahoma,arial,宋体;
     font-size: 14px;
     height: 18px;
     left: 0;
@@ -211,16 +210,16 @@ div.imessage a:hover,div.promotion-imessage a:hover,#activities a:hover,table.tt
 .category-summary ul li a {
     display: inline-block;
     float: right;
-    font-size: 1.2em;
     width: 60%;
 }
 .leadboard h3,.category-summary h3{
   margin:2px;
   padding:0.4em;
+  font-size: 13px;
   text-align:center;
 }
 .leadboard table{
-  font-size: 1em;
+  font-size: 1.1em;
   width:99%;
   margin:auto;
 }
@@ -310,12 +309,12 @@ div.pagination a {
 div.pagination .current {
   font-style: normal;
   border: 1px solid #79B7E7;
-  background: #F5F8F9 url(images/ui-bg_inset-hard_100_f5f8f9_1x100.png) 50% 50% repeat-x;
+  background: #F5F8F9 url(redmond/images/ui-bg_inset-hard_100_f5f8f9_1x100.png) 50% 50% repeat-x;
   font-weight: bold;
   color: #E17009;
 }
 div.pagination a:hover, .pagination a:focus {
-  background: #d0e5f5 url(redmond/images/ui-bg_glass_75_#d0e5f5_1x400.png) 50% 50% repeat-x;
+  background: #d0e5f5 url(redmond/images/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x;
   color: #1d5987;
   border-color: #79b7e7; 
   font-weight: bold;
@@ -407,9 +406,9 @@ div.imessage {
     width: 506px;
 }
 div.imessage h2,div.idea-edit h2{
-    font-size: 1.55em;
+    font-size: 14px;
     font-weight: 100;
-    margin: 0 0 20px;
+    margin: 0 0 7px;
     overflow: hidden;
 }
 div.imessage h2 span,div.idea-edit h2 span{
@@ -442,7 +441,7 @@ div.imessage h2 span.under-review,div.idea-edit h2 span.under-review {
     width: 24px;
 }
 div.imessage div.info{
-	font-size: 0.85em;
+	font-size: 12px;
 	margin-top:5px;
 }
 div.idea-edit div.info{
@@ -450,13 +449,14 @@ div.idea-edit div.info{
 	margin-top:5px;
 }
 div.imessage div.entry{
-  min-height:74px;
+  min-height:50px;
+  margin:8px 0;
 }
 div.idea div.imessage ul.actions {
     list-style: none outside none;
     margin: 0;
     overflow: hidden;
-    padding: 10px 0 0;
+    padding: 0;
 }
 div.idea div.imessage ul.actions li {
     display: inline;
@@ -467,7 +467,7 @@ div.idea div.imessage ul.actions li a{
     background-position: 0 60%;
     background-repeat: no-repeat;
     display: block;
-    font-size: 0.9em;
+    font-size: 12px;
     line-height: 2.2em;
     text-decoration: none;
 }
@@ -515,13 +515,13 @@ div.promotion-idea {
     margin:5px 15px 15px;
 }
 div.promotion-imessage h2{
-    font-size: 1.4em;
+    font-size: 14px;
     font-weight: 100;
     overflow: hidden;
     margin:0 0 10px;
 }
 div.comments div.comment{
-  padding:15px 0;
+  padding:7px 0;
   border-bottom:1px solid #BDBCB7;
 }
 div.comments div.first{
@@ -532,11 +532,11 @@ div.comment div.poster{
     float: left;
     margin: 0;
     overflow: hidden;
-    padding: 10px 0 0 10px;
-    width: 100px;
+    padding: 0 0 0 10px;
+    width: 140px;
 }
 div.comment div.poster span.username{
-  margin-bottom:10px;
+  margin-bottom:7px;
   display:block;
 }
 div.comment div.poster span.date{
@@ -545,14 +545,14 @@ div.comment div.poster span.date{
 div.comment div.entry{
     display: inline;
     float: right;
-    width: 456px;
+    width: 446px;
 }
 div.comment div.admin{
   color:#E17009;
 }
 div.comment-form{
   width:580px;
-  margin-top:40px;
+  margin-top:13px;
 }
 table.tt{
   display: table;

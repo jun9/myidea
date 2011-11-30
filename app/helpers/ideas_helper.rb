@@ -74,7 +74,7 @@ module IdeasHelper
     if comment.user.admin
       entryClass = entryClass + " admin"
     end
-    content_tag(:div,content_tag(:p,(raw comment.content)),:class => entryClass)
+    content_tag(:div,(raw comment.content),:class => entryClass)
   end
 
   def comment_anchor_tag(current,other,name)

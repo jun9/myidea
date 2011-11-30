@@ -95,7 +95,7 @@ class IdeasController < ApplicationController
         conditions[:status] = status 
       end
       order = case 
-      when params[:style] == "#{IDEA_SORT_HOT}" then "updated_at desc"
+      when params[:style] == "#{IDEA_SORT_HOT}" then "MONTH(created_at) desc,(points+comments_count) desc"
       when params[:style] == "#{IDEA_SORT_NEW}" then "created_at desc"
       when params[:style] == "#{IDEA_SORT_POINTS}" then "points desc"
       when params[:style] == "#{IDEA_SORT_COMMENTS}" then "comments_count desc"
