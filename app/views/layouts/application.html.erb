@@ -22,7 +22,7 @@
 				<div class="search-panel ui-state-highlight">
 					<%= form_tag(search_ideas_path,:method => "get",:id => "search-form") do %>
 						<div class="search-panel-fields ">                    
-							<%=text_field_tag(:q,@query,:placeholder => "输入关键词",:id=> "query",:class=> "query") %>
+							<%=text_field_tag(:q,@query,:placeholder => "搜索主意",:id=> "query",:class=> "query",:title => "搜索主意") %>
 						</div>
                         <%= button_tag "搜索主意",:id => "searchBtn" %>
 					<% end %>
@@ -35,7 +35,21 @@
                       <% end %>
 					</ul>
 				</div>
-                <div class="leadboard ui-widget-content ui-corner-all">
+                <div class="leadboard ui-widget-content ui-corner-all" style="position:relative">
+
+                  <div id="leadboard-help-shadow" class="ui-widget-shadow ui-corner-all" style="width:232px;height:132px;position:absolute;"></div>
+			      <div id="leadboard-help-content" style="position: absolute; width: 210px; height: 110px;padding: 10px;" class="ui-widget ui-widget-content ui-corner-all">
+				    <div class="ui-dialog-content ui-widget-content" style="background: none; border: 0;">
+                    <h2 style="margin:3px">排行榜显示的是用户的参与程度</h2>
+                    <ul>
+<li>发布新注意3分</li>
+<li>顶一次主意1分</li>
+<li>踩一次主意1分</li>
+<li>评论了主意1分</li>
+                    </ul>
+                    </div>
+			      </div>
+
                   <h3 class="ui-widget-header ui-corner-all">排行榜</h3>
                   <table cellspacing="0" cellpadding="0">
                       <% User.order("points desc").limit(10).each_with_index do |user,index| %>
@@ -49,7 +63,7 @@
                       </tr>
                       <% end %>
                   </table>
-                  <div class="help"><a href="#">帮助</a></div>
+                  <div class="help"><a href="#" class="help" id="leadboard-help">排行榜的规则</a></div>
                   <div class="clear"></div>
                 </div>
 			</div>

@@ -6,6 +6,7 @@ Myidea::Application.routes.draw do
   resources :ideas do
     match 'tab',:on => :collection
     match 'promotion',:on => :collection
+    match 'preview',:on => :collection
     match 'like',:on => :member
     match 'unlike',:on => :member
     match 'handle',:on => :member

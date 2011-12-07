@@ -11,13 +11,85 @@
 <a href="#" name="comment-form"></a>
 <%= errors_flash_tag flash[:alert] %>
 <%= form_for([@idea,@comment]) do |f| %>
-<div class="item">
+  <div class="item">
     <%= f.label :content,:class => "text",:style=>"width:50px"%>
-	<%= f.text_area :content,:class => "xheditor {width:480,height:200,tools:'Bold,Italic,Underline,Strikethrough,List,Link,Unlink'}" %>
+	<%= f.text_area :content,:class => "text",:style => "width:450px;height:200px;overflow-y:auto" %>
   </div>
- <div class="item">
+  <div class="item">
+
+      <div id="newidea-help-shadow" class="ui-widget-shadow ui-corner-all" style="width:402px;height:442px;position:absolute;"></div>
+	  <div id="newidea-help-content" style="position: absolute; width: 380px; height: 420px;padding: 10px;" class="ui-widget ui-widget-content ui-corner-all">
+	    <div class="ui-dialog-content ui-widget-content" style="background: none; border: 0;">
+        <h2 style="margin:3px">提示:在标题，列表和引用前后须留一行空白，首行不用</h2>
+        <table class="help">
+          <tbody>
+          <tr>
+            <th>输入</th>
+            <th>输出</th>
+          </tr>
+          <tr>
+            <td>*粗体字*</td>
+            <td><strong>粗体字</strong></td>
+          </tr>
+          <tr>
+            <td>_斜体字_</td>
+            <td><span style="font-style: italic;">斜体字</span></td>
+          </tr>
+          <tr>
+            <td>
+              * 无序列表项1<br>
+              * 无序列表项2
+            </td>
+            <td>
+              <ul>
+                <li>无序列表项1</li>
+                <li>无序列表项2</li>
+              </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          # 有序列表项1<br>
+          # 有序列表项2
+          </td>
+          <td>
+            <ol>
+              <li>有序列表项1</li>
+              <li>有序列表项2</li>
+            </ol>
+          </td>
+        </tr>
+        <tr>
+          <td>bq. 这是一段引用</td>
+          <td><h1><blockquote><p>大这是一段引用</p></blockquote></h1></td>
+        </tr>
+        <tr>
+          <td>h1. 大标题</td>
+          <td><h1>大标题</h1></td>
+        </tr>
+        <tr>
+          <td>h2. 普通标题</td>
+          <td><h2>普通标题</h2></td>
+        </tr>
+        <tr>
+          <td>"链接":http://danthought.com</td>
+          <td><a href="http://danthought.com">链接</a></td>
+        </tr>
+        <tr>
+          <td>!http://37signals.com/logo.gif!</td>
+          <td><%= image_tag "icon_help.png" %></td>
+        </tr>
+        </tbody></table>
+        </div>
+	  </div>
+
     <label class="text" style="width:50px">&nbsp;</label>
     <%= f.submit "发布",:id => "add-comment" %>
+    <input type="button" id="preview-comment" class="sub-btn" value="预览" />
+    <div class="help"><a href="#" style="margin-right:50px" class="help" id="newidea-help">内容格式化规则</a></div>
+
+  </div>
+  <div id="preview-comment-dialog" title="预览评论">
   </div>
 <% end %>
 </div>

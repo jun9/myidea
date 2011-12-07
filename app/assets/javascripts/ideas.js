@@ -271,6 +271,28 @@ function prepareUsers(){
   }
 }
 
+function prepareHelp(helpId,helpShadowId,helpContentId){
+  var $help = $(helpId);
+  if($help.length > 0){
+    var $helpShadow = $(helpShadowId).hide();
+    var $helpContent = $(helpContentId).hide();
+    offleft = $help.position().left - $helpShadow.width()/2; 
+    offtop = $help.position().top - $helpShadow.height()- 10;
+    $helpShadow.css({left:offleft,top:offtop});
+    $helpContent.css({left:offleft,top:offtop});
+    $help.hover(
+      function(){
+        $helpShadow.show();
+        $helpContent.show();
+      },
+      function(){
+        $helpShadow.hide();
+        $helpContent.hide();
+      }
+    );
+  }
+}
+
 $(function(){
   /* Button */
   $('#pub-idea').button({
@@ -290,6 +312,29 @@ $(function(){
 	}
   });
   $('#add-idea').button();
+  $('#preview-idea').button().click(function(){
+    var description = $('#idea_description').val();
+    if($.trim(description)!=''){
+       $.post('/ideas/preview',{description:description},function(data){
+        if(data){
+          $previewDialog.html(data);
+          $previewDialog.dialog('open');
+        }
+      });
+    }
+  });
+  $('#preview-comment').button().click(function(){
+    var description = $('#comment_content').val();
+    if($.trim(description)!=''){
+       $.post('/ideas/preview',{description:description},function(data){
+        if(data){
+          $previewCommentDialog.html(data);
+          $previewCommentDialog.dialog('open');
+        }
+      });
+    }
+  });
+;
   $('#edit-idea').button();
   $('#handle-idea').button();
   $('#add-comment').button();
@@ -327,6 +372,19 @@ $(function(){
     modal:true,
     autoOpen:false
   });
+  $previewDialog=$('#preview-dialog').dialog({
+    height: 300,
+    width: 500,
+    modal:true,
+    autoOpen:false
+  });
+  $previewCommentDialog=$('#preview-comment-dialog').dialog({
+    height: 200,
+    width: 450,
+    modal:true,
+    autoOpen:false
+  });
+
   /* AJAX */
   // Category Link AJAX
   if($tabs.length > 0){
@@ -366,4 +424,6 @@ $(function(){
   // Init
   makeVoteButton();
   prepareComments();
+  prepareHelp('#leadboard-help','#leadboard-help-shadow','#leadboard-help-content');
+  prepareHelp('#newidea-help','#newidea-help-shadow','#newidea-help-content');
 });

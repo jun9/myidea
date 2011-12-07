@@ -20,15 +20,20 @@ gem 'jquery-rails'
 gem 'will_paginate','~> 3.0'
 gem 'sunspot_rails'
 gem 'cancan'
+gem 'RedCloth', '~> 4.2.9'
 
 # Use unicorn as the web server
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+group :development do
+    gem 'sunspot_solr'
+end
 
 group :test do
   gem 'minitest'

@@ -19,7 +19,7 @@
 	<div class="info">类别:&nbsp;<%= idea.category.name %></div>
 	<div class="info">发布于&nbsp;<%= l idea.created_at,:format => :long %></div>
 	<div class="info">由&nbsp;<%= link_to idea.user.username,user_path(idea.user) %></div>
-    <div class="entry"><%= raw idea.description %></div>
+    <div class="entry"><%= raw RedCloth.new(idea.description,[:filter_html]).to_html %></div>
 	<ul class="actions">
       <% if idea.comments_count > 0 %>
 	  <li class="comment"><%= link_to "评论[#{idea.comments_count}]",idea_path(idea,:anchor => "first") %></li>

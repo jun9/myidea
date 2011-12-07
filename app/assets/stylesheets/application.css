@@ -1,5 +1,5 @@
 /*
- *= require redmond/jquery-ui
+ *= require jquery-ui
  *= require_self
  *= require_tree . 
 */
@@ -13,21 +13,28 @@ body {
 h1, h2, h3, h4, h5, h6 {
     display: block;
 }
-a {
+a,.ui-widget-content a{
     color: #2e6e9e;
     text-decoration: none;
 }
-a:hover {
+a:hover,.ui-widget-content a:hover{
     color: #e17009;
 }
-big {
-    font-size: 1.5em;
-}
 h1 {
-    margin-top: 0;
+  margin-top: 0;
+  font-size: 130%;
 }
-h2 p, p {
-    font-size: 1.1em;
+h2{
+  font-size: 100%;
+}
+ul,ol{
+  padding:0 auto;
+  margin: 5px 0;
+}
+blockquote {
+  color: #666;
+  font-style: italic;
+  font-size:13px;
 }
 form {
     margin: 0;
@@ -82,25 +89,42 @@ div.title span{
     font-weight:bold;
     padding: 5px;
 }
+table.help{
+  font-size: 13px;
+  width:99%;
+  margin:auto;
+  border-collapse: collapse;
+}
+table.help tr th{
+  border:1px solid #BDBCB7;
+  text-align: left;
+  font-weight: normal;
+  background: #282828;
+  color: white;
+  padding: 5px;
+}
+table.help tr td{
+  border:1px solid #BDBCB7;
+  padding: 5px;
+}
 div.help{
-    float:right;
-    background: url("icon_help.png") no-repeat scroll 0 0 transparent;
-    height: 24px;
-    text-indent: -10000px;
-    width: 24px;
-    margin:5px 10px 0 0px;
-    cursor:pointer;
+    display: inline;
+    float: right;
+    margin: 5px 5px 5px 0;
+}
+div.help a.help{
+  background-image: url("icon_help.png");
+  background-position: 0 60%;
+  background-repeat: no-repeat;
+  display: block;
+  font-size: 12px;
+  line-height: 18px;
+  padding: 0 0 0 20px;
+  text-decoration: none;
 }
 span.highlight{
   font-weight:bold;
   color:#E17009;
-}
-div.imessage a,div.promotion-imessage a,#activities a,table.tt a,div.category-summary a,div.leadboard a,div.profile a{
-    color: #2e6e9e;
-    text-decoration: none;
-}
-div.imessage a:hover,div.promotion-imessage a:hover,#activities a:hover,table.tt a:hover,div.category-summary a:hover,div.leadboard a:hover,div.profile a:hover{
-    color: #e17009;
 }
 #header {
     background-color: #FFFFFF;
@@ -302,19 +326,19 @@ div.pagination .disabled {
 div.pagination a {
   text-decoration: none;
   border: 1px solid #C5DBEC;
-  background: #DFEFFC url(redmond/images/ui-bg_glass_85_dfeffc_1x400.png) 50% 50% repeat-x;
+  background: #DFEFFC url(images/ui-bg_glass_85_dfeffc_1x400.png) 50% 50% repeat-x;
   font-weight: bold;
   color: #2E6E9E; 
 }
 div.pagination .current {
   font-style: normal;
   border: 1px solid #79B7E7;
-  background: #F5F8F9 url(redmond/images/ui-bg_inset-hard_100_f5f8f9_1x100.png) 50% 50% repeat-x;
+  background: #F5F8F9 url(images/ui-bg_inset-hard_100_f5f8f9_1x100.png) 50% 50% repeat-x;
   font-weight: bold;
   color: #E17009;
 }
 div.pagination a:hover, .pagination a:focus {
-  background: #d0e5f5 url(redmond/images/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x;
+  background: #d0e5f5 url(images/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x;
   color: #1d5987;
   border-color: #79b7e7; 
   font-weight: bold;

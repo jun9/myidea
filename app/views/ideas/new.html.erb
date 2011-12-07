@@ -4,23 +4,96 @@
 <%= form_for(@idea) do |f| %>
   <%= errors_msg_tag(@idea) %>
   <div class="item">
-    <%= f.label :title,:class => "text" %>
-    <%= f.text_field :title, :class => "text", :maxlength => 30 %>
-  </div>
-  <div class="item">
-    <%= f.label :description,:class => "text" %>
-	<%= f.text_area :description,:class => "xheditor {width:505,height:300,tools:'Bold,Italic,Underline,Strikethrough,List,Link,Unlink'}" %>
-
-  </div>
-  <div class="item">
     <%= f.label :category,:class=>"text"%>
     <%= select("idea", "category_id", Category.all.collect {|c| [ c.name, c.id ] },:class => "text") %>
   </div>
   <div class="item">
+    <%= f.label :title,:class => "text" %>
+    <%= f.text_field :title, :class => "text", :maxlength => 60 %>
+  </div>
+  <div class="item">
+    <%= f.label :description,:class => "text" %>
+	<%= f.text_area :description,:class => "text",:style => "width:500px;height:300px;overflow-y:auto" %>
+
+  </div>
+  <div class="item">
+      <div id="newidea-help-shadow" class="ui-widget-shadow ui-corner-all" style="width:402px;height:442px;position:absolute;"></div>
+	  <div id="newidea-help-content" style="position: absolute; width: 380px; height: 420px;padding: 10px;" class="ui-widget ui-widget-content ui-corner-all">
+	    <div class="ui-dialog-content ui-widget-content" style="background: none; border: 0;">
+        <h2 style="margin:3px">提示:在标题，列表和引用前后须留一行空白，首行不用</h2>
+        <table class="help">
+          <tbody>
+          <tr>
+            <th>输入</th>
+            <th>输出</th>
+          </tr>
+          <tr>
+            <td>*粗体字*</td>
+            <td><strong>粗体字</strong></td>
+          </tr>
+          <tr>
+            <td>_斜体字_</td>
+            <td><span style="font-style: italic;">斜体字</span></td>
+          </tr>
+          <tr>
+            <td>
+              * 无序列表项1<br>
+              * 无序列表项2
+            </td>
+            <td>
+              <ul>
+                <li>无序列表项1</li>
+                <li>无序列表项2</li>
+              </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          # 有序列表项1<br>
+          # 有序列表项2
+          </td>
+          <td>
+            <ol>
+              <li>有序列表项1</li>
+              <li>有序列表项2</li>
+            </ol>
+          </td>
+        </tr>
+        <tr>
+          <td>bq. 这是一段引用</td>
+          <td><h1><blockquote><p>大这是一段引用</p></blockquote></h1></td>
+        </tr>
+        <tr>
+          <td>h1. 大标题</td>
+          <td><h1>大标题</h1></td>
+        </tr>
+        <tr>
+          <td>h2. 普通标题</td>
+          <td><h2>普通标题</h2></td>
+        </tr>
+        <tr>
+          <td>"链接":http://danthought.com</td>
+          <td><a href="http://danthought.com">链接</a></td>
+        </tr>
+        <tr>
+          <td>!http://37signals.com/logo.gif!</td>
+          <td><%= image_tag "icon_help.png" %></td>
+        </tr>
+        </tbody></table>
+        </div>
+	  </div>
+
     <label class="text">&nbsp;</label>
     <%= f.submit "发布",:id => "add-idea",:class => "sub-btn" %>
+    <input type="button" id="preview-idea" class="sub-btn" value="预览" />
+    <div class="help"><a href="#" style="margin-right:20px" class="help" id="newidea-help">内容格式化规则</a></div>
   </div>
 <% end %>
+  <div id="preview-dialog" title="预览主意">
+  </div>
   <div id="promotion-dialog" title="看看大家的主意，你的主意是否已经有了">
   </div>
+  <%= form_tag preview_ideas_path,:method => :post ,:remote => true,:id => "preview-idea-form" do %>
+  <%= hidden_field_tag(:description) %>
+  <% end %>
 </div>

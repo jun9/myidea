@@ -135,4 +135,9 @@ class IdeasController < ApplicationController
     @idea = Idea.find(params[:id])
     @idea.favorers.destroy(current_user)
   end
+
+  def preview
+    @description = RedCloth.new(params[:description],[:filter_html]).to_html()
+    render :layout => false
+  end
 end

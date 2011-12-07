@@ -9,8 +9,8 @@ class Idea < ActiveRecord::Base
 
   self.per_page = 5
 
-  validates :title,:presence =>true,:length => {:maximum => 30}
-  validates :description,:presence =>true,:length => {:maximum => 1000}
+  validates :title,:presence =>true,:length => {:maximum => 60}
+  validates :description,:presence =>true,:length => {:maximum => 2000}
   validates :category_id,:presence =>true
 
   after_create do |idea|
