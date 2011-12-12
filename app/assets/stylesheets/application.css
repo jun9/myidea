@@ -288,7 +288,17 @@ span.highlight{
     width: 930px;
     color: #FFFFFF;
     font-size: 1.2em;
-    text-align:right;
+}
+#footer div.logo{
+  float:right;
+}
+#footer a.logo{
+  display: block;
+  width: 86px;
+  height: 27px;
+  background: transparent url(logo_myidea.png) 0 0 no-repeat;
+  text-indent: -10000px;
+  margin-top:5px;
 }
 div.page-actions {
     padding-bottom: 30px;
@@ -575,8 +585,8 @@ div.comment div.admin{
   color:#E17009;
 }
 div.comment-form{
-  width:580px;
-  margin-top:13px;
+  width:480px;
+  margin:13px auto 0 auto;
 }
 table.tt{
   display: table;
@@ -650,4 +660,28 @@ div.summary div.count{
 }
 #activities div.unlike{
   background-image: url("icon_unlike.png");
+}
+#idea-description-tabs{
+  float:left;
+  width:510px;
+  border:none;
+  margin:0;
+}
+#comment-content-tabs{
+  width:460px;
+  border:none;
+  margin:0;
+}
+#idea-description-tabs ul.custom,#comment-content-tabs ul.custom{
+  font-size:12px;
+  background:none;
+  border:none;
+  border-bottom: 1px solid #4297D7;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  -khtml-border-radius: 0;
+  border-radius: 0;
+}
+#idea-description-tabs div.custom,#comment-content-tabs div.custom{
+  padding:5px 0;
 }

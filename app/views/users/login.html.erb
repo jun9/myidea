@@ -4,7 +4,7 @@
 <%= form_tag :login do %>
   <div class="item">
     <%= label_tag  :username,t("user.login"),:class=>"text" %>
-	<%= text_field_tag(:account,params[:account],:class => "text",:placeholder => "输入用户名或邮箱",:maxlength => 30) %>
+	<%= text_field_tag(:account,params[:account],:class => "text",:placeholder => "输入用户名或邮箱",:maxlength => 30,:title => "输入用户名或邮箱") %>
   </div>
   <div class="item">
     <%= label_tag :password,t("activerecord.attributes.user.password"),:class => "text" %>

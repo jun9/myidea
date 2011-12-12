@@ -312,29 +312,6 @@ $(function(){
 	}
   });
   $('#add-idea').button();
-  $('#preview-idea').button().click(function(){
-    var description = $('#idea_description').val();
-    if($.trim(description)!=''){
-       $.post('/ideas/preview',{description:description},function(data){
-        if(data){
-          $previewDialog.html(data);
-          $previewDialog.dialog('open');
-        }
-      });
-    }
-  });
-  $('#preview-comment').button().click(function(){
-    var description = $('#comment_content').val();
-    if($.trim(description)!=''){
-       $.post('/ideas/preview',{description:description},function(data){
-        if(data){
-          $previewCommentDialog.html(data);
-          $previewCommentDialog.dialog('open');
-        }
-      });
-    }
-  });
-;
   $('#edit-idea').button();
   $('#handle-idea').button();
   $('#add-comment').button();
@@ -361,6 +338,8 @@ $(function(){
       }
     } 
   });
+  $('#idea-description-tabs').tabs();
+  $('#comment-content-tabs').tabs();
   /* Dialog */
   $('#login-dialog').dialog({
     modal:true,
@@ -372,19 +351,6 @@ $(function(){
     modal:true,
     autoOpen:false
   });
-  $previewDialog=$('#preview-dialog').dialog({
-    height: 300,
-    width: 500,
-    modal:true,
-    autoOpen:false
-  });
-  $previewCommentDialog=$('#preview-comment-dialog').dialog({
-    height: 200,
-    width: 450,
-    modal:true,
-    autoOpen:false
-  });
-
   /* AJAX */
   // Category Link AJAX
   if($tabs.length > 0){
@@ -421,9 +387,35 @@ $(function(){
       });
     }
   });
+  // Idea Preview AJAX
+  $descriptionInput = $('#idea-preview-content');
+  $ideaTextPreview = $('#idea-text-preview'); 
+  $previewIdeaForm = $('#preview-idea-form')
+  .bind("ajax:success", function(evt, data, status, xhr){
+      $ideaTextPreview.html(xhr.responseText);
+  });
+  $('#preview-idea').click(function(){
+    var description = $('#idea_description').val();
+    if($.trim(description)!=''){
+       $descriptionInput.val(description);
+       $previewIdeaForm.submit();
+    }
+  });
+  $commentTextPreview = $('#comment-text-preview');
+  $contentInput = $('#comment-preview-content');
+  $previewCommentForm = $('#preview-comment-form')
+  .bind("ajax:success", function(evt, data, status, xhr){
+      $commentTextPreview.html(xhr.responseText);
+  });
+  $('#preview-comment').click(function(){
+    var description = $('#comment_content').val();
+    if($.trim(description)!=''){
+       $contentInput.val(description);
+       $previewCommentForm.submit();
+    }
+  });
   // Init
   makeVoteButton();
   prepareComments();
   prepareHelp('#leadboard-help','#leadboard-help-shadow','#leadboard-help-content');
-  prepareHelp('#newidea-help','#newidea-help-shadow','#newidea-help-content');
 });

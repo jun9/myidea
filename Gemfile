@@ -21,6 +21,7 @@ gem 'will_paginate','~> 3.0'
 gem 'sunspot_rails'
 gem 'cancan'
 gem 'RedCloth', '~> 4.2.9'
+gem 'therubyracer'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -39,8 +40,4 @@ group :test do
   gem 'minitest'
   # Pretty printed test output
   gem 'turn', :require => false
-end
-
-group :production do
-  gem 'therubyracer'
 end

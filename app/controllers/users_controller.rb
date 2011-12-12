@@ -40,6 +40,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.check_password = true
     if @user.save
       session[:login_user] = LoginUser.new(@user)
       redirect_to root_path, :alert => I18n.t('notice.user.registed')

@@ -12,15 +12,19 @@
     <%= f.text_field :title, :class => "text", :maxlength => 60 %>
   </div>
   <div class="item">
-    <%= f.label :description,:class => "text" %>
-	<%= f.text_area :description,:class => "text",:style => "width:500px;height:300px;overflow-y:auto" %>
-
-  </div>
-  <div class="item">
-      <div id="newidea-help-shadow" class="ui-widget-shadow ui-corner-all" style="width:402px;height:442px;position:absolute;"></div>
-	  <div id="newidea-help-content" style="position: absolute; width: 380px; height: 420px;padding: 10px;" class="ui-widget ui-widget-content ui-corner-all">
-	    <div class="ui-dialog-content ui-widget-content" style="background: none; border: 0;">
-        <h2 style="margin:3px">提示:在标题，列表和引用前后须留一行空白，首行不用</h2>
+    <label class="text">&nbsp;</label>
+    <div id="idea-description-tabs">
+      <ul class="custom">
+        <li><a href="#idea-text-input">内容</a></li>
+        <li><a id="preview-idea" href="#idea-text-preview">预览</a></li>
+        <li><a href="#idea-text-help">格式化规则</a></li>
+      </ul>
+      <div id="idea-text-input" class="custom">
+	<%= f.text_area :description,:class=>"text",:style => "width:500px;height:300px;overflow-y:auto" %>
+      </div>
+      <div id="idea-text-preview" class="custom">
+      </div>
+      <div id="idea-text-help" class="custom">
         <table class="help">
           <tbody>
           <tr>
@@ -28,14 +32,44 @@
             <th>输出</th>
           </tr>
           <tr>
-            <td>*粗体字*</td>
-            <td><strong>粗体字</strong></td>
+            <th colspan="2">以下为短语格式化规则，符号前后应有<span class="highlight">空格</span></th>
           </tr>
           <tr>
-            <td>_斜体字_</td>
-            <td><span style="font-style: italic;">斜体字</span></td>
+            <td>这是 *粗体字* 的格式</td>
+            <td>这是 <strong>粗体字</strong> 的格式</td>
           </tr>
           <tr>
+            <td>这是 _斜体字_ 的格式</td>
+            <td>这是 <span style="font-style: italic;">斜体字</span> 的格式</td>
+          </tr>
+          <tr>
+            <td>这是 -删除字- 的格式</td>
+            <td>这是 <del>删除字</del> 的格式</td>
+          </tr>
+          <tr>
+            <td>这是 +插入字+ 的格式</td>
+            <td>这是 <ins>插入字</ins> 的格式</td>
+          </tr>
+          <tr>
+            <td>这是 "博客主页":http://danthought.com 的链接</td>
+            <td>这是 <a href="http://danthought.com">博客主页</a> 的链接</td>
+          </tr>
+          <tr>
+            <td>!http://danthought.com/logo_myidea.png!</td>
+            <td><%= image_tag "logo_myidea.png" %></td>
+          </tr>
+          <tr>
+            <th colspan="2">以下为段落布局格式化规则，前后应有<span class="highlight">空行</span></th>
+          </tr>
+          <tr>
+            <td>h1. 大标题</td>
+            <td><h1>大标题</h1></td>
+          </tr>
+          <tr>
+            <td>h2. 普通标题</td>
+            <td><h2>普通标题</h2></td>
+          </tr>
+         <tr>
             <td>
               * 无序列表项1<br>
               * 无序列表项2
@@ -63,37 +97,19 @@
           <td>bq. 这是一段引用</td>
           <td><h1><blockquote><p>大这是一段引用</p></blockquote></h1></td>
         </tr>
-        <tr>
-          <td>h1. 大标题</td>
-          <td><h1>大标题</h1></td>
-        </tr>
-        <tr>
-          <td>h2. 普通标题</td>
-          <td><h2>普通标题</h2></td>
-        </tr>
-        <tr>
-          <td>"链接":http://danthought.com</td>
-          <td><a href="http://danthought.com">链接</a></td>
-        </tr>
-        <tr>
-          <td>!http://37signals.com/logo.gif!</td>
-          <td><%= image_tag "icon_help.png" %></td>
-        </tr>
         </tbody></table>
-        </div>
-	  </div>
-
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="item">
     <label class="text">&nbsp;</label>
     <%= f.submit "发布",:id => "add-idea",:class => "sub-btn" %>
-    <input type="button" id="preview-idea" class="sub-btn" value="预览" />
-    <div class="help"><a href="#" style="margin-right:20px" class="help" id="newidea-help">内容格式化规则</a></div>
   </div>
 <% end %>
-  <div id="preview-dialog" title="预览主意">
-  </div>
   <div id="promotion-dialog" title="看看大家的主意，你的主意是否已经有了">
   </div>
   <%= form_tag preview_ideas_path,:method => :post ,:remote => true,:id => "preview-idea-form" do %>
-  <%= hidden_field_tag(:description) %>
+  <%= hidden_field_tag :description,nil,:id => "idea-preview-content" %>
   <% end %>
 </div>

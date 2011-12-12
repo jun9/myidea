@@ -4,7 +4,7 @@ class Comment < ActiveRecord::Base
 
   self.per_page = 5
 
-  validates :content,:presence =>true
+  validates :content,:presence =>true,:length => {:maximum => 1000}
 
   after_create do |comment|
     comment.idea.update_attribute("comments_count",self.idea.comments_count+1)

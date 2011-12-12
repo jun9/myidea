@@ -3,7 +3,9 @@ module ApplicationHelper
     if object.errors.any?
         content_tag :div,:class => "ui-state-error ui-corner-all error-msg" do
           object.errors.full_messages.map{ |msg|
-            content_tag(:div,content_tag(:span,"",:class=>"ui-icon ui-icon-alert msg")+msg)
+            [
+            content_tag(:div,content_tag(:span,"",:class=>"ui-icon ui-icon-alert msg")+msg),content_tag(:div,'',:class=>"clear")
+            ].join.html_safe
           }.join.html_safe
         end
     end
