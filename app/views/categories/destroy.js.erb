@@ -1,0 +1,6 @@
+closeFlash();
+<% if @category.errors.any? %>
+  $('#flash').html('<%= errors_msg_tag(@category) %>');
+<% else %>
+  $("#edit-cate-btn-<%= @category.id %>").parent().parent().remove();
+<% end %>

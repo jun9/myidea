@@ -1,7 +1,7 @@
-<%= errors_flash_tag flash[:alert] %>
+<div id="flash"><%= errors_flash_tag flash[:alert] %></div>
 <div id="tabs">
 	<ul>
-	  <li><%= link_to '热门',tab_ideas_path(:style => IDEA_SORT_HOT),:title =>'tab-box' %></li>
+	  <li><%= link_to '热门',tab_ideas_path(:style => IDEA_SORT_HOT,:cate_id => params[:cate_id]),:title =>'tab-box' %></li>
 	  <li><%= link_to '最新',tab_ideas_path(:style => IDEA_SORT_NEW),:title =>'tab-box'%></li>
 	  <li><%= link_to '评分最高',tab_ideas_path(:style => IDEA_SORT_POINTS),:title =>'tab-box' %></li>
 	  <li><%= link_to '评论最多',tab_ideas_path(:style => IDEA_SORT_COMMENTS),:title =>'tab-box' %></li>

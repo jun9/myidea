@@ -28,29 +28,15 @@
 					<% end %>
 				</div>
                 <div class="category-summary ui-widget-content ui-corner-all">
-                  <h3 class="ui-widget-header ui-corner-all">类别</h3>
+                  <h3 class="ui-widget-header ui-corner-all header">类别</h3>
 					<ul>
                       <% Category.all.each do |category|%>
 						<li><span><%= category.ideas.count %></span><%= link_to category.name,tab_ideas_path(:cate_id => category.id ),:class => 'cate_link',:remote => true %></li>
                       <% end %>
 					</ul>
 				</div>
-                <div class="leadboard ui-widget-content ui-corner-all" style="position:relative">
-
-                  <div id="leadboard-help-shadow" class="ui-widget-shadow ui-corner-all" style="width:232px;height:132px;position:absolute;"></div>
-			      <div id="leadboard-help-content" style="position: absolute; width: 210px; height: 110px;padding: 10px;" class="ui-widget ui-widget-content ui-corner-all">
-				    <div class="ui-dialog-content ui-widget-content" style="background: none; border: 0;">
-                    <h2 style="margin:3px">排行榜显示的是用户的参与程度</h2>
-                    <ul>
-<li>发布新注意3分</li>
-<li>顶一次主意1分</li>
-<li>踩一次主意1分</li>
-<li>评论了主意1分</li>
-                    </ul>
-                    </div>
-			      </div>
-
-                  <h3 class="ui-widget-header ui-corner-all">排行榜</h3>
+                <div class="leadboard ui-widget-content ui-corner-all">
+                  <h3 class="ui-widget-header ui-corner-all header">排行榜</h3>
                   <table cellspacing="0" cellpadding="0">
                       <% User.order("points desc").limit(10).each_with_index do |user,index| %>
                       <tr>
@@ -63,8 +49,36 @@
                       </tr>
                       <% end %>
                   </table>
-                  <div class="help"><a href="#" class="help" id="leadboard-help">排行榜的规则</a></div>
-                  <div class="clear"></div>
+                </div>
+                <div class="guide">
+                  <div id="guide">
+                    <div>
+                      <h3><a href="javascript:;">主意如何实现？</a></h3>
+                      <div>
+                        <h4>您发布了新主意后，主意等待处理，管理员认为你的主意还不错，希望进一步审核主意，更深入地考虑主意能否在目前条件下实施，审核结束后，如果能够实施，您的主意将在不久的将来出现在其产品和服务中。</h4>
+                        <h4>主意状态的流转：</h4>
+                        <ul>
+                        <li class="default">等待处理</li>
+                        <li class="under-review">审核中</li>
+                        <li class="reviewed">已审核</li>
+                        <li class="in-the-works">实施中</li>
+                        <li class="launched">已实施</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div>
+                      <h3><a href="javascript:;">排行榜规则？</a></h3>
+                      <div>
+                      <h4>排行榜显示的是用户的参与程度，前10名</h4>
+                      <ul>
+                      <li class="create">发布新主意3分</li>
+                      <li class="like">顶一次主意1分</li>
+                      <li class="unlike">踩一次主意1分</li>
+                      <li class="comment">评论了主意1分</li>
+                      </ul>
+                      </div>
+                    </div>
+                 </div>
                 </div>
 			</div>
 		</div>

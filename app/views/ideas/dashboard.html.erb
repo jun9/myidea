@@ -1,6 +1,23 @@
+<div id="flash"></div>
 <div id="admin-tabs">
   <ul>
     <li><%= link_to '类别',categories_path,:title =>'tab-box' %></li>
     <li><%= link_to '用户',users_path,:title =>'tab-box' %></li>
   </ul>
+</div>
+<div id="edit-cate-dialog" title="修改类别">
+  <%= form_tag category_path(0),:method => :put,:remote => true,:id => "edit-cate-form" do %>
+    <div class="item">
+      <%= label_tag  :name,t("activerecord.attributes.category.name"),:class=>"text" %>
+	  <%= text_field_tag(:name,params[:name],:class => "text",:maxlength => 30) %>
+    </div>
+  <% end %>  	
+</div>
+<div id="add-cate-dialog" title="新增类别" >
+  <%= form_tag :categories,:remote => true,:id => "add-cate-form" do %>
+    <div class="item">
+      <%= label_tag  :name,t("activerecord.attributes.category.name"),:class=>"text" %>
+	  <%= text_field_tag(:name,params[:name],:class => "text",:maxlength => 30) %>
+    </div>
+  <% end %>  	
 </div>

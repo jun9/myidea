@@ -12,12 +12,8 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    category = Category.find(params[:id])
-    if category.destroy
-      head :ok  
-    else
-      render :json => category.errors,:status => :unprocessable_entity
-    end
+    @category = Category.find(params[:id])
+    @category.destroy
   end
 
   def update

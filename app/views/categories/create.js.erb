@@ -1,23 +1,19 @@
+closeFlash();
 var el = $('#add-cate-dialog');
+el.dialog("close");
 <% if @category.errors.any? %>
-  el.children(":first").html('<%= errors_msg_tag(@category) %>')
+  $('#flash').html('<%= errors_msg_tag(@category) %>');
 <% else %>
-  el.dialog("close");
-  var tr = $('<tr><td><%= escape_javascript(@category.name) %></td><td><%= @category.ideas.count %></td></td></tr>');
+  var tr = $('<tr><td><%= escape_javascript(@category.name) %></td><td><%= @category.ideas.count %></td></tr>');
   var btn1 = $('<%= link_to "删除",@category,:method => :delete,:remote => true,:confirm => '确认删除？',:class => "cate-del" %>').button({
       text: false,
       icons: {
           primary: "ui-icon-trash"
       }
-  }).bind("ajax:success", function(evt, data, status, xhr){
-    $(this).parent().parent().remove();
-  }).bind('ajax:error', function(evt, xhr, status, error){
-    var errors = $.parseJSON(xhr.responseText);
-    alert(errors.base);
   });
 
   td = $("<td></td>").append(btn1);
-  var btn2 = $('<%= link_to "修改",'#',:class => "cate-edit",:id => "edit-cate-btn-#{@category.id}" %>').button({
+  var btn2 = $('<%= link_to "修改",'javascript:;',:class => "cate-edit",:id => "edit-cate-btn-#{@category.id}" %>').button({
       text: false,
       icons: {
           primary: "ui-icon-pencil"
@@ -36,5 +32,4 @@ var el = $('#add-cate-dialog');
   tr.append(td.append(btn2));
   $('#cate-last').before(tr);
   el.find('input:text,textarea').val('');
-  el.children(":first").empty();
 <% end %>

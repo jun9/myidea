@@ -1,7 +1,7 @@
 <div class="title"><span class="ui-widget-header ui-corner-all">注册账号</span></div>
 <div>
 <%= form_for(@user) do |f| %>
-  <%= errors_msg_tag(@user) %>
+  <div id="flash"><%= errors_msg_tag(@user) %></div>
   <div class="item">
     <%= f.label :email,:class => "text" %>
     <%= f.email_field :email,:class => "text" %>

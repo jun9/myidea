@@ -9,7 +9,7 @@
 <% if session[:login_user] %>
 <div class="comment-form">
 <a href="#" name="comment-form"></a>
-<%= errors_flash_tag flash[:alert] %>
+<div id="flash"><%= errors_flash_tag flash[:alert] %></div>
 <%= form_for([@idea,@comment]) do |f| %>
     <div id="comment-content-tabs">
       <ul class="custom">

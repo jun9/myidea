@@ -2,7 +2,7 @@
 
 <div class="submit-idea">
 <%= form_for(@idea) do |f| %>
-  <%= errors_msg_tag(@idea) %>
+  <div id="flash"><%= errors_msg_tag(@idea) %></div>
   <div class="item">
     <%= f.label :category,:class=>"text"%>
     <%= select("idea", "category_id", Category.all.collect {|c| [ c.name, c.id ] },:class => "text") %>

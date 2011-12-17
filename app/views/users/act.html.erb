@@ -1,7 +1,7 @@
 <div id="activities">
   <% @activities.each do |activity| %>
     <div class="activity <%= activity.action %>">
-      <div class="text"><%= t "activity.#{activity.action}" %>&nbsp;<%= link_to activity.idea.title,activity.idea %></div>
+      <div class="text"><%= t "myidea.activity.#{activity.action}" %>&nbsp;<%= link_to activity.idea.title,activity.idea %></div>
       <div class="date"><%= l activity.created_at,:format => :long %></div>
       <div class="clear"></div>
     </div>

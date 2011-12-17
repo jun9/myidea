@@ -1,9 +1,9 @@
 <div class="title"><span class="ui-widget-header ui-corner-all">用户登录</span></div>
 <div>
-<%= errors_flash_tag flash[:alert] %>
+<div id="flash"><%= errors_flash_tag flash[:alert] %></div>
 <%= form_tag :login do %>
   <div class="item">
-    <%= label_tag  :username,t("user.login"),:class=>"text" %>
+    <%= label_tag  :username,t("myidea.user.login"),:class=>"text" %>
 	<%= text_field_tag(:account,params[:account],:class => "text",:placeholder => "输入用户名或邮箱",:maxlength => 30,:title => "输入用户名或邮箱") %>
   </div>
   <div class="item">

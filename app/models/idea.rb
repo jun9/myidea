@@ -37,7 +37,7 @@ class Idea < ActiveRecord::Base
     if status
       self.update_attribute("status",status)
     else
-      errors.add(:status,I18n.t('errors.idea.wrong_status'))
+      errors.add(:status,I18n.t('myidea.errors.idea.wrong_status'))
       false
     end
   end

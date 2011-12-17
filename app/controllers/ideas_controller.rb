@@ -80,10 +80,8 @@ class IdeasController < ApplicationController
   end
 
   def tab
-    cate_id = session[:cate_id]?session[:cate_id]:params[:cate_id]
-    status = session[:status]?session[:stauts]:params[:status]
-    session[:cate_id] = nil  
-    session[:status] = nil  
+    cate_id = params[:cate_id]
+    status = params[:status]
     if request.xhr?
       conditions = {}
       unless cate_id.blank?
@@ -104,8 +102,6 @@ class IdeasController < ApplicationController
       @ideas = Idea.where(conditions).paginate(:page => params[:ideas_page]).order(order)
       render :layout => false
     else
-      session[:cate_id] = params[:cate_id]
-      session[:status] = params[:status]
       render :action => :index
     end
   end

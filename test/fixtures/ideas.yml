@@ -1,0 +1,34 @@
+default:
+  title: 新增的主意
+  description: 一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十
+  category: "environment"
+  user: "tom"
+  status: <%= IDEA_STATUS_DEFAULT %>
+
+under_review:
+  title: 审核中的主意
+  description: 审核中主意的内容
+  category: "experience"
+  user: "tom"
+  status: <%= IDEA_STATUS_UNDER_REVIEW %>
+
+reviewed:
+  title: 已审核的主意
+  description: 已审核主意的内容
+  category: "experience"
+  user: "tom"
+  status: <%= IDEA_STATUS_REVIEWED %>
+
+in_the_works:
+  title: 实施中的主意
+  description: 实施中主意的内容
+  category: "experience"
+  user: "tom"
+  status: <%= IDEA_STATUS_IN_THE_WORKS %>
+
+launched:
+  title: 已实施的主意
+  description: 已实施主意的内容
+  category: "environment"
+  user: "tom"
+  status: <%= IDEA_STATUS_LAUNCHED %>

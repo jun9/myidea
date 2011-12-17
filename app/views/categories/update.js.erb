@@ -1,9 +1,9 @@
+closeFlash();
 var el = $('#edit-cate-dialog');
+el.dialog("close");
 <% if @category.errors.any? %>
-  el.children(":first").html('<%= errors_msg_tag(@category) %>');
+  $('#flash').html('<%= errors_msg_tag(@category) %>');
 <% else %>
-  el.dialog("close");
   $("#edit-cate-btn-<%= @category.id %>").parent().prev().prev().text("<%= escape_javascript(@category.name) %>")
   el.find('input:text,textarea').val('');
-  el.children(":first").empty();
 <% end %>

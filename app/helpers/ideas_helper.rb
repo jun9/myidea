@@ -1,4 +1,3 @@
-# encoding: utf-8
 module IdeasHelper
 
   def like_button_tag(body,url,action,idea)
@@ -8,7 +7,7 @@ module IdeasHelper
         options[:class] = options[:class]+" vote-disabled"
       end
     else
-      options[:title] = "请先登录"
+      options[:title] = I18n.t('myidea.notice.user.login')
     end
       link_to body,url,options
   end
@@ -17,19 +16,15 @@ module IdeasHelper
     case idea.status
     when IDEA_STATUS_UNDER_REVIEW
       statusClass = "under-review"
-      statusContent = "审核中"
     when IDEA_STATUS_REVIEWED
       statusClass = "reviewed"
-      statusContent = "已审核"
     when IDEA_STATUS_IN_THE_WORKS
       statusClass = "in-the-works"
-      statusContent = "实施中"
     when IDEA_STATUS_LAUNCHED
       statusClass = "launched"
-      statusContent = "已实施"
     end
     if(statusClass) 
-      content_tag(:span,statusContent, :class => statusClass,:title => statusContent)
+      content_tag(:span,I18n.t("myidea.idea.#{statusClass}"), :class => statusClass,:title => I18n.t("myidea.idea.#{statusClass}"))
     end
   end
 
@@ -37,13 +32,13 @@ module IdeasHelper
       if idea.status
         case idea.status
         when IDEA_STATUS_DEFAULT
-          name = "开始审核"
+          name = I18n.t("myidea.idea.handle.under-review")
         when IDEA_STATUS_UNDER_REVIEW
-          name = "完成审核"
+          name = I18n.t("myidea.idea.handle.reviewed")
         when IDEA_STATUS_REVIEWED
-          name = "开始实施"
+          name = I18n.t("myidea.idea.handle.in-the-works")
         when IDEA_STATUS_IN_THE_WORKS
-          name = "完成实施"
+          name = I18n.t("myidea.idea.handle.launched")
         end
       end
       if name

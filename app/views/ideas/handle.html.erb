@@ -11,7 +11,7 @@
   <div class="info">评分:&nbsp;<%= @idea.points %>&nbsp;&nbsp;评论:&nbsp;<%= @idea.comments_count %></div>
   <div class="info">发布于&nbsp;<%= l @idea.created_at,:format => :long %></div>
   <div class="info">由&nbsp;<%= @idea.user.username %></div>
-  <div class="entry"><p><%= raw @idea.description %></p></div>
+  <div class="entry"><p><%= raw RedCloth.new(@idea.description,[:filter_html]).to_html %></p></div>
   <div class="idea-status">
     <div class="idea-all-status">
     <%= status_span_tag2 @idea,IDEA_STATUS_DEFAULT,"等待处理"%>

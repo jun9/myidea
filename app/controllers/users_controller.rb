@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
   def new
     if session[:login_user]
-      redirect_to root_path, :alert => I18n.t('errors.user.register') 
+      redirect_to root_path, :alert => I18n.t('myidea.errors.user.register') 
     else
       @user = User.new
     end
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     @user.check_password = true
     if @user.save
       session[:login_user] = LoginUser.new(@user)
-      redirect_to root_path, :alert => I18n.t('notice.user.registed')
+      redirect_to root_path, :alert => I18n.t('myidea.notice.user.registed')
     else
       render action:'new'
     end
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
       @user.check_password = params[:user][:password].empty? ? false : true
       if @user.update_attributes(params[:user])
         session[:login_user] = LoginUser.new(@user)
-        redirect_to root_path, :alert => I18n.t('notice.user.updated')
+        redirect_to root_path, :alert => I18n.t('myidea.notice.user.updated')
       else
         render action:'edit'
       end
@@ -78,10 +78,10 @@ class UsersController < ApplicationController
           session[:login_user] = LoginUser.new(user)
           redirect_to ideas_path
         else
-          flash.now[:alert] = I18n.t('errors.user.locked') 
+          flash.now[:alert] = I18n.t('myidea.errors.user.locked') 
         end
       else
-        flash.now[:alert] = I18n.t('errors.user.login') 
+        flash.now[:alert] = I18n.t('myidea.errors.user.login') 
       end
     end
   end

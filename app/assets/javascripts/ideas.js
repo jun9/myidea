@@ -1,3 +1,10 @@
+function showFlash(alertFlash){
+  $('#flash').html('<div class="ui-state-error ui-corner-all error-msg"><div><span class="ui-icon ui-icon-alert msg"></span>'+alertFlash+'<a href="javascript:closeFlash();" style="float:right"><span class="ui-icon ui-icon-closethick">close</span></a></div><div class="clear"></div></div>');
+}
+function closeFlash(){
+  $('#flash').empty();
+}
+
 function showIdeasTab(data){
   $('#tab-box').html(data);
   prepareIdeas(); 
@@ -131,7 +138,7 @@ function prepareCategories(){
         $addCateForm.submit();
       },
       "关闭":function(){
-        $(this).dialog("close").children(":first").empty();
+        $(this).dialog("close");
       }
     }
   });
@@ -151,7 +158,7 @@ function prepareCategories(){
         $editCateForm.submit();
       },
       "关闭":function(){
-        $(this).dialog("close").children(":first").empty();
+        $(this).dialog("close");
       }
     }
   });
@@ -162,11 +169,6 @@ function prepareCategories(){
     icons: {
       primary: "ui-icon-trash"
     }
-  }).bind("ajax:success", function(evt, data, status, xhr){
-    $(this).parent().parent().remove();
-  }).bind('ajax:error', function(evt, xhr, status, error){
-    var errors = $.parseJSON(xhr.responseText);
-    alert(errors.base);
   });
   // Category Edit Button
   $tabBox.find('a.cate-edit').button({
@@ -225,7 +227,10 @@ function prepareUsers(){
       $("#active_radio"+user.id+"_yes").attr("checked","checked").button("refresh");
     else
       $("#active_radio"+user.id+"_no").attr("checked","checked").button("refresh");
-    alert("操作失败");
+    showFlash('操作失败');
+  })
+  .bind("ajax:success", function(evt, data, status, xhr){
+    closeFlash();
   });
   $adminInput =$("#admin");
   $activeInput =$("#active");
@@ -268,28 +273,6 @@ function prepareUsers(){
     }).change(function(){
       submitEditUserForm(this.value,null,false,$editUserForm,$adminInput,$activeInput);
     });
-  }
-}
-
-function prepareHelp(helpId,helpShadowId,helpContentId){
-  var $help = $(helpId);
-  if($help.length > 0){
-    var $helpShadow = $(helpShadowId).hide();
-    var $helpContent = $(helpContentId).hide();
-    offleft = $help.position().left - $helpShadow.width()/2; 
-    offtop = $help.position().top - $helpShadow.height()- 10;
-    $helpShadow.css({left:offleft,top:offtop});
-    $helpContent.css({left:offleft,top:offtop});
-    $help.hover(
-      function(){
-        $helpShadow.show();
-        $helpContent.show();
-      },
-      function(){
-        $helpShadow.hide();
-        $helpContent.hide();
-      }
-    );
   }
 }
 
@@ -391,8 +374,13 @@ $(function(){
   $descriptionInput = $('#idea-preview-content');
   $ideaTextPreview = $('#idea-text-preview'); 
   $previewIdeaForm = $('#preview-idea-form')
+  .bind("ajax:beforeSend", function(evt, xhr, settings){
+    $ideaTextPreview.empty();
+    $ideaTextPreview.addClass("loading");
+  })
   .bind("ajax:success", function(evt, data, status, xhr){
-      $ideaTextPreview.html(xhr.responseText);
+    $ideaTextPreview.removeClass("loading");
+    $ideaTextPreview.html(xhr.responseText);
   });
   $('#preview-idea').click(function(){
     var description = $('#idea_description').val();
@@ -404,8 +392,13 @@ $(function(){
   $commentTextPreview = $('#comment-text-preview');
   $contentInput = $('#comment-preview-content');
   $previewCommentForm = $('#preview-comment-form')
+  .bind("ajax:beforeSend", function(evt, xhr, settings){
+    $commentTextPreview.empty();
+    $commentTextPreview.addClass("loading");
+  })
   .bind("ajax:success", function(evt, data, status, xhr){
-      $commentTextPreview.html(xhr.responseText);
+    $commentTextPreview.removeClass("loading");
+    $commentTextPreview.html(xhr.responseText);
   });
   $('#preview-comment').click(function(){
     var description = $('#comment_content').val();
@@ -417,5 +410,5 @@ $(function(){
   // Init
   makeVoteButton();
   prepareComments();
-  prepareHelp('#leadboard-help','#leadboard-help-shadow','#leadboard-help-content');
+  $("#guide").accordion({header:"h3",autoHeight:false,event:"mouseover"});
 });

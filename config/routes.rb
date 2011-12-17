@@ -10,7 +10,7 @@ Myidea::Application.routes.draw do
     match 'like',:on => :member
     match 'unlike',:on => :member
     match 'handle',:on => :member
-    get 'search',:on => :collection
+    match 'search',:on => :collection
     match 'favoriate',:on => :member
     match 'unfavoriate',:on => :member
     resources :comments,:shallow => :true

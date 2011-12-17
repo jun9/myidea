@@ -42,6 +42,12 @@ form {
 div.item{
     margin: 15px 0;
 }
+div.loading{
+  background: url("loading.gif") no-repeat scroll 0 0 transparent !important;
+  height:80px;
+  width:80px;
+  margin:5px auto;
+}
 label.text {
     display: inline-block;
     float: left;
@@ -106,25 +112,6 @@ table.help tr th{
 table.help tr td{
   border:1px solid #BDBCB7;
   padding: 5px;
-}
-div.help{
-    display: inline;
-    float: right;
-    margin: 5px 5px 5px 0;
-}
-div.help a.help{
-  background-image: url("icon_help.png");
-  background-position: 0 60%;
-  background-repeat: no-repeat;
-  display: block;
-  font-size: 12px;
-  line-height: 18px;
-  padding: 0 0 0 20px;
-  text-decoration: none;
-}
-span.highlight{
-  font-weight:bold;
-  color:#E17009;
 }
 #header {
     background-color: #FFFFFF;
@@ -212,8 +199,8 @@ span.highlight{
     top: 2px;
     width: 30px;
 }
-.category-summary {
-    margin: 11px 0;
+.category-summary,.leadboard,.guide{
+    margin: 11px 0 0 0;
 }
 .category-summary ul {
     list-style: none outside none;
@@ -236,7 +223,7 @@ span.highlight{
     float: right;
     width: 60%;
 }
-.leadboard h3,.category-summary h3{
+h3.header{
   margin:2px;
   padding:0.4em;
   font-size: 13px;
@@ -245,7 +232,7 @@ span.highlight{
 .leadboard table{
   font-size: 1.1em;
   width:99%;
-  margin:auto;
+  margin:auto auto 10px auto;
 }
 .leadboard table tr td{
   border-bottom:1px solid #BDBCB7;
@@ -274,6 +261,62 @@ span.highlight{
 .leadboard table td span.unlike{
   background: url("icon_unlike_small.png") no-repeat scroll 0 0 transparent;
   padding-left:16px;
+}
+.guide h4{
+  margin-top:0;
+}
+.guide ul{
+  list-style: none outside none;
+  margin:0;
+  padding:0;
+}
+.guide li.under-review {
+  background: url("icon_review.png") no-repeat scroll 0 0 transparent;
+  padding-left:24px;
+  line-height:20px;
+  margin-top:5px;
+}
+.guide li.reviewed {
+  background: url("icon_reviewed.png") no-repeat scroll 0 0 transparent;
+  padding-left:24px;
+  line-height:20px;
+  margin-top:5px;
+}
+.guide li.in-the-works {
+  background: url("icon_gear.png") no-repeat scroll 0 0 transparent;
+  padding-left:24px;
+  line-height:20px;
+  margin-top:5px;
+}
+.guide li.launched {
+  background: url("icon_ok.png") no-repeat scroll 0 0 transparent;
+  padding-left:24px;
+  line-height:20px;
+  margin-top:5px;
+}
+.guide li.create {
+  background: url("icon_light_small.png") no-repeat scroll 0 0 transparent;
+  padding-left:24px;
+  line-height:20px;
+  margin-top:5px;
+}
+.guide li.comment {
+  background: url("icon_write_small.png") no-repeat scroll 0 0 transparent;
+  padding-left:24px;
+  line-height:20px;
+  margin-top:5px;
+}
+.guide li.like {
+  background: url("icon_like_small.png") no-repeat scroll 0 0 transparent;
+  padding-left:24px;
+  line-height:20px;
+  margin-top:5px;
+}
+.guide li.unlike {
+  background: url("icon_unlike_small.png") no-repeat scroll 0 0 transparent;
+  padding-left:24px;
+  line-height:20px;
+  margin-top:5px;
 }
 #footer {
     background-color: #282828;
@@ -440,7 +483,8 @@ div.imessage {
     width: 506px;
 }
 div.imessage h2,div.idea-edit h2{
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 20px;
     font-weight: 100;
     margin: 0 0 7px;
     overflow: hidden;
@@ -452,27 +496,27 @@ div.imessage h2 span,div.idea-edit h2 span{
 }
 div.imessage h2 span.launched,div.idea-edit h2 span.launched {
     background: url("icon_ok.png") no-repeat scroll 0 0 transparent;
-    height: 24px;
+    height: 20px;
     text-indent: -10000px;
-    width: 24px;
+    width: 20px;
 }
 div.imessage h2 span.reviewed,div.idea-edit h2 span.reviewed {
     background: url("icon_reviewed.png") no-repeat scroll 0 0 transparent;
-    height: 24px;
+    height: 20px;
     text-indent: -10000px;
-    width: 24px;
+    width: 20px;
 }
 div.imessage h2 span.in-the-works,div.idea-edit h2 span.in-the-works {
     background: url("icon_gear.png") no-repeat scroll 0 0 transparent;
-    height: 24px;
+    height: 20px;
     text-indent: -10000px;
-    width: 24px;
+    width: 20px;
 }
 div.imessage h2 span.under-review,div.idea-edit h2 span.under-review {
     background: url("icon_review.png") no-repeat scroll 0 0 transparent;
-    height: 24px;
+    height: 20px;
     text-indent: -10000px;
-    width: 24px;
+    width: 20px;
 }
 div.imessage div.info{
 	font-size: 12px;

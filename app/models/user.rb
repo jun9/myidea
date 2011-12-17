@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation,:check_password
   attr_reader :password
 
-  validates :username,:presence =>true,:uniqueness => true,:length => {:minimum => 3,:maximum => 14},:format => {:with => /\A[a-zA-Z0-9]+\z/,:message => I18n.t('errors.user.username_format')}
+  validates :username,:presence =>true,:uniqueness => true,:length => {:minimum => 3,:maximum => 14},:format => {:with => /\A[a-zA-Z0-9]+\z/,:message => I18n.t('myidea.errors.user.username_format')}
   validates :password,:presence => true,:confirmation => true,:length => {:minimum => 6,:maximum => 30},:if => "check_password"
   validates :email,:presence => true,:uniqueness => true,:length => {:maximum => 128},:format => {:with => /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/}
 
