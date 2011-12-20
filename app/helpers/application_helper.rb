@@ -1,7 +1,7 @@
 module ApplicationHelper
   def error_msg_tag(msg)
     content_tag :div do
-      [content_tag(:span,"",:class=>"ui-icon ui-icon-alert msg"),msg,content_tag(:a,content_tag(:span,"close",:class=>"ui-icon ui-icon-closethick"),:href =>"javascript:closeFlash();",:style=>"float:right")].join.html_safe
+      [content_tag(:span,"",:class=>"ui-icon ui-icon-alert msg"),msg,content_tag(:a,content_tag(:span,'close',:class=>"ui-icon ui-icon-closethick"),:href =>"javascript:closeFlash();",:class => "close")].join.html_safe
     end
   end
 

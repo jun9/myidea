@@ -1,13 +1,12 @@
 class Comment < ActiveRecord::Base
   belongs_to :user
-  belongs_to :idea
+  belongs_to :idea,:counter_cache => true
 
-  self.per_page = 5
+  self.per_page = 20
 
   validates :content,:presence =>true,:length => {:maximum => 1000}
 
   after_create do |comment|
-    comment.idea.update_attribute("comments_count",self.idea.comments_count+1)
     Activity.create(:action =>ACTIVITY_COMMENT_IDEA,:idea => comment.idea,:user => comment.user)
     comment.user.points += 1
     comment.user.save

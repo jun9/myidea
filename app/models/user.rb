@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :activities
 
-  self.per_page = 3
+  self.per_page = 10
 
   attr_accessor :password_confirmation,:check_password
   attr_reader :password

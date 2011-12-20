@@ -31,13 +31,13 @@ class IdeasController < ApplicationController
   
   def show
     if request.xhr?
-      @comments = Comment.where(:idea_id => params[:id]).order("created_at asc").paginate(:page => params[:comments_page])
+      @comments = Comment.where(:idea_id => params[:id]).order("created_at asc").paginate(:page => params[:comments_page]).includes(:user)
       render :partial => "comments",:locals => {:comments => @comments}
     else
       comments_page = session[:comments_page]?session[:comments_page]:params[:comments_page]
       session[:comments_page] = nil
       @idea = Idea.find(params[:id])
-      @comments = Comment.where(:idea_id => @idea.id).order("created_at asc").paginate(:page => comments_page)
+      @comments = Comment.where(:idea_id => @idea.id).order("created_at asc").paginate(:page => comments_page).includes(:user)
       @comment = Comment.new
     end
   end
@@ -99,7 +99,7 @@ class IdeasController < ApplicationController
       when params[:style] == "#{IDEA_SORT_COMMENTS}" then "comments_count desc"
       else "updated_at desc"
       end
-      @ideas = Idea.where(conditions).paginate(:page => params[:ideas_page]).order(order)
+      @ideas = Idea.includes(:category, :user).where(conditions).paginate(:page => params[:ideas_page]).order(order)
       render :layout => false
     else
       render :action => :index

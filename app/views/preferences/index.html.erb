@@ -1,0 +1,16 @@
+<table class="tt">
+  <tbody>
+	<tr class="title">
+	  <td>设置项名称</td>
+	  <td>设置项值</td>
+	  <td>操作</td>
+	</tr>
+    <% @preferences.each do |preference| %>
+      <tr>
+		<td><%= t "myidea.preference.#{preference.name}" %></td>
+		<td><%= preference.value %></td>
+		<td><%= link_to "修改",'javascript:;',:class => "preference-edit",:id => "edit-preference-btn-#{preference.id}" %></td>
+	  </tr>
+    <% end %>
+  </tbody>
+</table>

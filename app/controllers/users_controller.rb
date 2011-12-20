@@ -103,7 +103,7 @@ class UsersController < ApplicationController
       end
     else
       template = "act"
-      @activities = user.activities.order("created_at desc").limit(30) 
+      @activities = user.activities.order("created_at desc").limit(30).includes(:idea) 
     end
     render template,:layout => false
   end

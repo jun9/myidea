@@ -21,8 +21,8 @@
 	<div class="info">由&nbsp;<%= link_to idea.user.username,user_path(idea.user) %></div>
     <div class="entry"><%= raw RedCloth.new(idea.description,[:filter_html]).to_html %></div>
 	<ul class="actions">
-      <% if idea.comments_count > 0 %>
-	  <li class="comment"><%= link_to "评论[#{idea.comments_count}]",idea_path(idea,:anchor => "first") %></li>
+      <% if idea.comments.size > 0 %>
+	  <li class="comment"><%= link_to "评论[#{idea.comments.size}]",idea_path(idea,:anchor => "first") %></li>
       <% end %>
       <% if can? :create,Comment %>
 	  <li class="write"><%= link_to "发表评论",idea_path(idea,:anchor => "comment-form") %></li>

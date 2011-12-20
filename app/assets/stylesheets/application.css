@@ -73,10 +73,20 @@ input.sub-btn{
 div.error-msg{
   margin:8px 0;
   padding:.3em .7em; 
+  position: relative;
 }
 div.error-msg span.msg{
   float:left;
   margin-right:.3em;
+}
+div.error-msg a.close{
+  position: absolute;
+  right: .3em;
+  top: 11px;
+  width: 19px;
+  margin: -10px 0 0 0;
+  padding: 1px;
+  height: 18px;
 }
 div.text{
   width: 500px;
@@ -112,6 +122,10 @@ table.help tr th{
 table.help tr td{
   border:1px solid #BDBCB7;
   padding: 5px;
+}
+span.highlight{
+  font-weight:bold;
+  color:#E17009;
 }
 #header {
     background-color: #FFFFFF;

@@ -1,9 +1,5 @@
 简介
 
-如果做为一个公司，想要了解用户对自己的产品有什么改进意见，用户可以通过myidea这样一个平台发布自己的idea，所有的用户可以对这个idea进行评论，投票支持/不支持，好的idea会加入到公司产品中。
+MyIdea这款Web应用是为帮助公司或组织和自己用户沟通交流的平台，用户可以通过这样一个平台发布自己对产品和服务的改进意见，其它的用户可以对这个主意进行评论，投票支持/不支持，公司或组织发现了用户的好主意，可以将其纳入产品和服务中。
 
-屏幕截图
-PS:由于没有设计LOGO，所以用的JQuery UI的LOGO添的位置
-
-浏览idea: http://hacker2starup.iteye.com/picture/100257
-添加idea: http://hacker2starup.iteye.com/picture/100259
+了解更多，访问http://www.danthought.com/opensource-myidea/

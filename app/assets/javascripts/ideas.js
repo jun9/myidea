@@ -1,5 +1,5 @@
 function showFlash(alertFlash){
-  $('#flash').html('<div class="ui-state-error ui-corner-all error-msg"><div><span class="ui-icon ui-icon-alert msg"></span>'+alertFlash+'<a href="javascript:closeFlash();" style="float:right"><span class="ui-icon ui-icon-closethick">close</span></a></div><div class="clear"></div></div>');
+  $('#flash').html('<div class="ui-state-error ui-corner-all error-msg"><div><span class="ui-icon ui-icon-alert msg"></span>'+alertFlash+'<a href="javascript:closeFlash();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a></div><div class="clear"></div></div>');
 }
 function closeFlash(){
   $('#flash').empty();
@@ -121,7 +121,7 @@ function prepareComments(){
   });
 }
 
-function prepareCategories(){
+function prepareDashboard(){
   $addCateForm = $("#add-cate-form");
   $addCateForm.find("input").keydown(function(event){
     if(event.keyCode==13) {
@@ -162,6 +162,33 @@ function prepareCategories(){
       }
     }
   });
+  $editPreferenceForm = $("#edit-preference-form");
+  $editPreferenceForm.find("input").keydown(function(event){
+    if(event.keyCode==13) {
+      $editPreferenceForm.submit();
+      return false;
+    }
+  });
+  $editPreferenceDialog = $('#edit-preference-dialog').dialog({
+    width: 250,
+    modal:true,
+    autoOpen:false,
+    buttons:{
+      "提交":function(){
+        $editPreferenceForm.submit();
+      },
+      "关闭":function(){
+        $(this).dialog("close");
+      }
+    }
+  });
+}
+
+function prepareCategories(){
+  $addCateForm = $("#add-cate-form");
+  $addCateDialog = $('#add-cate-dialog');
+  $editCateForm = $("#edit-cate-form");
+  $editCateDialog = $('#edit-cate-dialog');
   $tabBox = $('#tab-box').addClass("tab-content");
   // Category Delete Button
   $tabBox.find('a.cate-del').button({
@@ -276,6 +303,27 @@ function prepareUsers(){
   }
 }
 
+function preparePreferences(){
+  $editPreferenceForm = $("#edit-preference-form");
+  $editPreferenceDialog = $('#edit-preference-dialog');
+  $tabBox = $('#tab-box').addClass("tab-content");
+  // Preference Edit Button
+  $tabBox.find('a.preference-edit').button({
+    text: false,
+    icons: {
+      primary: "ui-icon-pencil"
+    }
+  }).click(function(){
+    var $btn = $(this);
+    var value = $btn.parent().prev().text();
+    var id = $btn.attr("id").substring($btn.attr("id").lastIndexOf("-")+1);
+    var action = $editPreferenceForm.attr("action");
+    $editPreferenceForm.attr("action",action.substring(0,action.lastIndexOf("/")+1)+id);
+    $editPreferenceDialog.find("#value").val(value);
+    $editPreferenceDialog.dialog('open');
+  });
+}
+
 $(function(){
   /* Button */
   $('#pub-idea').button({
@@ -318,9 +366,11 @@ $(function(){
       switch(ui.index){
         case 0:prepareCategories();break
         case 1:prepareUsers();break
+        case 2:preparePreferences();break
       }
     } 
   });
+  prepareDashboard();
   $('#idea-description-tabs').tabs();
   $('#comment-content-tabs').tabs();
   /* Dialog */

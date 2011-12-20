@@ -276,6 +276,8 @@ zh-CN:
         content: "评论"
       category:
         name: "类别名称"
+      preference:
+        value: "设置项值"
   #for custome
   myidea:
     errors:
@@ -318,3 +320,5 @@ zh-CN:
         reviewed: "完成审核"
         in-the-works: "开始实施"
         launched: "完成实施"
+    preference:
+      site_name: "站点名称"

@@ -21,4 +21,5 @@ Myidea::Application.routes.draw do
     put 'authority',:on => :member
   end
   resources :categories
+  resources :preferences
 end

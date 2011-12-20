@@ -3,6 +3,7 @@
   <ul>
     <li><%= link_to '类别',categories_path,:title =>'tab-box' %></li>
     <li><%= link_to '用户',users_path,:title =>'tab-box' %></li>
+    <li><%= link_to '设置',preferences_path,:title =>'tab-box' %></li>
   </ul>
 </div>
 <div id="edit-cate-dialog" title="修改类别">
@@ -18,6 +19,13 @@
     <div class="item">
       <%= label_tag  :name,t("activerecord.attributes.category.name"),:class=>"text" %>
 	  <%= text_field_tag(:name,params[:name],:class => "text",:maxlength => 30) %>
+    </div>
+  <% end %>  	
+</div>
+<div id="edit-preference-dialog" title="修改设置">
+  <%= form_tag preference_path(0),:method => :put,:remote => true,:id => "edit-preference-form" do %>
+    <div class="item">
+	  <%= text_field_tag(:value,params[:value],:class => "text",:maxlength => 30) %>
     </div>
   <% end %>  	
 </div>

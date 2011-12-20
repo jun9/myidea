@@ -1,0 +1,9 @@
+closeFlash();
+var el = $('#edit-preference-dialog');
+el.dialog("close");
+<% if @preference.errors.any? %>
+  $('#flash').html('<%= errors_msg_tag(@preference) %>');
+<% else %>
+  $("#edit-preference-btn-<%= @preference.id %>").parent().prev().text("<%= escape_javascript(@preference.value) %>")
+  el.find('input:text,textarea').val('');
+<% end %>
