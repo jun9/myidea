@@ -582,11 +582,11 @@ div.idea div.imessage ul.actions li.edit a{
     padding: 0 0 0 30px;
 }
 div.idea div.imessage ul.actions li.favor a{
-    background-image: url("icon_favor.png");
+    background-image: url("icon_unfavor.png");
     padding: 0 0 0 30px;
 }
 div.idea div.imessage ul.actions li.unfavor a{
-    background-image: url("icon_unfavor.png");
+    background-image: url("icon_favor.png");
     padding: 0 0 0 30px;
 }
 div.idea div.imessage ul.actions li.category {
