@@ -308,8 +308,8 @@ zh-CN:
       comment: "评论了"
       like: "顶了"
       unlike: "踩了"
-      favorite: "收藏了"
-      unfavorite: "取消收藏"
+      favorite: "关注了"
+      unfavorite: "取消关注"
     idea:
       under-review: "审核中"
       reviewed: "已审核"

@@ -29,9 +29,9 @@
       <% end %>
       <% if can? :favoriate,idea %>
         <% if idea.favorers.exists?(session[:login_user].id) %>
-	      <li class="unfavor"><%= link_to "取消收藏",unfavoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}" %></li>
+	      <li class="unfavor"><%= link_to "取消关注",unfavoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}" %></li>
         <% else %>
-	      <li class="favor"><%= link_to "收藏",favoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}" %></li>
+	      <li class="favor"><%= link_to "关注",favoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}" %></li>
         <% end %>
       <% end %>
       <% if can? :edit,idea %>
