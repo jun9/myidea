@@ -1,3 +1,3 @@
 <% unless @idea.errors.any? %>
-$("#favor-link-<%= @idea.id %>").parent().replaceWith('<li class="favor"><%= link_to "收藏",favoriate_idea_path(@idea),:remote => true,:id => "favor-link-#{@idea.id}" %></li>');
+$("#favor-link-<%= @idea.id %>").parent().replaceWith('<li class="favor"><%= link_to "关注",favoriate_idea_path(@idea),:remote => true,:id => "favor-link-#{@idea.id}" %></li>');
 <% end %>
