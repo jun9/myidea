@@ -14,12 +14,12 @@ Myidea::Application.routes.draw do
     match 'favoriate',:on => :member
     match 'unfavoriate',:on => :member
     resources :comments,:shallow => :true
+    resources :solutions,:shallow => :true
   end
   resources :users do
     get 'activity',:on => :member
     get 'act',:on => :member
     put 'authority',:on => :member
   end
-  resources :categories
   resources :preferences
 end

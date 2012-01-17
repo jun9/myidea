@@ -1,17 +1,17 @@
 class Idea < ActiveRecord::Base
-  belongs_to :category
+  has_and_belongs_to_many :tags
   belongs_to :user
   has_many :voters,:through => :votes,:source =>:user
   has_many :votes
   has_many :favorers,:through => :favors,:source =>:user
   has_many :favors
   has_many :comments
+  has_many :solutions
 
   self.per_page = 30
 
   validates :title,:presence =>true,:length => {:maximum => 60}
   validates :description,:presence =>true,:length => {:maximum => 2000}
-  validates :category_id,:presence =>true
 
   after_create do |idea|
     Activity.create(:action =>ACTIVITY_CREATE_IDEA,:idea => idea,:user => idea.user)
@@ -40,6 +40,14 @@ class Idea < ActiveRecord::Base
       errors.add(:status,I18n.t('myidea.errors.idea.wrong_status'))
       false
     end
+  end
+
+  def tag_names=(names)
+    self.tags = Tag.with_names(names.split(/\s+/))
+  end
+
+  def tag_names
+    tags.map(&:name).join(' ')
   end
 
 end

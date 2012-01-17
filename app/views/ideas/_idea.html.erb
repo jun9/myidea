@@ -1,48 +1,39 @@
-<div class="idea">
-  <ul class="idea-vote">
-    <li><h6>投票</h6></li>
-    <li class="vote-btn">
-      <%= like_button_tag "顶",like_idea_path(idea),:like,idea %>
-      <%= like_button_tag "踩",unlike_idea_path(idea),:unlike,idea %>
-	<li class="score">
-	  <span>
-	    <strong><%= idea.points %></strong><br>
-		<small>分</small>
-	  </span>
-	</li> 
-  </ul>
-  <div class="imessage"> 
-	<h2>
-	  <span><%= link_to idea.title,idea,:title => idea.title %></span>
-      <%= status_span_tag idea %>
-	</h2>
-	<div class="info">类别:&nbsp;<%= idea.category.name %></div>
-	<div class="info">发布于&nbsp;<%= l idea.created_at,:format => :long %></div>
-	<div class="info">由&nbsp;<%= link_to idea.user.username,user_path(idea.user) %></div>
-    <div class="entry"><%= raw RedCloth.new(idea.description,[:filter_html]).to_html %></div>
-	<ul class="actions">
-      <% if idea.comments.size > 0 %>
-	  <li class="comment"><%= link_to "评论[#{idea.comments.size}]",idea_path(idea,:anchor => "first") %></li>
+<div class="idea-box">
+  <div class="row">
+	<div class="span10">
+	  <div class="idea-title"><%= link_to idea.title,idea,:title => idea.title %></div>
+	  <div class="idea-tag">
+      <% idea.tags.each do |tag| %>
+        <%= link_to tag.name,'#',:class => "tag" %>
       <% end %>
-      <% if can? :create,Comment %>
-	  <li class="write"><%= link_to "发表评论",idea_path(idea,:anchor => "comment-form") %></li>
-      <% end %>
-      <% if can? :favoriate,idea %>
-        <% if idea.favorers.exists?(session[:login_user].id) %>
-	      <li class="unfavor"><%= link_to "取消关注",unfavoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}" %></li>
-        <% else %>
-	      <li class="favor"><%= link_to "关注",favoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}" %></li>
-        <% end %>
-      <% end %>
-      <% if can? :edit,idea %>
-	    <li class="edit"><%= link_to "编辑",edit_idea_path(idea) %></li>
-      <% end %>
-      <% if can? :handle,idea %>
-        <% if idea.status != IDEA_STATUS_LAUNCHED %>
-	    <li class="manage"><%= link_to "修改状态",handle_idea_path(idea) %></li>
-        <% end %>
-      <% end %>
-	</ul> 
+      </div>
+	  <div class="idea-info">由&nbsp;<%= link_to idea.user.username,user_path(idea.user) %>&nbsp;发布了&nbsp;<%= distance_of_time_in_words_to_now idea.created_at %></div>
+	  <div class="idea-entry"><%= raw RedCloth.new(idea.description,[:filter_html]).to_html %></div>
+	</div>
+	<div class="span2">
+	  <ul class="unstyled idea-action">
+		<li><a href="#">修改</a></li>
+	  </ul>
+	</div>
   </div>
-  <div class="clear"></div>
+  <%= render idea.solutions %>
+  <%= render idea.comments %>
+  <div class="idea-button">
+    <%= link_to "建议",idea_path(idea),:class =>"btn primary" %> 
+    <% if can? :create,Comment %>
+      <%= link_to "评论",idea_path(idea),:class =>"btn info" %>
+    <% end %>
+    <% if can? :favoriate,idea %>
+      <% if idea.favorers.exists?(session[:login_user].id) %>
+	    <%= link_to "取消关注",unfavoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}",:class=>"btn" %>
+      <% else %>
+	    <%= link_to "关注",favoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}",:class=>"btn" %>
+      <% end %>
+    <% end %>
+    <% if can? :handle,idea %>
+      <% if idea.status != IDEA_STATUS_LAUNCHED %>
+	    <%= link_to "实施",handle_idea_path(idea),:class=>"btn danger" %>
+      <% end %>
+    <% end %>
+  </div>
 </div>

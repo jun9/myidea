@@ -1,9 +1,20 @@
 <div id="flash"><%= errors_flash_tag flash[:alert] %></div>
-<div id="tabs">
-	<ul>
-	  <li><%= link_to '热门',tab_ideas_path(:style => IDEA_SORT_HOT,:cate_id => params[:cate_id]),:title =>'tab-box' %></li>
-	  <li><%= link_to '最新',tab_ideas_path(:style => IDEA_SORT_NEW),:title =>'tab-box'%></li>
-	  <li><%= link_to '评分最高',tab_ideas_path(:style => IDEA_SORT_POINTS),:title =>'tab-box' %></li>
-	  <li><%= link_to '评论最多',tab_ideas_path(:style => IDEA_SORT_COMMENTS),:title =>'tab-box' %></li>
-	</ul>
+
+<ul class="tabs">
+  <li><a href="#">审核中</a></li>
+  <li class="active"><a href="#">通过的</a></li>
+  <li><a href="#">实施中</a></li>
+  <li><a href="#">完成的</a></li>
+  <li><a href="#">无效的</a></li>
+</ul>
+
+<div class="row">
+  <div class="span9"><a class="tag" href="#">视觉</a></div>
+  <div class="span3">
+    <select class="medium" name="mediumSelect">
+	  <option>最新</option>
+    </select>
+  </div>
 </div>
+
+<%= render @ideas %>

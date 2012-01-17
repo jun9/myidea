@@ -1,0 +1,14 @@
+<div class="comment-box">
+  <div class="row">
+	<div class="span9">
+	  <div class="comment-info"><%= link_to comment.user.username,user_path(comment.user) %></div>
+	  <div class="comment-entry"><%= comment_entry_tag comment %></div>
+	  <div class="comment-date"><%= distance_of_time_in_words_to_now comment.created_at %></div>
+	</div>
+	<div class="span2">
+	  <ul class="unstyled comment-action">
+		<li><a href="#">修改</a></li>
+	  </ul>
+	</div>
+  </div>
+</div>

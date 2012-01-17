@@ -263,8 +263,7 @@ zh-CN:
       idea:
         title: "主意"
         description: "内容"
-        category_id: "分类"
-        category: "分类"
+        tag_names: "标签"
         status: "状态"
       user:
         username: "用户名"

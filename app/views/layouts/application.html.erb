@@ -8,81 +8,65 @@
 </head>
     <body>
     <%= render "common/header"%>
-	<div id="main">
-		<div class="content">
-			<div class="col-a" id="rightBox">
-              <%= yield %>
-              <div id="login-dialog">
-              <p>
-               <span class="ui-icon ui-icon-alert" style="float:left;margin-right:.3em"></span>您还没有登录，请先&nbsp;<%= link_to "登录>>",login_path %>
-              </P>
-              </div>
-			</div> 
-			<div class="col-b">
-				<div class="search-panel ui-state-highlight">
-					<%= form_tag(search_ideas_path,:method => "get",:id => "search-form") do %>
-						<div class="search-panel-fields ">                    
-							<%=text_field_tag(:q,@query,:placeholder => "搜索主意",:id=> "query",:class=> "query",:title => "搜索主意") %>
-						</div>
-                        <%= button_tag "搜索主意",:id => "searchBtn" %>
-					<% end %>
-				</div>
-                <div class="category-summary ui-widget-content ui-corner-all">
-                  <h3 class="ui-widget-header ui-corner-all header">类别</h3>
-					<ul>
-                      <% Category.all.each do |category|%>
-						<li><span><%= category.ideas.count %></span><%= link_to category.name,tab_ideas_path(:cate_id => category.id ),:class => 'cate_link',:remote => true %></li>
-                      <% end %>
-					</ul>
-				</div>
-                <div class="leadboard ui-widget-content ui-corner-all">
-                  <h3 class="ui-widget-header ui-corner-all header">排行榜</h3>
-                  <table cellspacing="0" cellpadding="0">
-                      <% User.order("points desc").limit(10).each_with_index do |user,index| %>
-                      <tr>
-                        <td class="rank"><%= index+1 %></td>
-                        <td class="username"><%= link_to user.username,user %></td>
-                        <td><span><%= user.ideas.count %></span><span class="create"></span></td>
-                        <td><span><%= user.comments.count %></span><span class="comment"></span></td>
-                        <td><span><%= user.liked_votes.count %></span><span class="like"></span></td>
-                        <td><span><%= user.unliked_votes.count %></span><span class="unlike"></span></td>
-                      </tr>
-                      <% end %>
-                  </table>
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+			<div class="row">
+			  <div class="span12">
+              <%= form_for(@idea) do |f| %>
+                <div id="flash"><%= errors_msg_tag(@idea) %></div>
+			    <div class="clearfix">
+				  <%= f.label :title%>
+				  <div class="input">
+                    <%= f.text_field :title, :class => "xlarge", :maxlength => 60 %>
+				    <button class="btn primary" type="submit">发布</button>
+				  </div>
+			    </div>
+			    <div class="clearfix">
+				  <%= f.label :description%>
+				  <div class="input">
+	                <%= f.text_area :description,:class=>"xlarge",:style => "height:200px;overflow-y:auto" %>
+				  </div>
+			    </div>
+			    <div class="clearfix">
+				  <%= f.label :tag_names %>
+				  <div class="input">
+                    <%= f.text_field :tag_names, :class => "xlarge" %>
+					<span class="help-block">标签由空格间隔，最多5个标签</span>
+				  </div>
+			    </div>
+                <div class="actions">
+                  <%= f.submit "发布主意",:class => "btn primary" %>
                 </div>
-                <div class="guide">
-                  <div id="guide">
-                    <div>
-                      <h3><a href="javascript:;">主意如何实现？</a></h3>
-                      <div>
-                        <h4>您发布了新主意后，主意等待处理，管理员认为你的主意还不错，希望进一步审核主意，更深入地考虑主意能否在目前条件下实施，审核结束后，如果能够实施，您的主意将在不久的将来出现在其产品和服务中。</h4>
-                        <h4>主意状态的流转：</h4>
-                        <ul>
-                        <li class="default">等待处理</li>
-                        <li class="under-review">审核中</li>
-                        <li class="reviewed">已审核</li>
-                        <li class="in-the-works">实施中</li>
-                        <li class="launched">已实施</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div>
-                      <h3><a href="javascript:;">排行榜规则？</a></h3>
-                      <div>
-                      <h4>排行榜显示的是用户的参与程度，前10名</h4>
-                      <ul>
-                      <li class="create">发布新主意3分</li>
-                      <li class="like">顶一次主意1分</li>
-                      <li class="unlike">踩一次主意1分</li>
-                      <li class="comment">评论了主意1分</li>
-                      </ul>
-                      </div>
-                    </div>
-                 </div>
-                </div>
-			</div>
-		</div>
-	</div>
+		      <% end %>
+		      </div>
+		    </div>
+          </div>
+
+
+        <div class="row">
+          <div class="span12">
+              <%= yield %>            
+          </div>
+          <div class="span4">
+            <ul class="pills sidebar-select">
+              <li class="active"><a href="#">所有的主意</a></li>
+              <li><a href="#">发布的主意</a></li>
+              <li><a href="#">关注的主意</a></li>
+              <li><a href="#">消息</a></li>
+            </ul>
+            <h4>热门标签</h4>
+			<ul class="unstyled hot-tags">
+              <% Tag.all.each do |tag|%>
+			    <li><%= link_to tag.name,'#',:class => 'tag' %>x&nbsp;<%= tag.ideas.count %></li>
+              <% end %>
+			</ul>
+	      </div>
+        </div>
+      </div>
+
     <%= render "common/footer"%>
+
+    </div> <!-- /container -->
     </body>
 </html>

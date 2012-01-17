@@ -8,14 +8,10 @@ class AddInitData < ActiveRecord::Migration
     
     Preference.delete_all
     Preference.create(:name =>PREFERENCE_SITE_NAME,:value => 'No Site Name')
-
-    Category.delete_all
-    Category.create(:name =>'Default')
   end
 
   def down
     User.delete_all
     Preference.delete_all
-    Category.delete_all
   end
 end

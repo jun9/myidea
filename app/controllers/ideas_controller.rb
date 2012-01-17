@@ -2,6 +2,8 @@ class IdeasController < ApplicationController
   authorize_resource
 
   def index
+    @ideas = Idea.includes(:tags,:user)
+    @idea = Idea.new
   end
  
   def dashboard
@@ -39,6 +41,7 @@ class IdeasController < ApplicationController
       @idea = Idea.find(params[:id])
       @comments = Comment.where(:idea_id => @idea.id).order("created_at asc").paginate(:page => comments_page).includes(:user)
       @comment = Comment.new
+      @solution = Solution.new
     end
   end
 

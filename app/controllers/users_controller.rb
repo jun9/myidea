@@ -72,6 +72,7 @@ class UsersController < ApplicationController
   end
 
   def login
+    @idea = Idea.new
     if request.post?
       if user = User.authenticate(params[:account],params[:password])
         if user.active

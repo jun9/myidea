@@ -11,18 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111221032413) do
+ActiveRecord::Schema.define(:version => 20120117035117) do
 
   create_table "activities", :force => true do |t|
     t.string   "action"
     t.integer  "user_id"
     t.integer  "idea_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "categories", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -51,14 +45,36 @@ ActiveRecord::Schema.define(:version => 20111221032413) do
     t.integer  "status",         :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "category_id"
     t.integer  "user_id"
     t.integer  "comments_count", :default => 0
   end
 
+  create_table "ideas_tags", :id => false, :force => true do |t|
+    t.integer "tag_id"
+    t.integer "idea_id"
+  end
+
+  add_index "ideas_tags", ["tag_id", "idea_id"], :name => "index_ideas_tags_on_tag_id_and_idea_id", :unique => true
+
   create_table "preferences", :force => true do |t|
     t.string   "name"
     t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "solutions", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "points"
+    t.integer  "user_id"
+    t.integer  "idea_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
