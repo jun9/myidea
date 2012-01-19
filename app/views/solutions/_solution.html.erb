@@ -1,9 +1,9 @@
 <div class="solution-box">
   <div class="row">
-	<div class="span9">
+	<div class="span7">
 	  <div class="solution-info"><%= link_to solution.user.username,user_path(solution.user) %>&nbsp;建议方案&nbsp;<span class="label success"><%= solution.title %></span></div>
 	  <div class="solution-entry"><%= solution.content %></div>
-	  <div class="solution-date"><%= distance_of_time_in_words_to_now solution.created_at %></div>
+	  <div class="solution-date"><span class="date"><%= distance_of_time_in_words_to_now solution.created_at %></span></div>
 	</div>
 	<div class="span2">
 	  <ul class="unstyled solution-action">

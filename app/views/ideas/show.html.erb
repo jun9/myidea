@@ -1,8 +1,2 @@
-<div id="flash"><%= errors_flash_tag flash[:alert] %></div>
-<h1>评论</h1>
-<%= form_for([@idea,@comment]) do |f| %>
-	<%= f.text_area :content,:class => "text",:style => "width:450px;height:200px;overflow-y:auto" %>
-    <%= f.submit "发布",:id => "add-comment" %>
-<% end %>
+<%= render @idea %>
 <h1>建议</h1>
-<%= render 'solutions/form' %>

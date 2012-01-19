@@ -24,11 +24,81 @@
                 </ul>
               </li>
             <% else %>
-              <li><%= link_to "登录",login_path %></li>
-              <li><%= link_to "注册",new_user_path %></li>
+              <li><%= link_to "登录",'javascript:;','data-controls-modal'=>'modal-login','data-backdrop'=>'true','data-keyboard'=>'true'%></li>
+              <li><%= link_to "注册",'javascript:;','data-controls-modal'=>'modal-signup','data-backdrop'=>'true','data-keyboard'=>'true' %></li>
             <% end %>
           </ul>
         </div>
       </div>
     </div>
 
+    <div id="modal-login" class="modal hide fade" style="display: block;">
+      <%= form_tag :login do %>
+      <div class="modal-header">
+        <a href="#" class="close">×</a>
+        <h3>登录</h3>
+      </div>
+      <div class="modal-body">
+        <div id="flash"><%= errors_flash_tag flash[:alert] %></div>
+		  <fieldset>
+		    <div class="clearfix">
+              <%= label_tag :username,t("activerecord.attributes.user.email") %>
+			  <div class="input">
+	            <%= text_field_tag(:account,params[:account],:maxlength => 30) %>
+              </div>
+			</div>
+			<div class="clearfix">
+              <%= label_tag :password,t("activerecord.attributes.user.password"),:class => "text" %>
+			  <div class="input">
+	            <%= password_field_tag(:password,params[:password],:maxlength => 30) %>
+			  </div>
+			</div>
+		  </fieldset>
+      </div>
+	  <div class="modal-footer">
+        <%= submit_tag "登录",:class => "btn primary"%>
+      </div>
+      <% end %>
+    </div>
+
+    <div id="modal-signup" class="modal hide fade" style="display: block;">
+      <%= form_for(@user) do |f| %>
+      <div class="modal-header">
+        <a href="#" class="close">×</a>
+        <h3>创建帐号</h3>
+      </div>
+      <div class="modal-body">
+        <div class="alert-message block-message error">
+        <p><strong>Oh snap! You got an error!</strong> Change this and that and <a href="#">try again</a>.</p>
+        <ul>
+          <li>Duis mollis est non commodo luctus</li>
+          <li>Nisi erat porttitor ligula</li>
+          <li>Eget lacinia odio sem nec elit</li>
+        </ul>
+        </div>
+		<fieldset>
+		  <div class="clearfix">
+            <%= f.label :email %>
+			<div class="input">
+              <%= f.email_field :email %>
+			</div>
+		  </div>
+		  <div class="clearfix">
+            <%= f.label :username %>
+			<div class="input">
+              <%= f.password_field :username %>
+			</div>
+		  </div>
+		  <div class="clearfix">
+            <%= f.label :password %>
+			<div class="input">
+              <%= f.password_field :password %>
+			</div>
+		  </div>
+		</fieldset>
+      </div>
+	  <div class="modal-footer">
+        <%= f.submit "注册",:class => "btn primary"%>
+      </div>
+      <% end %>
+    </div>

@@ -4,6 +4,8 @@ class IdeasController < ApplicationController
   def index
     @ideas = Idea.includes(:tags,:user)
     @idea = Idea.new
+    @user = User.new
+    @comment = Comment.new
   end
  
   def dashboard
@@ -42,6 +44,7 @@ class IdeasController < ApplicationController
       @comments = Comment.where(:idea_id => @idea.id).order("created_at asc").paginate(:page => comments_page).includes(:user)
       @comment = Comment.new
       @solution = Solution.new
+      @user = User.new
     end
   end
 

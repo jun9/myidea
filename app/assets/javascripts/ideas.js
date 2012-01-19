@@ -325,4 +325,15 @@ function preparePreferences(){
 }
 
 $(function(){
+  $('.comment-form').hide();
+  $('.comment-btn').each(function(){
+    $(this).click(function(){
+      $(this).parent().hide().next().show().find('a.close').click(function(){
+        $close = $(this);
+        $close.parent().parent().hide().prev().show();
+        $close.next()[0].reset();
+        $close.parent().prev().remove();
+      });
+    });
+  });
 });

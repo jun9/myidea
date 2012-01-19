@@ -1,3 +1,4 @@
+# encoding: utf-8
 module ApplicationHelper
   def error_msg_tag(msg)
     content_tag :div do
@@ -7,15 +8,10 @@ module ApplicationHelper
 
   def errors_msg_tag(object)
     if object.errors.any?
-        content_tag :div,:class => "ui-state-error ui-corner-all error-msg" do
-          object.errors.full_messages.map.with_index{ |msg,index|
-            if index == 0
-              [error_msg_tag(msg),content_tag(:div,'',:class=>"clear")].join.html_safe
-            else
-              [content_tag(:div,content_tag(:span,"",:class=>"ui-icon ui-icon-alert msg")+msg),content_tag(:div,'',:class=>"clear")].join.html_safe 
-            end
-          }.join.html_safe
-        end
+      content_tag :div,:class => "alert-message block-message error" do
+        list_items = object.errors.full_messages.map { |msg| content_tag(:li, msg) }
+        link_to("×","javascript:;",:class =>"close")+content_tag(:ul, list_items.join.html_safe)
+      end
     end
   end
 

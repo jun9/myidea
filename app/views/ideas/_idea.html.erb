@@ -1,13 +1,13 @@
 <div class="idea-box">
   <div class="row">
-	<div class="span10">
+	<div class="span8">
 	  <div class="idea-title"><%= link_to idea.title,idea,:title => idea.title %></div>
 	  <div class="idea-tag">
       <% idea.tags.each do |tag| %>
         <%= link_to tag.name,'#',:class => "tag" %>
       <% end %>
       </div>
-	  <div class="idea-info">由&nbsp;<%= link_to idea.user.username,user_path(idea.user) %>&nbsp;发布了&nbsp;<%= distance_of_time_in_words_to_now idea.created_at %></div>
+	  <div class="idea-info">由&nbsp;<%= link_to idea.user.username,user_path(idea.user) %>&nbsp;发布了&nbsp;<span class="date"><%= distance_of_time_in_words_to_now idea.created_at %></span></div>
 	  <div class="idea-entry"><%= raw RedCloth.new(idea.description,[:filter_html]).to_html %></div>
 	</div>
 	<div class="span2">
@@ -21,7 +21,7 @@
   <div class="idea-button">
     <%= link_to "建议",idea_path(idea),:class =>"btn primary" %> 
     <% if can? :create,Comment %>
-      <%= link_to "评论",idea_path(idea),:class =>"btn info" %>
+      <a href="javascript:;" class="comment-btn btn info">评论</a>
     <% end %>
     <% if can? :favoriate,idea %>
       <% if idea.favorers.exists?(session[:login_user].id) %>
@@ -36,4 +36,24 @@
       <% end %>
     <% end %>
   </div>
+  
+  <div class="comment-form">
+    <div class="alert-message block-message warning">
+	  <a class="close" href="javascript:;">×</a>
+      <%= form_for([idea,@comment],:remote => true,:html =>{:id => "comment-form-#{idea.id}"}) do |f| %>
+		<fieldset>
+		  <div class="clearfix">
+            <%= f.label :content %>
+		    <div class="input">
+	          <%= f.text_area :content,:class => "xlarge",:style => "height:80px;overflow-y:auto" %>
+            </div>
+		  </div>
+          <div class="actions">
+            <%= f.submit "发布",:class=>"btn primary" %>
+          </div>
+		</fieldset>
+	  <% end %>
+    </div>
+  </div>
+
 </div>
