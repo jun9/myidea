@@ -1,6 +1,10 @@
-require 'digest/sha2'
-
 class User < ActiveRecord::Base
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+
+  attr_accessible :login,:username,:email, :password, :password_confirmation, :remember_me,:terms_of_service
+  attr_accessor :login,:password_confirmation
+
   has_many :ideas
   has_many :voted_ideas,:through => :votes,:source =>:idea
   has_many :votes
@@ -14,38 +18,13 @@ class User < ActiveRecord::Base
 
   self.per_page = 10
 
-  attr_accessor :password_confirmation,:check_password
-  attr_reader :password
+  validates :username,:uniqueness => true,:length => {:minimum => 3,:maximum => 14},:format => {:with => /\A[a-zA-Z0-9]+\z/,:message => I18n.t('myidea.errors.user.username_format')}
+  validates :terms_of_service, :acceptance => true
 
-  validates :username,:presence =>true,:uniqueness => true,:length => {:minimum => 3,:maximum => 14},:format => {:with => /\A[a-zA-Z0-9]+\z/,:message => I18n.t('myidea.errors.user.username_format')}
-  validates :password,:presence => true,:confirmation => true,:length => {:minimum => 6,:maximum => 30},:if => "check_password"
-  validates :email,:presence => true,:uniqueness => true,:length => {:maximum => 128},:format => {:with => /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/}
-
-  attr_accessible :username, :email, :password, :password_confirmation
-
-  def User.authenticate(account, password) 
-    if user = where("username = ? OR email = ?",account,account).first
-      if user.hashed_password == encrypt_password(password, user.salt)
-        user
-      end 
-    end
-  end
-
-  def password=(password)
-    @password = password
-    if password.present? 
-      generate_salt 
-      self.hashed_password = self.class.encrypt_password(password, salt)
-    end 
-  end
-
-  def User.encrypt_password(password, salt)
-    Digest::SHA2.hexdigest(password + "myidea" + salt)
-  end
-
-  private
-  def generate_salt 
-    self.salt = self.object_id.to_s + rand.to_s
-  end
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    login = conditions.delete(:login)
+    where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.strip.downcase }]).first
+ end
 
 end

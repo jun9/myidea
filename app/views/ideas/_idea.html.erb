@@ -1,42 +1,57 @@
-<div class="idea-box">
-  <div class="row">
-	<div class="span8">
-	  <div class="idea-title"><%= link_to idea.title,idea,:title => idea.title %></div>
-	  <div class="idea-tag">
-      <% idea.tags.each do |tag| %>
-        <%= link_to tag.name,'#',:class => "tag" %>
-      <% end %>
-      </div>
-	  <div class="idea-info">由&nbsp;<%= link_to idea.user.username,user_path(idea.user) %>&nbsp;发布了&nbsp;<span class="date"><%= distance_of_time_in_words_to_now idea.created_at %></span></div>
-	  <div class="idea-entry"><%= raw RedCloth.new(idea.description,[:filter_html]).to_html %></div>
-	</div>
-	<div class="span2">
-	  <ul class="unstyled idea-action">
-		<li><a href="#">修改</a></li>
-	  </ul>
-	</div>
+<hr/>
+<!-- 主意 -->
+<div class="row">
+  <div class="span2">
+	<ul class="unstyled">
+	  <li><%= link_to image_tag("dj.jpeg",:class=>"profile_picture"),user_path(idea.user) %></li>
+	  <li><%= link_to idea.user.username,user_path(idea.user) %></li>
+	  <li class="shallow">MyIdea开发者，MyIdea开发者，MyIdea开发者</li>
+	</ul>
   </div>
-  <%= render idea.solutions %>
-  <%= render idea.comments %>
-  <div class="idea-button">
-    <%= link_to "建议",idea_path(idea),:class =>"btn primary" %> 
+  <div class="span6">
+	<div class="idea-title"><%= link_to idea.title,idea,:title => idea.title %></div>
+	<div class="idea-label"><span class="label label-info">审核中</span><span><i class="icon-list"></i>&nbsp;<a href="#">MyIdea Web应用</a></span>
+      <span><i class="icon-tags"></i>
+        <% idea.tags.each do |tag| %>
+          <%= link_to tag.name,'#' %>
+        <% end %>
+      </span>
+    </div>
+    <div class="idea-entry"><%= raw RedCloth.new(idea.description,[:filter_html]).to_html %></div>
+    <div class="idea-info shallow"><%= distance_of_time_in_words_to_now idea.created_at %></div>
+  </div>
+  <div class="span1">
+    <ul class="unstyled actions">
+	  <li><a href="#">修改</a></li>
+	</ul>
+  </div>
+</div>
+<%= render idea.solutions %>
+<%= render idea.comments %>
+<div class="row">
+  <div class="span7 offset2 hr"></div>
+</div>
+<div class="row">
+  <div class="span7 offset2">
+    <%= link_to "给个建议",idea_path(idea),:class =>"btn primary" %> 
     <% if can? :create,Comment %>
-      <a href="javascript:;" class="comment-btn btn info">评论</a>
+      <a href="javascript:;" class="comment-btn btn info">发布评论</a>
     <% end %>
     <% if can? :favoriate,idea %>
-      <% if idea.favorers.exists?(session[:login_user].id) %>
+      <% if idea.favorers.exists?(current_user.id) %>
 	    <%= link_to "取消关注",unfavoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}",:class=>"btn" %>
       <% else %>
-	    <%= link_to "关注",favoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}",:class=>"btn" %>
+	    <%= link_to "关注动向",favoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}",:class=>"btn" %>
       <% end %>
     <% end %>
     <% if can? :handle,idea %>
       <% if idea.status != IDEA_STATUS_LAUNCHED %>
-	    <%= link_to "实施",handle_idea_path(idea),:class=>"btn danger" %>
+	    <%= link_to "开始实施",handle_idea_path(idea),:class=>"btn btn-warning" %>
       <% end %>
     <% end %>
   </div>
-  
+</div>
+
   <div class="comment-form">
     <div class="alert-message block-message warning">
 	  <a class="close" href="javascript:;">×</a>
@@ -55,5 +70,3 @@
 	  <% end %>
     </div>
   </div>
-
-</div>

@@ -1,104 +1,33 @@
-    <div class="topbar">
-      <div class="fill">
-        <div class="container">
-          <%= link_to Preference.find_by_name(PREFERENCE_SITE_NAME).value,root_path,:class =>"brand" %>
-		<form action="" class="pull-left">
-            <input class="x-large" type="text" placeholder="搜索主意">
-            <button class="btn" type="submit">搜索</button>
-          </form>
+    <div class="navbar navbar-fixed-top">
+	  <div class="navbar-inner">
+		<div class="container">
+          <%= link_to image_tag("myidea_logo_right.png"),root_path,:class=>"brand" %>
+		  <form class="navbar-form pull-left">
+			<input type="text" placeholder="输入你的好主意">
+            <button class="btn" type="submit">发布</button>
+		  </form>
           <ul class="nav">
             <li class="active"><a href="#">主页</a></li>
             <% if can? :dashboard,Idea %>
               <li><%= link_to "控制面板",dashboard_path,:id => "dashboard" %></li>
             <% end %>
-            <li><a href="#">帮助</a></li>
           </ul>
-          <ul class="nav secondary-nav">
+          <ul class="nav pull-right">
             <% if can? :logout,User %>
-              <li data-dropdown="dropdown" class="dropdown">
-                <a href="#" class="dropdown-toggle"><%= session[:login_user].username %></a>
-                <ul class="dropdown-menu">
-                  <li><%=link_to '设置',user_path(session[:login_user].id) %></li>
-                  <li class="divider"></li>
-                  <li><a href="#"><%= link_to "退出",logout_path %></a></li>
-                </ul>
-              </li>
+            <li id="inbox"><a href="#" rel="tooltip" data-original-title="消息" data-placement="bottom"><span class="label label-important" style="display:inline-block;width:18px;height:18px;text-align:center;font-size:14px">99</span></a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.username %><b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><%=link_to '账号管理',user_path(current_user.id) %></li>
+                <li class="divider"></li>
+                <li><%= link_to "注销",destroy_user_session_path,:method => :delete %></li>
+              </ul>
+            </li>
             <% else %>
-              <li><%= link_to "登录",'javascript:;','data-controls-modal'=>'modal-login','data-backdrop'=>'true','data-keyboard'=>'true'%></li>
-              <li><%= link_to "注册",'javascript:;','data-controls-modal'=>'modal-signup','data-backdrop'=>'true','data-keyboard'=>'true' %></li>
+              <li><%= link_to "登录", new_session_path(User) %></li>
+              <li><%= link_to "注册", new_registration_path(User) %></li>
             <% end %>
           </ul>
         </div>
       </div>
-    </div>
-
-    <div id="modal-login" class="modal hide fade" style="display: block;">
-      <%= form_tag :login do %>
-      <div class="modal-header">
-        <a href="#" class="close">×</a>
-        <h3>登录</h3>
-      </div>
-      <div class="modal-body">
-        <div id="flash"><%= errors_flash_tag flash[:alert] %></div>
-		  <fieldset>
-		    <div class="clearfix">
-              <%= label_tag :username,t("activerecord.attributes.user.email") %>
-			  <div class="input">
-	            <%= text_field_tag(:account,params[:account],:maxlength => 30) %>
-              </div>
-			</div>
-			<div class="clearfix">
-              <%= label_tag :password,t("activerecord.attributes.user.password"),:class => "text" %>
-			  <div class="input">
-	            <%= password_field_tag(:password,params[:password],:maxlength => 30) %>
-			  </div>
-			</div>
-		  </fieldset>
-      </div>
-	  <div class="modal-footer">
-        <%= submit_tag "登录",:class => "btn primary"%>
-      </div>
-      <% end %>
-    </div>
-
-    <div id="modal-signup" class="modal hide fade" style="display: block;">
-      <%= form_for(@user) do |f| %>
-      <div class="modal-header">
-        <a href="#" class="close">×</a>
-        <h3>创建帐号</h3>
-      </div>
-      <div class="modal-body">
-        <div class="alert-message block-message error">
-        <p><strong>Oh snap! You got an error!</strong> Change this and that and <a href="#">try again</a>.</p>
-        <ul>
-          <li>Duis mollis est non commodo luctus</li>
-          <li>Nisi erat porttitor ligula</li>
-          <li>Eget lacinia odio sem nec elit</li>
-        </ul>
-        </div>
-		<fieldset>
-		  <div class="clearfix">
-            <%= f.label :email %>
-			<div class="input">
-              <%= f.email_field :email %>
-			</div>
-		  </div>
-		  <div class="clearfix">
-            <%= f.label :username %>
-			<div class="input">
-              <%= f.password_field :username %>
-			</div>
-		  </div>
-		  <div class="clearfix">
-            <%= f.label :password %>
-			<div class="input">
-              <%= f.password_field :password %>
-			</div>
-		  </div>
-		</fieldset>
-      </div>
-	  <div class="modal-footer">
-        <%= f.submit "注册",:class => "btn primary"%>
-      </div>
-      <% end %>
     </div>

@@ -11,9 +11,6 @@ body {
 .container > footer p {
   text-align: center; 
 }
-.container {
-  width: 820px; /* only 14 columns and not 16. */
-}
 .container > .content {
   background-color: #fff;
   padding: 20px;
@@ -25,75 +22,77 @@ body {
   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
   box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
-.page-header {
-  background-color: #f5f5f5;
-  padding: 20px 20px 10px;
-  margin: -20px -20px 20px;
+.sidebar-nav {
+ padding: 9px 0;
 }
-.topbar .btn {
-  border: 0;
+.footer-nav{
+	text-align: center;
+	margin: 20px 0;
+}
+.footer-nav > li{
+	padding:20px 4px;
+	display: inline;
+}
+.field_with_errors{
+  display: inline;
 }
 .label{
   font-size:13px;
 }
-a.tag {
-  font-size:13px;
-  padding: 1px 3px 2px;
-  margin-right: 5px;
-  font-weight: bold;
-  color: white;
-  white-space: nowrap;
-  background-color: #BFBFBF;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  text-shadow: none;
-  text-decoration: none;
+img.profile_picture {
+  width: 50px;
+  height: 50px;
 }
-a.tag:hover{
-  background-color: #F89406;;
+img.profile_picture_small {
+  width: 32px;
+  height: 32px;
 }
-span.date{
-  color: #BFBFBF;
+.shallow{
+  color: #999;
 }
-div.idea-box{
-  margin-top:10px;
+.highlight{
+  color:#F89406;
+}
+div.hr{
   margin-bottom:10px;
-  padding:10px 0;
   border-top: 1px solid #DDD;
 }
 div.idea-title{
-  font-size: 16px;
+  font-size: 18px;
   line-height: 20px;
   font-weight: 100;
 }
-div.idea-tag,div.idea-info,div.idea-entry{
+div.idea-label,div.idea-info,div.idea-entry{
   margin:5px 0;
 }
-ul.idea-action,ul.solution-action,ul.comment-action{
+div.idea-label span{
+ margin-right:10px;
+}
+ul.actions{
   padding-left:20px;
   margin-bottom:0;
 }
-ul.idea-action li,ul.solution-action li,ul.comment-action li{
+ul.actions li{
+  margin-bottom:5px;
+}
+div.solution-profile,div.comment-profile{
+  float: left;
+  width: 32px;
+}
+div.solution,div.comment{
+  margin-left: 10px;
+  float: left;
+  width: 418px;
+}
+div.solution-date,div.solution-entry{
   margin:5px 0;
 }
-div.solution-box,div.comment-box,div.idea-button,div.comment-form{	
-  margin:10px 0 0 60px;
-  padding-top:10px;
-  border-top: 1px solid #DDD;
-}
-div.solution-info,div.solution-date,div.solution-entry{
-  margin:5px 0;
-}
-div.comment-info,div.comment-date,div.comment-entry{
+div.comment-date,div.comment-entry{
   margin:5px 0;
 }
 div.page{
   padding-top:10px;
   border-top: 1px solid #DDD;
-}
-ul.sidebar-select li{
-  float:none;
 }
 ul.hot-tags{
   padding-left:15px;
@@ -102,12 +101,11 @@ ul.hot-tags li{
 	margin:10px 0;
 }
 div.show-more{
-  margin:10px 0 0 60px;
+  margin-bottom:10px;
   padding:5px 0;
-  border-top: 1px solid #DDD;
   background:  #DDD;
   text-align:center;
 }
-ul.idea-promotion li{
-  margin:5px 0;
+form.login-dropdown{
+ margin:10px;
 }

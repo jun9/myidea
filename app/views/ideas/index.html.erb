@@ -1,20 +1,30 @@
-<div id="flash"><%= errors_flash_tag flash[:alert] %></div>
-
-<ul class="tabs">
-  <li><a href="#">审核中</a></li>
-  <li class="active"><a href="#">通过的</a></li>
-  <li><a href="#">实施中</a></li>
-  <li><a href="#">完成的</a></li>
-  <li><a href="#">无效的</a></li>
+<%= flash_msg_tag flash[:alert],"alert-error" %>
+<%= flash_msg_tag flash[:notice],"alert-success" %>
+<!-- 状态选择 -->
+<ul class="nav nav-tabs">
+  <li><a href="#under_review" data-toggle="tab">审核中</a></li>
+  <li><a href="#fail" data-toggle="tab">审核不通过</a></li>
+  <li class="active"><a href="#success" data-toggle="tab">审核通过的</a></li>
+  <li><a href="#in_the_work" data-toggle="tab">实施中</a></li>
+  <li><a href="#done" data-toggle="tab">已实施</a></li>
 </ul>
-
-<div class="row">
-  <div class="span7"><a class="tag" href="#">视觉</a></div>
-  <div class="span3">
-    <select class="medium" name="mediumSelect">
-	  <option>最新</option>
-    </select>
+<div class="tab-content">
+  <div class="tab-pane active" id="success">
+	<!-- 排序 -->
+	<div class="row">
+	  <div class="span2 offset7">
+		<select class="span2">
+		  <option>最新的</option>
+		  <option>24小时内最热门的</option>
+		  <option>7天内最热门的</option>
+		  <option>30天内最热门的</option>
+		  <option>6个月内最热门的</option>
+		  <option>到现在最热门的</option>
+		  <option>最新评论的</option>
+		</select>
+	  </div>
+	</div>
+    <%= render @ideas %>
   </div>
 </div>
 
-<%= render @ideas %>

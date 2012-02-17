@@ -44,5 +44,17 @@ module Myidea
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.action_view.field_error_proc=Proc.new do |html_tag, instance|
+      %Q(#{html_tag}).html_safe 
+    end
+
+    config.to_prepare do
+      Devise::SessionsController.layout "account"
+      Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "account" }
+      Devise::ConfirmationsController.layout "account"
+      Devise::UnlocksController.layout "account"            
+      Devise::PasswordsController.layout "account"        
+    end
   end
 end

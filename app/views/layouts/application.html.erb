@@ -5,68 +5,53 @@
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
 </head>
-    <body>
-    <%= render "common/header"%>
-    <div class="container">
-      <div class="content">
-        <div class="page-header">
-			<div class="row">
-			  <div class="span10">
-              <%= form_for(@idea) do |f| %>
-                <div id="flash"><%= errors_msg_tag(@idea) %></div>
-			    <div class="clearfix">
-				  <%= f.label :title%>
-				  <div class="input">
-                    <%= f.text_field :title, :class => "xlarge", :maxlength => 60 %>
-				    <button class="btn primary" type="submit">发布</button>
-				  </div>
-			    </div>
-			    <div class="clearfix">
-				  <%= f.label :description%>
-				  <div class="input">
-	                <%= f.text_area :description,:class=>"xlarge",:style => "height:200px;overflow-y:auto" %>
-				  </div>
-			    </div>
-			    <div class="clearfix">
-				  <%= f.label :tag_names %>
-				  <div class="input">
-                    <%= f.text_field :tag_names, :class => "xlarge" %>
-					<span class="help-block">标签由空格间隔，最多5个标签</span>
-				  </div>
-			    </div>
-                <div class="actions">
-                  <%= f.submit "发布主意",:class => "btn primary" %>
-                </div>
-		      <% end %>
-		      </div>
-		    </div>
-          </div>
-
-
-        <div class="row">
-          <div class="span10">
-              <%= yield %>            
-          </div>
-          <div class="span4">
-            <ul class="pills sidebar-select">
-              <li class="active"><a href="#">所有的主意</a></li>
-              <li><a href="#">发布的主意</a></li>
-              <li><a href="#">关注的主意</a></li>
-              <li><a href="#">消息</a></li>
-            </ul>
-            <h4>热门标签</h4>
-			<ul class="unstyled hot-tags">
-              <% Tag.all.each do |tag|%>
-			    <li><%= link_to tag.name,'#',:class => 'tag' %>x&nbsp;<%= tag.ideas.count %></li>
-              <% end %>
+<body>
+  <%= render 'common/header' %>
+  <div class="container">
+    <div class="content">
+      <div class="row">
+        <div class="span9">
+          <%= yield %>
+        </div>
+		<!-- Right Side Bar -->
+          <div class="span3">
+			<form class="form-search">
+				<input type="text" class="span2 search-query" placeholder="搜索主意">
+				<button type="submit" class="btn"><i class="icon-search"></i></button>
+			</form>
+			<ul class="nav nav-pills nav-stacked">
+				<li class="active"><a href="#">所有的主意</a></li>
+				<li><a href="#">发布的主意</a></li>
+				<li><a href="#">关注的主意</a></li>
 			</ul>
-	      </div>
+			<h4>主题</h4>
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="#"><i class="icon-list"></i>&nbsp;MyIdea Web应用</a></li>
+				<li><a href="#"><i class="icon-list"></i>&nbsp;iPhone BMI</a></li>
+				<li><a href="#"><i class="icon-list"></i>&nbsp;其他主题</a></li>
+			</ul>
+			<h4>热门标签</h4>
+			<ul class="unstyled hot-tags">
+						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
+						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
+						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
+						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
+						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
+						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
+						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
+						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
+						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
+					</ul>
+	    </div>
+		<!-- End of Right Side Bar -->
         </div>
       </div>
-
-    <%= render "common/footer"%>
-
+    <%= render 'common/footer' %>          
     </div> <!-- /container -->
-    </body>
+</body>
 </html>

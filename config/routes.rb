@@ -1,7 +1,6 @@
 Myidea::Application.routes.draw do
+  devise_for :users
   root :to => "ideas#index"
-  match "login" => "users#login"
-  get 'logout' => "users#logout"
   get 'dashboard' => "ideas#dashboard"
   resources :ideas do
     match 'tab',:on => :collection

@@ -5,34 +5,35 @@
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
 </head>
-    <body>
-    <%= render "common/header"%>
-	<div id="main">
-		<div class="content">
-			<div class="col-a" id="rightBox">
-              <%= yield %>
-			</div> 
-			<div class="col-b">
-				<div class="profile ui-widget-content ui-corner-all">
-                  <div class="username"><%= @user.username %></div>
-                  <div class="role">
-                    <% if @user.admin %>管理员<% else %>普通用户<% end %>
-                  </div>
-                  <div class="date">注册于 <%= l @user.created_at.to_date,:format => :long %></div>
-                  <% if (can? :edit,@user) && session[:login_user].id == @user.id %>
-                    <div class="edit"><%= link_to '编辑',edit_user_path(@user) %></div>
-                  <% end %>
-				</div>
-				<div class="summary ui-widget-content ui-corner-all">
-                  <div class="count">发布的主意数量&nbsp;&nbsp;<%= @user.ideas.count %></div>
-                  <div class="count">发布的评论数量&nbsp;&nbsp;<%= @user.commented_ideas.count %></div>
-                  <div class="count">投票的主意数量&nbsp;&nbsp;<%= @user.voted_ideas.count %></div>
-                  <div>关注的主意数量&nbsp;&nbsp;<%= @user.favored_ideas.count %></div>
-				</div>
-			</div>
-		</div>
+<body>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+	  <div class="container">
+        <%= link_to image_tag("myidea_logo_right.png"),root_path,:class=>"brand" %>
+        <ul class="nav pull-right">
+          <%- if controller_name != 'sessions' %>
+            <li><%= link_to "已有账号？登录", new_session_path(resource) %></li>
+          <% else %>
+            <li>
+              <%= link_to  new_registration_path(resource) do %>
+                还没有账号？<span class="highlight">欢迎注册</span>
+              <% end %>
+            </li>
+          <% end -%>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content">
+      <%= yield %>
 	</div>
     <%= render "common/footer"%>
-    </body>
+  </div>
+</body>
 </html>

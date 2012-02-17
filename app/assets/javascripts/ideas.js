@@ -325,6 +325,10 @@ function preparePreferences(){
 }
 
 $(function(){
+  $('#inbox').tooltip({
+    selector: "a[rel=tooltip]"
+  });
+
   $('.comment-form').hide();
   $('.comment-btn').each(function(){
     $(this).click(function(){

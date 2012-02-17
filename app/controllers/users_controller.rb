@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  authorize_resource 
+  authorize_resource
 
   def index
     if params[:q] && !params[:q].empty?
@@ -30,25 +30,6 @@ class UsersController < ApplicationController
     end  
   end
 
-  def new
-    if session[:login_user]
-      redirect_to root_path, :alert => I18n.t('myidea.errors.user.register') 
-    else
-      @user = User.new
-    end
-  end
-
-  def create
-    @user = User.new(params[:user])
-    @user.check_password = true
-    if @user.save
-      session[:login_user] = LoginUser.new(@user)
-      redirect_to root_path, :alert => I18n.t('myidea.notice.user.registed')
-    else
-      render action:'new'
-    end
-  end
-
   def edit 
     @user = User.find(params[:id])
     if session[:login_user].id != @user.id 
@@ -69,27 +50,6 @@ class UsersController < ApplicationController
         render action:'edit'
       end
     end    
-  end
-
-  def login
-    @idea = Idea.new
-    if request.post?
-      if user = User.authenticate(params[:account],params[:password])
-        if user.active
-          session[:login_user] = LoginUser.new(user)
-          redirect_to ideas_path
-        else
-          flash.now[:alert] = I18n.t('myidea.errors.user.locked') 
-        end
-      else
-        flash.now[:alert] = I18n.t('myidea.errors.user.login') 
-      end
-    end
-  end
-
-  def logout
-    session[:login_user] = nil 
-    redirect_to ideas_path
   end
 
   def act

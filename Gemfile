@@ -22,6 +22,8 @@ gem 'sunspot_rails'
 gem 'cancan'
 gem 'RedCloth', '~> 4.2.9'
 gem 'therubyracer'
+gem 'devise'
+gem 'rails-i18n'
 
 # Use unicorn as the web server
 # gem 'unicorn'
