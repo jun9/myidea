@@ -49,6 +49,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.2.0)
+    daemons (1.1.8)
     devise (2.0.0)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -60,6 +61,8 @@ GEM
       multi_json (~> 1.0)
     highline (1.6.11)
     hike (1.2.1)
+    hoe (2.13.1)
+      rake (~> 0.8)
     i18n (0.6.0)
     jquery-rails (1.0.19)
       railties (~> 3.0)
@@ -70,6 +73,10 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mailtrap (0.2.1)
+      daemons (>= 1.0.8)
+      hoe (>= 1.3.0)
+      trollop (>= 1.7)
     mime-types (1.17.2)
     minitest (2.11.1)
     multi_json (1.0.4)
@@ -142,6 +149,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
+    trollop (1.16.2)
     turn (0.9.1)
       ansi
       minitest
@@ -163,6 +171,7 @@ DEPENDENCIES
   coffee-rails (~> 3.1.0)
   devise
   jquery-rails
+  mailtrap
   minitest
   mysql2
   rails (= 3.1.0)

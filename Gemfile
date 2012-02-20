@@ -42,4 +42,6 @@ group :test do
   gem 'minitest'
   # Pretty printed test output
   gem 'turn', :require => false
+  # a mock STMP Server
+  gem 'mailtrap'
 end

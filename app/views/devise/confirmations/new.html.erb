@@ -1,12 +1,13 @@
-<h2>Resend confirmation instructions</h2>
-
-<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.submit "Resend confirmation instructions" %></div>
-<% end %>
-
-<%= render "links" %>
+<div class="row">
+  <div class="span6 offset3">
+    <%= errors_msg_tag resource %>
+	<h2>重新发送验证邮件</h2>
+    <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post,:class=>"well"}) do |f| %>
+      <%= f.label :email %>
+      <%= f.email_field :email,:class=>"span4"%>
+      <label></label>
+      <%= f.submit "重新发送",:class=>"btn btn-large btn-primary" %>
+    <% end -%>
+    <%= render "links" %>
+  </div>
+</div>
