@@ -37,6 +37,7 @@ zh-CN:
     registrations:
       signed_up: '欢迎您！您已注册成功。'
       updated: '帐号资料更新成功。'
+      update_needs_confirmation: '您更改了邮箱地址，我们需要验证您的新邮箱地址，请查看您的邮箱，点击确认链接来验证您的新邮箱地址。'
       destroyed: '再见！您的帐户已成功注销。我们希望很快可以再见到您。'
       signed_up_but_unconfirmed: '带有确认链接的信息已经发送到你的邮箱，请打开此链接来激活你的帐号。'
       signed_up_but_inactive: '虽然您已经注册成功，但因为你的帐号还未激活，所以你暂时无法登录。'

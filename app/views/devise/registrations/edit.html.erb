@@ -1,25 +1,42 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
-
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>
+<div class="tab-pane active" id="edit_signup">
+  <div class="row">
+  <div class="span8">
+  <%= errors_msg_tag resource %>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put,:class=>"form-horizontal" }) do |f| %>
+    <fieldset>
+	  <legend>修改邮箱或密码</legend>
+	  <div class="control-group">
+        <%= f.label :email,:class=>"control-label" %>
+	    <div class="controls">
+          <%= f.email_field :email,:class=>"input-xlarge" %>
+		</div>
+	  </div>
+	  <div class="control-group">
+        <%= f.label :password,"新密码",:class=>"control-label" %>
+	    <div class="controls">
+          <%= f.password_field :password,:class=>"input-xlarge" %>
+          <p class="help-block">如果不更改密码，不需要填写</p>
+		</div>
+	  </div>
+	  <div class="control-group">
+        <%= f.label :password_confirmation,"确认新密码",:class=>"control-label" %>
+	    <div class="controls">
+          <%= f.password_field :password_confirmation,:class=>"input-xlarge" %>
+          <p class="help-block">如果不更改密码，不需要填写</p>
+		</div>
+	  </div>
+	  <div class="control-group">
+        <%= f.label :current_password,:class=>"control-label" %>
+	    <div class="controls">
+          <%= f.password_field :current_password,:class=>"input-xlarge" %>
+          <p class="help-block">填写当前密码才能成功修改</p>
+		</div>
+	  </div>
+	  <div class="form-actions">
+        <%= f.submit "修改",:class=>"btn btn-large btn-primary" %>
+	  </div>
+	</fieldset>
+  <% end %>
+  </div>
+  </div>
+</div>
