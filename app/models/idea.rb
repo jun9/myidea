@@ -1,6 +1,7 @@
 class Idea < ActiveRecord::Base
   has_and_belongs_to_many :tags
   belongs_to :user
+  belongs_to :topic
   has_many :voters,:through => :votes,:source =>:user
   has_many :votes
   has_many :favorers,:through => :favors,:source =>:user
@@ -17,6 +18,10 @@ class Idea < ActiveRecord::Base
     Activity.create(:action =>ACTIVITY_CREATE_IDEA,:idea => idea,:user => idea.user)
     idea.user.points += 3
     idea.user.save
+    idea.tags.each do |tag|
+      tag.ideas_count = tag.ideas_count+1
+      tag.save
+    end
   end 
 
   searchable do

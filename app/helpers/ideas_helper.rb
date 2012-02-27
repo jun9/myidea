@@ -15,17 +15,17 @@ module IdeasHelper
   def status_span_tag(idea)
     case idea.status
     when IDEA_STATUS_UNDER_REVIEW
-      statusClass = "under-review"
-    when IDEA_STATUS_REVIEWED
-      statusClass = "reviewed"
+      status = "under-review"
+    when IDEA_STATUS_REVIEWED_FAIL
+      status = "reviewed-fail"
+    when IDEA_STATUS_REVIEWED_OK
+      status = "reviewed-success"
     when IDEA_STATUS_IN_THE_WORKS
-      statusClass = "in-the-works"
+      status = "in-the-works"
     when IDEA_STATUS_LAUNCHED
-      statusClass = "launched"
+      status = "launched"
     end
-    if(statusClass) 
-      content_tag(:span,I18n.t("myidea.idea.#{statusClass}"), :class => statusClass,:title => I18n.t("myidea.idea.#{statusClass}"))
-    end
+    content_tag(:span,I18n.t("myidea.idea.#{status}"), :class =>"label label-info")
   end
 
   def handle_idea_tag(idea)

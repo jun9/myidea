@@ -65,7 +65,8 @@ zh-CN:
       unfavorite: "取消关注"
     idea:
       under-review: "审核中"
-      reviewed: "已审核"
+      reviewed-success: "审核通过"
+      reviewed-fail: "审核不通过"
       in-the-works: "实施中"
       launched: "已实施"
       handle: 

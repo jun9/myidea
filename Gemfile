@@ -35,13 +35,13 @@ gem 'capistrano'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :development do
-    gem 'sunspot_solr'
+  gem 'sunspot_solr'
+  # a mock STMP Server
+  gem 'mailcatcher'
 end
 
 group :test do
   gem 'minitest'
   # Pretty printed test output
   gem 'turn', :require => false
-  # a mock STMP Server
-  gem 'mailtrap'
 end

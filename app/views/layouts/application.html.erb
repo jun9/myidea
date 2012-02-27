@@ -29,24 +29,22 @@
 				<li><a href="#">发布的主意</a></li>
 				<li><a href="#">关注的主意</a></li>
 			</ul>
+            <% if Topic.count > 0 %>
 			<h4>主题</h4>
 			<ul class="nav nav-pills nav-stacked">
-				<li><a href="#"><i class="icon-list"></i>&nbsp;MyIdea Web应用</a></li>
-				<li><a href="#"><i class="icon-list"></i>&nbsp;iPhone BMI</a></li>
-				<li><a href="#"><i class="icon-list"></i>&nbsp;其他主题</a></li>
+                <% Topic.all.each do |topic| %>
+				<li><a href="#"><i class="icon-list"></i>&nbsp;<%= topic.name %></a></li>
+                <% end %>
 			</ul>
+            <% end %>
+            <% if Tag.count > 0 %>
 			<h4>热门标签</h4>
 			<ul class="unstyled hot-tags">
-						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
-						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
-						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
-						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
-						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
-						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
-						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
-						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
-						<li><i class="icon-tag"></i>&nbsp;<a href="tag.html">视觉一二三四五六七八九十</a><span class="shallow">&nbsp;x&nbsp;2</span></li>
-					</ul>
+                <% Tag.limit(15).order("ideas_count desc").each do |tag| %>
+				<li><i class="icon-tag"></i>&nbsp;<a href="tag.html"><%= tag.name %></a><span class="shallow">&nbsp;x&nbsp;<%= tag.ideas_count %></span></li>
+                <% end %>
+			</ul>
+            <% end %>
 	    </div>
 		<!-- End of Right Side Bar -->
         </div>

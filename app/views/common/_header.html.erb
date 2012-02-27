@@ -2,9 +2,9 @@
 	  <div class="navbar-inner">
 		<div class="container">
           <%= link_to image_tag("myidea_logo_right.png"),root_path,:class=>"brand" %>
-		  <form class="navbar-form pull-left">
+		  <form action="#" class="navbar-form pull-left">
 			<input type="text" placeholder="输入你的好主意">
-            <button class="btn" type="submit">发布</button>
+            <button data-toggle="modal" data-target="#modal-add-idea" class="btn" type="submit">发布</button>
 		  </form>
           <ul class="nav">
             <li class="active"><a href="#">主页</a></li>
@@ -31,3 +31,48 @@
         </div>
       </div>
     </div>
+
+<div class="modal hide fade in" id="modal-add-idea">
+  <%= form_for(Idea.new,:html=>{:style=>"margin:0"}) do |f| %>
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>发布主意</h3>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="span5 offset1">
+        <div class="control-group">
+          <div class="controls">
+            <%= f.text_field :title, :class => "span5",:placeholder => "输入主意标题" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+	        <%= f.text_area :description,:class=>"span5",:placeholder => "输入主意描述",:style => "height:100px;overflow-y:auto" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <div class="input-prepend">
+              <span class="add-on"><i class="icon-tags"></i></span>
+              <%= f.text_field :tag_names, :class => "span4" %>
+              <p class="help-block">标签由空格间隔，最多3个标签</p>
+            </div>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <%= collection_select(:idea, :topic_id, Topic.all, :id, :name) %>
+            <p class="help-block">选择主意所属的主题</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn">关闭</a>
+    <%= f.submit "发布",:class => "btn btn-primary" %>
+  </div>
+  <% end %>
+</div>
+

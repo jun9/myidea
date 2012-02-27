@@ -10,7 +10,7 @@
   </div>
   <div class="span6">
 	<div class="idea-title"><%= link_to idea.title,idea,:title => idea.title %></div>
-	<div class="idea-label"><span class="label label-info">审核中</span><span><i class="icon-list"></i>&nbsp;<a href="#">MyIdea Web应用</a></span>
+	<div class="idea-label"><%= status_span_tag idea %><span><i class="icon-list"></i>&nbsp;<a href="#"><%= idea.topic.name %></a></span>
       <span><i class="icon-tags"></i>
         <% idea.tags.each do |tag| %>
           <%= link_to tag.name,'#' %>
@@ -55,7 +55,7 @@
   <div class="comment-form">
     <div class="alert-message block-message warning">
 	  <a class="close" href="javascript:;">×</a>
-      <%= form_for([idea,@comment],:remote => true,:html =>{:id => "comment-form-#{idea.id}"}) do |f| %>
+      <%= form_for([idea,Comment.new],:remote => true,:html =>{:id => "comment-form-#{idea.id}"}) do |f| %>
 		<fieldset>
 		  <div class="clearfix">
             <%= f.label :content %>
