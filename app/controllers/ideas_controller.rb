@@ -5,10 +5,6 @@ class IdeasController < ApplicationController
     @ideas = Idea.includes(:tags,:user)
   end
  
-  def dashboard
-    render :layout => "admin"
-  end
- 
   def search
     search = Idea.search do
       keywords params[:q]

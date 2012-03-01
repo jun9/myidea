@@ -1,10 +1,3 @@
-function showFlash(alertFlash){
-  $('#flash').html('<div class="ui-state-error ui-corner-all error-msg"><div><span class="ui-icon ui-icon-alert msg"></span>'+alertFlash+'<a href="javascript:closeFlash();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a></div><div class="clear"></div></div>');
-}
-function closeFlash(){
-  $('#flash').empty();
-}
-
 function showIdeasTab(data){
   $('#tab-box').html(data);
   prepareIdeas(); 

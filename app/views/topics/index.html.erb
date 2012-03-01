@@ -1,0 +1,25 @@
+<div class="page-header">
+  <h1>主题管理</h1>
+</div>
+<%= form_for(@topic,:remote => true,:html => {:class => "form-horizontal" }) do |f| %>
+  <%= f.label :name,:class=>"control-label" %>
+  <%= f.text_field :name,:class=>"span4" %>
+  <%= f.submit "新增新主题",:class=>"btn btn-primary" %>
+<% end %>
+<%= form_for(@topic,:method => :put,:remote => true,:html => {:class => "form-horizontal",:style => "display:none",:id => "edit-form"} ) do |f| %>
+  <%= f.text_field :name,:class=>"span4" %>
+  <%= f.submit "修改主题",:class=>"btn btn-primary" %>
+  <%= f.submit "取消",:type => "button",:class=>"btn"%>
+<% end %>
+<table class="table table-bordered">
+  <thead>
+	<tr>
+	  <th>主题名称</th>
+	  <th>主意数量</th>
+	  <th>操作</th>
+	</tr>
+  </thead>
+  <tbody id="topics">
+    <%= render @topics %>
+  </tbody>
+</table>

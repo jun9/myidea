@@ -32,7 +32,7 @@
             <% if Topic.count > 0 %>
 			<h4>主题</h4>
 			<ul class="nav nav-pills nav-stacked">
-                <% Topic.all.each do |topic| %>
+                <% Topic.order("created_at desc").each do |topic| %>
 				<li><a href="#"><i class="icon-list"></i>&nbsp;<%= topic.name %></a></li>
                 <% end %>
 			</ul>

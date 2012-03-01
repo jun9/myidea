@@ -1,7 +1,8 @@
 Myidea::Application.routes.draw do
   devise_for :users
   root :to => "ideas#index"
-  get 'dashboard' => "ideas#dashboard"
+  get "dashboard/index"
+  resources :topics
   resources :ideas do
     match 'tab',:on => :collection
     match 'promotion',:on => :collection

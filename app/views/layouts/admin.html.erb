@@ -6,13 +6,49 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-    <body>
-    <%= render "common/header"%>
-	<div id="main">
-		<div class="content">
-          <%= yield %>
-		</div>
-	</div>
-    <%= render "common/footer"%>
-    </body>
+<body>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <%= link_to image_tag("myidea_logo_right.png"),root_path,:class=>"brand" %>
+        <ul class="nav">
+          <li class="active"><%= link_to "网站主页",root_path %></li>
+          <% if can? :index,:dashboard %>
+            <li><%= link_to "控制面板",dashboard_index_path,:id => "dashboard" %></li>
+          <% end %>
+        </ul>
+        <ul class="nav pull-right">
+          <li id="inbox"><a href="#" rel="tooltip" data-original-title="消息" data-placement="bottom"><span class="label label-important" style="display:inline-block;width:18px;height:18px;text-align:center;font-size:14px">99</span></a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.username %><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><%=link_to '账号管理',edit_user_registration_path %></li>
+              <li class="divider"></li>
+              <li><%= link_to "注销",destroy_user_session_path,:method => :delete %></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+  <div class="content">
+    <div class="row-fluid">
+      <div class="span3">
+        <div class="well sidebar-nav">
+          <ul class="nav nav-list">
+            <li class="active"><%= link_to dashboard_index_path,:remote => true,:id => "nav-home" do %><i class="icon-list icon-white"></i> 首页<% end %></li>
+			<li><%= link_to topics_path,:remote => true,:id => "nav-topic" do %><i class="icon-list"></i> 主题管理<% end %></li>
+          </ul>
+        </div><!--/.well -->
+      </div><!--/span-->
+      <div class="span9" id="admin-main">
+        <%= yield %>
+      </div><!--/span-->
+    </div><!--/row-->
+  </div>
+  <%= render "common/footer"%>
+  </div>
+</body>
 </html>
