@@ -13,8 +13,8 @@
         <%= link_to image_tag("myidea_logo_right.png"),root_path,:class=>"brand" %>
         <ul class="nav">
           <li class="active"><%= link_to "网站主页",root_path %></li>
-          <% if can? :index,:dashboard %>
-            <li><%= link_to "控制面板",dashboard_index_path,:id => "dashboard" %></li>
+          <% if can? :dashboard,Preference %>
+            <li><%= link_to "控制面板",dashboard_preferences_path,:id => "dashboard" %></li>
           <% end %>
         </ul>
         <ul class="nav pull-right">
@@ -38,8 +38,9 @@
       <div class="span3">
         <div class="well sidebar-nav">
           <ul class="nav nav-list">
-            <li class="active"><%= link_to dashboard_index_path,:remote => true,:id => "nav-home" do %><i class="icon-list icon-white"></i> 首页<% end %></li>
+            <li class="active"><%= link_to dashboard_preferences_path,:remote => true,:id => "nav-home" do %><i class="icon-home icon-white"></i> 首页<% end %></li>
 			<li><%= link_to topics_path,:remote => true,:id => "nav-topic" do %><i class="icon-list"></i> 主题管理<% end %></li>
+			<li><%= link_to users_path,:remote => true,:id => "nav-user" do %><i class="icon-user"></i> 用户管理<% end %></li>
           </ul>
         </div><!--/.well -->
       </div><!--/span-->

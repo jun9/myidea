@@ -2,21 +2,8 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
-  def setup
-    @jack = users(:jack)
-    @tom = users(:tom)    
-  end
-
-  test "authenticate user" do
-    assert_not_nil User.authenticate(@jack.username,'123456') 
-    assert_not_nil User.authenticate(@jack.email,'123456') 
-    assert_nil User.authenticate(@jack.username,'666666') 
-    assert_nil User.authenticate(@jack.email,'666666') 
-  end
-
   test "validate empty user" do
     user = User.new
-    user.check_password = true
     assert user.invalid?
     assert user.errors[:username].any?
     assert user.errors[:password].any?
@@ -24,7 +11,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "validate username" do
-    user = User.new(:password => '123456',:email => 'mike@qq.com')
+    user = User.new(:password => '123456',:password_confirmation => '123456',:email => 'mike@qq.com')
     bad = %w{jack ab abcdeabcdeabcde a*^b}
     bad.each do |username|
       user.username = username
@@ -39,21 +26,26 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "validate password" do
-    user = User.new(:username => 'mike',:email => 'mike@qq.com')
+    user = User.new(:username => 'mike',:email => 'mike@qq.com',:password => '123456',:password_confirmation => '123456')
     assert user.valid?
-    user.check_password = true
     user.password = '123456'
     user.password_confirmation = '123452'
     assert user.invalid?,"confirm password"
     assert user.errors[:password].any?
-    bad = %w{12345 1234567890123456789012345678901}
+    bad = %w{12345}
+    max_password = ''
+    16.times do
+      max_password = max_password+'12345678'  
+    end 
+    bad[1] = max_password + '1'; 
     bad.each do |password|
       user.password = password
       user.password_confirmation = password
       assert user.invalid?,"bad password #{password}"
       assert user.errors[:password].any?
     end
-    ok = %w{123456 123456789012345678901234567890}
+    ok = %w{123456}
+    ok[1] = max_password
     ok.each do |password|
       user.password = password
       user.password_confirmation = password
@@ -75,4 +67,5 @@ class UserTest < ActiveSupport::TestCase
       assert user.valid?,"good email #{email}"
     end
   end
+
 end

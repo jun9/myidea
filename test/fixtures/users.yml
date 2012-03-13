@@ -1,13 +1,12 @@
 jack:
   username: jack
   email: jack@gmail.com
-  salt: kk2xg2d3d
+  encrypted_password: <%= User.new(:password => '123456').encrypted_password %>
+  confirmed_at: <%= Time.now %>
   admin: true
-  hashed_password: <%= User.encrypt_password('123456','kk2xg2d3d') %> 
 
 tom:
   username: tom
   email: tom@gmail.com
-  salt: 99dd1oos 
-  active: false
-  hashed_password: <%= User.encrypt_password('111111','99dd1oos') %> 
+  encrypted_password: <%= User.new(:password => '123456').encrypted_password %>
+  confirmed_at: <%= Time.now %>

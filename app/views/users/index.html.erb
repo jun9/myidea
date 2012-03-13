@@ -1,35 +1,38 @@
-<div class="search-panel ui-state-highlight">
-  <%= form_tag(users_path,:method => "get",:remote => true,:id => "user-search-form") do %>
-  <div class="search-panel-fields ">                    
-	<%=text_field_tag(:q,params[:q],:placeholder => "输入用户名",:class => "query",:title => "输入用户名") %>
-  </div>
-    <%= button_tag "搜索用户",:id => "search-user-btn" %>
-  <% end %>
+<div class="page-header">
+  <h1>用户管理</h1>
 </div>
-<table class="tt">
-  <tbody>
-	<tr class="title">
-	  <td>用户名</td>
-	  <td>邮箱</td>
-	  <td>是否管理员</td>
-	  <td>是否锁定</td>
-	  <td>注册时间</td>
+<%= form_tag(users_path,:method => "get",:remote => true,:class => "form-horizontal",:id => "user-query-form") do %>
+  <label class = "control-label">输入用户名或邮箱</label>
+  <%= text_field_tag(:q,params[:q],:class => "span4") %>
+  <%= submit_tag "搜索用户",:class=>"btn btn-primary" %>
+<% end %>
+<table class="table table-bordered table-striped">
+  <thead>
+	<tr>
+      <th>用户名</th>
+	  <th>邮箱</th>
+	  <th>是否管理员</th>
+	  <th>注册日期</th>
+	  <th>激活日期</th>
+	  <th>最近登录日期</th>
+	  <th>最近登录IP</th>
 	</tr>
+  </thead>
+  <tbody>
     <% @users.each do |user| %>
       <tr>
 		<td><%= link_to user.username,user %></td>
 		<td><%= user.email %></td>
 		<td><%= admin_radio_tag user %></td>
-		<td><%= active_radio_tag user %></td>
 		<td><%= l user.created_at.to_date,:format => :long %></td>
+		<td><% if user.confirmed_at %><%= l user.confirmed_at.to_date,:format => :long %><% end %></td>
+		<td><% if user.current_sign_in_at %><%= l user.current_sign_in_at.to_date,:format => :long %><% end %></td>
+		<td><%= user.current_sign_in_ip %></td>
 	  </tr>
     <% end %>
   </tbody>
 </table>
-<div class="pagination-box-top users-pagination">
-  <%= will_paginate @users %><div class="clear"></div>
-</div>
-<%= form_tag authority_user_path(0),:method => :put ,:remote => true,:id => "edit-user-form" do %>
+<%= will_paginate @users,:class => "pagination pagination-right" %>
+<%= form_tag authority_user_path(0),:method => :put ,:remote => true,:id => "authority-user-form" do %>
   <%= hidden_field_tag(:admin,params[:admin]) %>
-  <%= hidden_field_tag(:active,params[:active]) %>
-<% end %>  	
+<% end %>

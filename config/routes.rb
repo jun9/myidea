@@ -1,7 +1,6 @@
 Myidea::Application.routes.draw do
   devise_for :users
   root :to => "ideas#index"
-  get "dashboard/index"
   resources :topics
   resources :ideas do
     match 'tab',:on => :collection
@@ -21,5 +20,7 @@ Myidea::Application.routes.draw do
     get 'act',:on => :member
     put 'authority',:on => :member
   end
-  resources :preferences
+  resources :preferences do
+    get 'dashboard',:on => :collection
+  end
 end

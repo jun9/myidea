@@ -1,4 +1,5 @@
 class TopicsController < ApplicationController
+  authorize_resource
   layout false
 
   def index

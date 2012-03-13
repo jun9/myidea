@@ -25,6 +25,7 @@ zh-CN:
         remember_me: "记住我"
         login: "用户名或电子邮件地址"
         terms_of_service: "《网站使用协议》"
+        owner: "网站持有者"
       comment:
         content: "评论"
       topic:
@@ -44,13 +45,9 @@ zh-CN:
       idea:
         wrong_status: "流转不正确"
     user:
-      login: "账号"
       admin:
-        radio_yes: "添加管理员"
-        radio_no: "移动管理员"
-      active:
-        radio_yes: "解除锁定"
-        radio_no: "锁定帐号"
+        radio_yes: "是"
+        radio_no: "否"
     activity:
       create: "发布了"
       comment: "评论了"

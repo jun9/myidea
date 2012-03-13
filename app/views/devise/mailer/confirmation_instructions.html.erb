@@ -1,5 +1,6 @@
-<p>欢迎，<%= @resource.email %>!</p>
-
-<p>请点击下面的链接来验证您的邮箱地址:</p>
-
-<p><%= link_to '点击验证邮箱地址', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p><%= @resource.username %>，您好！</p>
+<p>感谢您注册 myidea.danthought.com</p>
+<p>您的注册邮箱为：<%= mail_to @resource.email %>，请点击下面的链接来验证您的邮箱地址:</p>
+<p><%= link_to confirmation_url(@resource, :confirmation_token => @resource.confirmation_token), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p>如果以上链接无法点击，请将上面的地址复制到你的浏览器的地址栏（浏览器上方输入网址的框）完成激活。</p>
+<p>此邮件自动发送，无需回复。如有其它问题，请联系 <%= mail_to "danjiang5956@gmail.com" %>。</p>

@@ -8,8 +8,8 @@
 		  </form>
           <ul class="nav">
             <li class="active"><%= link_to "网站主页",root_path %></li>
-            <% if can? :index,:dashboard %>
-              <li><%= link_to "控制面板",dashboard_index_path,:id => "dashboard" %></li>
+            <% if can? :dashboard,Preference %>
+              <li><%= link_to "控制面板",dashboard_preferences_path,:id => "dashboard" %></li>
             <% end %>
           </ul>
           <ul class="nav pull-right">

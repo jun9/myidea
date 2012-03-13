@@ -38,6 +38,8 @@ group :development do
   gem 'sunspot_solr'
   # a mock STMP Server
   gem 'mailcatcher'
+  # mock data
+  gem 'faker'
 end
 
 group :test do
