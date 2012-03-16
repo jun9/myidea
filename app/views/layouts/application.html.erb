@@ -41,7 +41,7 @@
 			<h4>热门标签</h4>
 			<ul class="unstyled hot-tags">
                 <% Tag.limit(15).order("ideas_count desc").each do |tag| %>
-				<li><i class="icon-tag"></i>&nbsp;<a href="tag.html"><%= tag.name %></a><span class="shallow">&nbsp;x&nbsp;<%= tag.ideas_count %></span></li>
+				<li><i class="icon-tag"></i>&nbsp;<a href="#"><%= tag.name %></a><span class="shallow">&nbsp;x&nbsp;<%= tag.ideas_count %></span></li>
                 <% end %>
 			</ul>
             <% end %>

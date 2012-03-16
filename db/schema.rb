@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120313064938) do
+ActiveRecord::Schema.define(:version => 20120316022202) do
 
   create_table "activities", :force => true do |t|
     t.string   "action"
@@ -41,13 +41,14 @@ ActiveRecord::Schema.define(:version => 20120313064938) do
   create_table "ideas", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "points",         :default => 0
-    t.integer  "status",         :default => 0
+    t.integer  "points",          :default => 0
+    t.integer  "status",          :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.integer  "comments_count", :default => 0
+    t.integer  "comments_count",  :default => 0
     t.integer  "topic_id"
+    t.integer  "solutions_count", :default => 0
   end
 
   create_table "ideas_tags", :id => false, :force => true do |t|
@@ -67,7 +68,7 @@ ActiveRecord::Schema.define(:version => 20120313064938) do
   create_table "solutions", :force => true do |t|
     t.string   "title"
     t.text     "content"
-    t.integer  "points"
+    t.integer  "points",     :default => 0
     t.integer  "user_id"
     t.integer  "idea_id"
     t.datetime "created_at"
@@ -108,6 +109,12 @@ ActiveRecord::Schema.define(:version => 20120313064938) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.boolean  "owner",                  :default => false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "description"
+    t.string   "website"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

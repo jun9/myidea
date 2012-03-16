@@ -10,4 +10,20 @@ radio_button_tag("admin_radio#{user.id}",user.id,!user.admin,:id=>"admin_radio#{
       end
     end
   end
+
+  def admin_label_tag(user)
+    if user.admin
+     content_tag(:span,t('activerecord.attributes.user.admin'),:class =>"label label-important")
+    end
+  end
+
+  def role_tag(user)
+    if @user.owner
+      t('activerecord.attributes.user.owner')
+    elsif @user.admin
+      t('activerecord.attributes.user.admin')
+    else
+      t('activerecord.attributes.user.normal')
+    end
+  end
 end

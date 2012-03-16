@@ -1,9 +1,10 @@
 require 'test_helper'
 
 class IdeasControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
-    @default = ideas(:default)
-    @environment = categories(:environment)
+    @under_review = ideas(:under_review)
     @jack = users(:jack)
     @tom = users(:tom)
   end
@@ -11,19 +12,9 @@ class IdeasControllerTest < ActionController::TestCase
   test "everybody get index" do
     get :index
     assert_response :success
+    assert_not_nil assigns(:ideas) 
   end
-
-  test "normal user not get dashboard" do
-    get :dashboard,nil,{:login_user => LoginUser.new(@tom)}
-    assert_redirected_to root_path
-    assert_equal I18n.t('unauthorized.manage.all'),flash[:alert]
-  end
-
-  test "admin get dashboard" do
-    get :dashboard,nil,{:login_user => LoginUser.new(@jack)}
-    assert_response :success
-  end
-
+=begin
   test "everybody get search" do
     get :search,:q => "test"
     assert_template "search"
@@ -44,39 +35,28 @@ class IdeasControllerTest < ActionController::TestCase
     get :promotion,nil,{:login_user => LoginUser.new(@tom)}
     assert_response :success
   end
-
-  test "everybody not get new" do
-    get :new
+=end
+  test "everybody not create" do
+    xhr :post,:create
     assert_redirected_to root_path
     assert_equal I18n.t('unauthorized.manage.all'),flash[:alert]
   end
 
-  test "login user get new" do
-    get :new,nil,{:login_user => LoginUser.new(@tom)}
+  test "login user create" do
+    sign_in @tom
+    assert_difference('Idea.count') do
+      xhr :post,:create,{idea: @under_review.attributes}
+    end
     assert_response :success
   end
 
-  test "everybody not get create" do
-    post :create
-    assert_redirected_to root_path
-    assert_equal I18n.t('unauthorized.manage.all'),flash[:alert]
-  end
-
-  test "login user create valid idea" do
-    assert_difference('Idea.count') do
-      post :create,{idea: @default.attributes},{:login_user => LoginUser.new(@tom)}
-    end
-
-    assert_redirected_to idea_path(assigns(:idea))
-  end
-
-  test "login user create invalid idea" do
-    @default.title = nil
-    post :create,{idea: @default.attributes},{:login_user => LoginUser.new(@tom)}
+  test "login user create fail" do
+    sign_in @tom
+    @under_review.title = nil
+    xhr :post,:create,{idea: @under_review.attributes}
     assert assigns(:idea).errors.any?
-    assert_template 'new'
   end
-
+=begin
   test "everybody show idea" do
     get :show, id: @default.to_param
     assert_response :success
@@ -199,5 +179,5 @@ class IdeasControllerTest < ActionController::TestCase
     xhr :post, :preview,{description: @default.description},{:login_user => LoginUser.new(@tom)}
     assert_response :success
   end
-
+=end
 end

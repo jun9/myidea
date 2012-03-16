@@ -15,6 +15,7 @@ zh-CN:
         title: "主意"
         description: "内容"
         tag_names: "标签"
+        tags: "标签"
         status: "状态"
       user:
         username: "用户名"
@@ -25,9 +26,16 @@ zh-CN:
         remember_me: "记住我"
         login: "用户名或电子邮件地址"
         terms_of_service: "《网站使用协议》"
+        description: "自我介绍"
+        website: "个人主页"
         owner: "网站持有者"
+        admin: "管理员"
+        normal: "注册用户"
       comment:
         content: "评论"
+      solution:
+        title: "方案"
+        content: "描述"
       topic:
         name: "主题名称"
       preference:
@@ -40,7 +48,11 @@ zh-CN:
         zero_ideas: "不能删除主意数量不为零的主题"
       user:
         username_format: "只能包含字母和数字"
+      idea:
+        tags_number: "不能超过3个"
     notice:
+      user:
+        edit: "修改成功"
       create: "创建成功" 
       idea:
         wrong_status: "流转不正确"

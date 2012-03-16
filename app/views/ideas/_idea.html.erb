@@ -3,70 +3,97 @@
 <div class="row">
   <div class="span2">
 	<ul class="unstyled">
-	  <li><%= link_to image_tag("dj.jpeg",:class=>"profile_picture"),user_path(idea.user) %></li>
+	  <li><%= link_to image_tag(idea.user.avatar.url(:small),:class=>"profile_picture"),user_path(idea.user) %></li>
 	  <li><%= link_to idea.user.username,user_path(idea.user) %></li>
-	  <li class="shallow">MyIdea开发者，MyIdea开发者，MyIdea开发者</li>
+	  <li class="shallow"><%= idea.user.description %></li>
+	  <% if idea.user.website %><li><%= link_to idea.user.website,idea.user.website %></li><% end %>
+      <li><%= admin_label_tag idea.user %></li>
 	</ul>
   </div>
-  <div class="span6">
-	<div class="idea-title"><%= link_to idea.title,idea,:title => idea.title %></div>
-	<div class="idea-label"><%= status_span_tag idea %><span><i class="icon-list"></i>&nbsp;<a href="#"><%= idea.topic.name %></a></span>
-      <span><i class="icon-tags"></i>
-        <% idea.tags.each do |tag| %>
-          <%= link_to tag.name,'#' %>
+  <div class="span7">
+    <div class="row">
+      <div class="span6">
+	    <div class="idea-title"><%= link_to idea.title,idea,:title => idea.title %></div>
+	    <div class="idea-label"><%= status_span_tag idea %><span><i class="icon-list"></i>&nbsp;<a href="#"><%= idea.topic.name %></a></span>
+        <% if idea.tags.any? %>
+          <span><i class="icon-tags"></i>
+          <% idea.tags.each do |tag| %>
+            <%= link_to tag.name,'#' %>
+          <% end %>
+          </span>
         <% end %>
-      </span>
+        </div>
+        <div class="idea-entry"><%= raw RedCloth.new(idea.description,[:filter_html]).to_html %></div>
+        <div class="idea-info shallow"><%= distance_of_time_in_words_to_now idea.created_at %></div>
+      </div>
+      <div class="span1">
+        <ul class="unstyled actions">
+	      <li><a href="#">修改</a></li>
+	    </ul>
+      </div>
     </div>
-    <div class="idea-entry"><%= raw RedCloth.new(idea.description,[:filter_html]).to_html %></div>
-    <div class="idea-info shallow"><%= distance_of_time_in_words_to_now idea.created_at %></div>
-  </div>
-  <div class="span1">
-    <ul class="unstyled actions">
-	  <li><a href="#">修改</a></li>
-	</ul>
-  </div>
-</div>
-<%= render idea.solutions %>
-<%= render idea.comments %>
-<div class="row">
-  <div class="span7 offset2 hr"></div>
-</div>
-<div class="row">
-  <div class="span7 offset2">
-    <%= link_to "给个建议",idea_path(idea),:class =>"btn primary" %> 
-    <% if can? :create,Comment %>
-      <a href="javascript:;" class="comment-btn btn info">发布评论</a>
-    <% end %>
-    <% if can? :favoriate,idea %>
-      <% if idea.favorers.exists?(current_user.id) %>
-	    <%= link_to "取消关注",unfavoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}",:class=>"btn" %>
-      <% else %>
-	    <%= link_to "关注动向",favoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}",:class=>"btn" %>
-      <% end %>
-    <% end %>
-    <% if can? :handle,idea %>
-      <% if idea.status != IDEA_STATUS_LAUNCHED %>
-	    <%= link_to "开始实施",handle_idea_path(idea),:class=>"btn btn-warning" %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
 
-  <div class="comment-form">
-    <div class="alert-message block-message warning">
-	  <a class="close" href="javascript:;">×</a>
-      <%= form_for([idea,Comment.new],:remote => true,:html =>{:id => "comment-form-#{idea.id}"}) do |f| %>
-		<fieldset>
-		  <div class="clearfix">
+    <%= render idea.solutions %>
+    <div style="display:none" id="after-solutions-<%=idea.id%>"></div>
+
+    <% if idea.comments_count > 2%>
+      <div class="row"><div class="span7 hr"></div></div>
+      <div class="row"><div class="span7 show-more"><a href="javascript:;" data-more="<%= idea.comments_count-2%>">查看<%= idea.comments_count-2%>条旧评论</a></div></div>
+      <% idea.comments.each_with_index do |comment,index| %>
+        <% if index < idea.comments_count-2 %>
+          <div style="display:none"><%= render comment %></div>
+        <% else %>
+          <%= render comment %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= render idea.comments %>
+    <% end %>
+
+    <% if user_signed_in? %> 
+      <div class="row" id="after-comments-<%=idea.id%>"><div class="span7 hr"></div></div>
+      <div class="row">
+        <div class="span7" id="action-button-<%=idea.id%>">
+          <% if can? :create,Solution %>
+            <button class="solution-btn btn btn-primary" data-idea="<%= idea.id %>">给个建议</button>
+          <% end %>
+          <% if can? :create,Comment %>
+            <button class="comment-btn btn btn-info" data-idea="<%= idea.id %>">发布评论</button>
+          <% end %>
+          <% if can? :favoriate,idea %>
+            <% if idea.favorers.exists?(current_user.id) %>
+	          <%= link_to "取消关注",unfavoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}",:class=>"btn" %>
+            <% else %>
+	          <%= link_to "关注动向",favoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}",:class=>"btn" %>
+            <% end %>
+          <% end %>
+          <% if can? :handle,idea %>
+            <% if idea.status != IDEA_STATUS_LAUNCHED %>
+	          <%= link_to "开始实施",handle_idea_path(idea),:class=>"btn btn-warning" %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="span7" id="add-comment-<%=idea.id%>" style="display:none">
+          <%= form_for([idea,Comment.new],:remote => true,:html =>{:class=>"well"}) do |f| %>
+            <a class="close" data-idea="<%= idea.id %>" style="cursor:hand">&times;</a>
             <%= f.label :content %>
-		    <div class="input">
-	          <%= f.text_area :content,:class => "xlarge",:style => "height:80px;overflow-y:auto" %>
-            </div>
-		  </div>
-          <div class="actions">
-            <%= f.submit "发布",:class=>"btn primary" %>
-          </div>
-		</fieldset>
-	  <% end %>
-    </div>
+	        <%= f.text_area :content,:class => "span6",:style => "height:80px;overflow-y:auto" %>
+            <p class="help-block">不支持HTML，请输入普通文本</p>
+            <%= f.submit "发布",:class=>"btn btn-primary",:style=>"margin-top:5px" %>
+	      <% end %>
+        </div>
+        <div class="span7" id="add-solution-<%=idea.id%>" style="display:none">
+          <%= form_for([idea,Solution.new],:remote => true,:html =>{:class=>"well"}) do |f| %>
+            <a class="close" data-idea="<%= idea.id %>" style="cursor:hand">&times;</a>
+            <%= f.label :title %>
+            <%= f.text_field :title %>
+            <%= f.label :content %>
+	        <%= f.text_area :content,:class => "span6",:style => "height:80px;overflow-y:auto" %>
+            <p class="help-block">不支持HTML，请输入普通文本</p>
+            <%= f.submit "发布",:class=>"btn btn-primary",:style=>"margin-top:5px" %>
+	      <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
+</div>

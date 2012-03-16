@@ -6,13 +6,16 @@ class Idea < ActiveRecord::Base
   has_many :votes
   has_many :favorers,:through => :favors,:source =>:user
   has_many :favors
-  has_many :comments
-  has_many :solutions
+  has_many :comments,:order => "created_at"
+  has_many :solutions,:order => "points desc"
 
   self.per_page = 30
 
+  attr_accessor :tags_count
+
   validates :title,:presence =>true,:length => {:maximum => 60}
   validates :description,:presence =>true,:length => {:maximum => 2000}
+  validate :tags_number_not_greater_than_three
 
   after_create do |idea|
     Activity.create(:action =>ACTIVITY_CREATE_IDEA,:idea => idea,:user => idea.user)
@@ -55,4 +58,9 @@ class Idea < ActiveRecord::Base
     tags.map(&:name).join(' ')
   end
 
+  def tags_number_not_greater_than_three
+    if self.tags.length > 3
+      errors.add(:tags,I18n.t('myidea.errors.idea.tags_number'))
+    end
+  end
 end

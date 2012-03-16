@@ -7,6 +7,7 @@ body {
   font-family: Arial,Helvetica,sans-serif;
   font-size: 13px;
   padding-top: 40px;
+  word-wrap: break-word;
 }
 .container > footer p {
   text-align: center; 
@@ -42,16 +43,21 @@ body {
 img.profile_picture {
   width: 50px;
   height: 50px;
+  border-radius: 3px;
 }
 img.profile_picture_small {
   width: 32px;
   height: 32px;
+  border-radius: 3px;
 }
 .shallow{
   color: #999;
 }
 .highlight{
   color:#F89406;
+}
+span.bold{
+  font-weight:bold;
 }
 div.hr{
   margin-bottom:10px;
@@ -69,7 +75,6 @@ div.idea-label span{
  margin-right:10px;
 }
 ul.actions{
-  padding-left:20px;
   margin-bottom:0;
 }
 ul.actions li{

@@ -1,19 +1,19 @@
+<div class="row"><div class="span7 hr"></div></div>			
 <div class="row">
-  <div class="span7 offset2 hr"></div>
-</div>			
-<div class="row">
-  <div class="span6 offset2">
-    <div class="solution-profile">
-    <%= link_to image_tag("dj.jpeg",:class=>"profile_picture_small"),user_path(solution.user) %>
-	</div>
+  <div class="span6">
+    <div class="solution-profile"><%= link_to image_tag(solution.user.avatar.url(:thumb),:class=>"profile_picture_small"),user_path(solution.user) %></div>
     <div class="solution">
-	  <div class="solution-info"><%= link_to solution.user.username,user_path(solution.user) %>&nbsp;建议方案&nbsp;<span class="label label-success"><%= solution.title %></span></div>
+	  <div class="solution-info"><%= link_to solution.user.username,user_path(solution.user) %>，<span class="bold"><%= solution.title %></span></div>
+	  <div class="solution-info"><span class="label label-warning"><%= solution.points %>分</span></div>
 	  <div class="solution-entry"><%= solution.content %></div>
 	  <div class="solution-date shallow"><%= distance_of_time_in_words_to_now solution.created_at %></div>
 	</div>
   </div>
   <div class="span1">
-	<ul class="unstyled actions">
+    <ul class="unstyled actions">
+	  <li></li>
+	  <li><a href="#"><span class="label"><i class="icon-chevron-up icon-white"></i><span></a></li>
+	  <li><a href="#"><span class="label label-info"><i class="icon-chevron-down icon-white"></i></span></a></li>
 	  <li><a href="#">修改</a></li>
 	  <li><a href="#">删除</a></li>
 	</ul>

@@ -2,7 +2,7 @@ class IdeasController < ApplicationController
   authorize_resource
 
   def index
-    @ideas = Idea.includes(:tags,:user)
+    @ideas = Idea.includes(:tags,:user,:topic,:comments,:solutions)
   end
  
   def search
@@ -44,11 +44,7 @@ class IdeasController < ApplicationController
   def create
     @idea = Idea.new(params[:idea])
     @idea.user = current_user
-    if @idea.save
-      redirect_to @idea
-    else
-      render action: 'new'
-    end
+    @idea.save
   end
 
   def edit

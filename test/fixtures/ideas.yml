@@ -1,31 +1,34 @@
-default:
+under_review:
   title: 新增的主意
   description: 一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十
   user: "tom"
   topic: "topic_one"
   status: <%= IDEA_STATUS_UNDER_REVIEW %>
 
-under_review:
+reviewed_fail:
   title: 审核中的主意
   description: 审核中主意的内容
   topic: "topic_one"
   user: "tom"
-  status: <%= IDEA_STATUS_UNDER_REVIEW %>
+  status: <%= IDEA_STATUS_REVIEWED_FAIL %>
 
-reviewed:
+reviewed_ok:
   title: 已审核的主意
   description: 已审核主意的内容
+  topic: "topic_one"
   user: "tom"
-  status: <%= IDEA_STATUS_REVIEWED_FAIL %>
+  status: <%= IDEA_STATUS_REVIEWED_OK %>
 
 in_the_works:
   title: 实施中的主意
   description: 实施中主意的内容
+  topic: "topic_one"
   user: "tom"
   status: <%= IDEA_STATUS_IN_THE_WORKS %>
 
 launched:
   title: 已实施的主意
   description: 已实施主意的内容
+  topic: "topic_one"
   user: "tom"
   status: <%= IDEA_STATUS_LAUNCHED %>
