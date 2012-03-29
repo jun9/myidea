@@ -12,8 +12,4 @@ class Comment < ActiveRecord::Base
     comment.user.save
   end 
 
-  def self.last_page_number(conditions=nil)
-    total = count :all, :conditions => conditions
-    [((total - 1) / self.per_page) + 1, 1].max
-  end 
 end

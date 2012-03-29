@@ -1,7 +1,7 @@
 <div class="page-header">
   <h1>用户管理</h1>
 </div>
-<%= form_tag(users_path,:method => "get",:remote => true,:class => "form-horizontal",:id => "user-query-form") do %>
+<%= form_tag(users_path,:method => "get",:remote => true,:class => "form-inline",:id => "user-query-form") do %>
   <label class = "control-label">输入用户名或邮箱</label>
   <%= text_field_tag(:q,params[:q],:class => "span4") %>
   <%= submit_tag "搜索用户",:class=>"btn btn-primary" %>

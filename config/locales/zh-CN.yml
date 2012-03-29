@@ -40,9 +40,9 @@ zh-CN:
         name: "主题名称"
       preference:
         value: "设置项值"
-  #for custome
-  myidea:
-    errors:
+  #for application
+  app:
+    error:
       head: "请改正如下错误"
       topic:
         zero_ideas: "不能删除主意数量不为零的主题"
@@ -50,12 +50,12 @@ zh-CN:
         username_format: "只能包含字母和数字"
       idea:
         tags_number: "不能超过3个"
+        status: "修改主意为 %{status} 失败"
+        pick_solution: "请选择实施主意的方案"
+        launched: "主意已经实施，不能再修改状态"
     notice:
       user:
         edit: "修改成功"
-      create: "创建成功" 
-      idea:
-        wrong_status: "流转不正确"
     user:
       admin:
         radio_yes: "是"
@@ -68,15 +68,27 @@ zh-CN:
       favorite: "关注了"
       unfavorite: "取消关注"
     idea:
-      under-review: "审核中"
-      reviewed-success: "审核通过"
-      reviewed-fail: "审核不通过"
-      in-the-works: "实施中"
-      launched: "已实施"
+      status:
+        under_review: "审核中"
+        reviewed_success: "审核通过"
+        reviewed_fail: "审核不通过"
+        in_the_works: "实施中"
+        launched: "已实施"
+      fail:
+        repeated: "重复"
+        launched: "已经实施过"
+        invalid: "不合格"
+      success: "通过" 
       handle: 
-        under-review: "开始审核"
-        reviewed: "完成审核"
-        in-the-works: "开始实施"
-        launched: "完成实施"
+        under_review: "开始审核"
+        reviewed_fail: "重新审核"
+        reviewed_success: "开始实施"
+        in_the_works: "完成实施"
+      favoriate: "关注动向"
+      unfavoriate: "取消关注"
+    comment:
+      new: "发布评论"
+    solution:
+      new: "给个建议"
     preference:
       site_name: "站点名称"

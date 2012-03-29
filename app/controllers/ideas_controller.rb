@@ -2,20 +2,7 @@ class IdeasController < ApplicationController
   authorize_resource
 
   def index
-    @ideas = Idea.includes(:tags,:user,:topic,:comments,:solutions)
-  end
- 
-  def search
-    search = Idea.search do
-      keywords params[:q]
-      paginate :page => params[:ideas_page],:per_page => Idea.per_page 
-    end
-    @ideas = search.results
-    @total = search.total
-    @query = params[:q]
-    if request.xhr?
-      render :partial => "search_tab",:locals => { :ideas => @ideas }
-    end
+    @ideas = Idea.includes(:tags,:user,:topic,:comments,:solutions).where("status=?",IDEA_STATUS_REVIEWED_SUCCESS)
   end
 
   def promotion
@@ -27,22 +14,13 @@ class IdeasController < ApplicationController
   end
   
   def show
-    if request.xhr?
-      @comments = Comment.where(:idea_id => params[:id]).order("created_at asc").paginate(:page => params[:comments_page]).includes(:user)
-      render :partial => "comments",:locals => {:comments => @comments}
-    else
-      comments_page = session[:comments_page]?session[:comments_page]:params[:comments_page]
-      session[:comments_page] = nil
-      @idea = Idea.find(params[:id])
-      @comments = Comment.where(:idea_id => @idea.id).order("created_at asc").paginate(:page => comments_page).includes(:user)
-      @comment = Comment.new
-      @solution = Solution.new
-      @user = User.new
-    end
+    @idea = Idea.includes(:tags,:user,:topic,:comments,:solutions).find(params[:id])
+    @idea_page = true
   end
 
   def create
     @idea = Idea.new(params[:idea])
+    @idea.status = IDEA_STATUS_UNDER_REVIEW 
     @idea.user = current_user
     @idea.save
   end
@@ -63,38 +41,43 @@ class IdeasController < ApplicationController
 
   def handle
     @idea = Idea.find(params[:id])
-    if request.post?
-      if @idea.change_status
-        redirect_to @idea
+    case @idea.status
+    when IDEA_STATUS_UNDER_REVIEW
+        if params[:fail]
+          check_status(IDEA_STATUS_REVIEWED_FAIL)
+        else
+          check_status(IDEA_STATUS_REVIEWED_SUCCESS)
+        end
+    when IDEA_STATUS_REVIEWED_FAIL
+      check_status(IDEA_STATUS_UNDER_REVIEW)
+    when IDEA_STATUS_REVIEWED_SUCCESS
+      if !params[:solutionIds]
+        flash.now[:alert] = I18n.t('app.error.idea.pick_solution') 
+      else
+        check_status(IDEA_STATUS_IN_THE_WORKS)
       end
+    when IDEA_STATUS_IN_THE_WORKS
+      check_status(IDEA_STATUS_LAUNCHED)
+    when IDEA_STATUS_LAUNCHED 
+      flash.now[:alert] = I18n.t('app.error.idea.launched') 
     end
+    if !flash[:alert]
+      @idea.update_attributes(:status => params[:status],:fail => params[:fail])
+      Solution.find(params[:solutionIds]).each{|solution| solution.update_attribute(:pick,true)} if params[:solutionIds]
+    end
+    @idea_page = true
+    render action: 'show',:layout=>false
   end
 
   def tab
-    cate_id = params[:cate_id]
     status = params[:status]
-    if request.xhr?
-      conditions = {}
-      unless cate_id.blank?
-        conditions[:category_id] = cate_id 
-        @category = Category.find(cate_id)
-      end
-      unless status.blank?
-        @status = status
-        conditions[:status] = status 
-      end
-      order = case 
-      when params[:style] == "#{IDEA_SORT_HOT}" then "MONTH(created_at) desc,(points+comments_count) desc"
-      when params[:style] == "#{IDEA_SORT_NEW}" then "created_at desc"
-      when params[:style] == "#{IDEA_SORT_POINTS}" then "points desc"
-      when params[:style] == "#{IDEA_SORT_COMMENTS}" then "comments_count desc"
-      else "updated_at desc"
-      end
-      @ideas = Idea.includes(:category, :user).where(conditions).paginate(:page => params[:ideas_page]).order(order)
-      render :layout => false
-    else
-      render :action => :index
+    conditions = {}
+    unless status.blank?
+      @status = status
+      conditions[:status] = status 
     end
+    @ideas = Idea.includes(:tags,:user,:topic,:comments,:solutions).where(conditions)
+    render :layout => false
   end
 
   def like
@@ -126,5 +109,12 @@ class IdeasController < ApplicationController
   def preview
     @description = RedCloth.new(params[:description],[:filter_html]).to_html()
     render :layout => false
+  end
+
+  private
+  def check_status(status)
+    if params[:status] != status
+        flash.now[:alert] = I18n.t('app.error.idea.status',:status => I18n.t("app.idea.status.#{status}"))
+    end
   end
 end

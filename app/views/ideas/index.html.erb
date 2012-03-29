@@ -1,16 +1,13 @@
 <%= flash_msg_tag flash[:alert],"alert-error" %>
 <%= flash_msg_tag flash[:notice],"alert-success" %>
-<!-- 状态选择 -->
-<ul class="nav nav-tabs">
-  <li><a href="#under_review" data-toggle="tab">审核中</a></li>
-  <li><a href="#fail" data-toggle="tab">审核不通过</a></li>
-  <li class="active"><a href="#success" data-toggle="tab">审核通过的</a></li>
-  <li><a href="#in_the_work" data-toggle="tab">实施中</a></li>
-  <li><a href="#done" data-toggle="tab">已实施</a></li>
+<ul class="nav nav-tabs" id="nav-status">
+  <li><%= link_to '审核中',tab_ideas_path(:status => IDEA_STATUS_UNDER_REVIEW),:remote=>true %></li>
+  <li><%= link_to '审核不通过',tab_ideas_path(:status => IDEA_STATUS_REVIEWED_FAIL),:remote=>true  %></li>
+  <li class="active"><%= link_to '审核通过的',tab_ideas_path(:status => IDEA_STATUS_REVIEWED_SUCCESS),:remote=>true  %></li>
+  <li><%= link_to '实施中',tab_ideas_path(:status => IDEA_STATUS_IN_THE_WORKS),:remote=>true  %></li>
+  <li><%= link_to '已实施',tab_ideas_path(:status => IDEA_STATUS_LAUNCHED),:remote=>true  %></li>
 </ul>
-<div class="tab-content">
-  <div class="tab-pane active" id="success">
-	<!-- 排序 -->
+<div id="ideas-main">
 	<div class="row">
 	  <div class="span2 offset7">
 		<select class="span2">
@@ -25,5 +22,4 @@
 	  </div>
 	</div>
     <%= render @ideas %>
-  </div>
 </div>

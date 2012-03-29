@@ -18,14 +18,12 @@ class User < ActiveRecord::Base
   has_many :activities
   has_attached_file :avatar, :styles => { :medium => "120x120#", :small => "50x50#", :thumb => "32x32#" }
 
-
   self.per_page = 10
 
   validates :username,:uniqueness => true,:length => {:minimum => 3,:maximum => 14},:format => {:with => /\A[a-zA-Z0-9]+\z/,:message => I18n.t('myidea.errors.user.username_format')},:if => :username_changed?
   validates :terms_of_service, :acceptance => true,:on => :create
   validates :description,:length => {:maximum => 20}
   validates_format_of :website, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix,:allow_blank => true
-
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

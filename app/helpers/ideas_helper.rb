@@ -7,74 +7,55 @@ module IdeasHelper
         options[:class] = options[:class]+" vote-disabled"
       end
     else
-      options[:title] = I18n.t('myidea.notice.user.login')
+      options[:title] = I18n.t('app.notice.user.login')
     end
       link_to body,url,options
   end
 
   def status_span_tag(idea)
-    case idea.status
-    when IDEA_STATUS_UNDER_REVIEW
-      status = "under-review"
-    when IDEA_STATUS_REVIEWED_FAIL
-      status = "reviewed-fail"
-    when IDEA_STATUS_REVIEWED_OK
-      status = "reviewed-success"
-    when IDEA_STATUS_IN_THE_WORKS
-      status = "in-the-works"
-    when IDEA_STATUS_LAUNCHED
-      status = "launched"
-    end
-    content_tag(:span,I18n.t("myidea.idea.#{status}"), :class =>"label label-info")
+    content_tag :span,I18n.t("app.idea.status.#{idea.status}"),:class => "plain bold"
   end
 
-  def handle_idea_tag(idea)
-      if idea.status
-        case idea.status
-        when IDEA_STATUS_DEFAULT
-          name = I18n.t("myidea.idea.handle.under-review")
-        when IDEA_STATUS_UNDER_REVIEW
-          name = I18n.t("myidea.idea.handle.reviewed")
-        when IDEA_STATUS_REVIEWED
-          name = I18n.t("myidea.idea.handle.in-the-works")
-        when IDEA_STATUS_IN_THE_WORKS
-          name = I18n.t("myidea.idea.handle.launched")
+  def fail_span_tag(idea)
+    if idea.fail
+      content_tag :span,I18n.t("app.idea.fail.#{idea.fail}"), :class =>"plain bold"
+    end
+  end
+
+
+  def handle_idea_button(idea,idea_page)
+    if idea_page && (can? :handle,idea) && idea.status != IDEA_STATUS_LAUNCHED
+      case idea.status
+      when IDEA_STATUS_UNDER_REVIEW
+        menu_fail_items = [IDEA_FAIL_REPEATED,IDEA_FAIL_LAUNCHED,IDEA_FAIL_INVALID].map{|fail| content_tag(:li,link_to(I18n.t("app.idea.fail.#{fail}"),handle_idea_path(idea,:status => IDEA_STATUS_REVIEWED_FAIL,:fail => fail ),:class => "handle-button",:method => :put ,:remote => true))}
+        menu = content_tag :ul,:class=>"dropdown-menu" do
+         content_tag(:li,link_to(I18n.t("app.idea.success"),handle_idea_path(idea,:status => IDEA_STATUS_REVIEWED_SUCCESS),:class => "handle-button",:method => :put ,:remote => true))+content_tag(:li,'',:class=>"divider")+menu_fail_items.join.html_safe 
         end
+        content_tag :div,:class =>"btn-group" do
+          link_to((I18n.t("app.idea.handle.#{idea.status}")+" ").html_safe+content_tag(:span,"",:class=>"caret"),"javascript:;",:class => "handle-button btn btn-primary btn-large dropdown-toggle","data-toggle"=>"dropdown")+menu
+        end 
+      when IDEA_STATUS_REVIEWED_FAIL
+        content_tag(:div,link_to(I18n.t("app.idea.handle.#{idea.status}"),handle_idea_path(idea,:status => IDEA_STATUS_UNDER_REVIEW),:class => "handle-button btn btn-primary btn-large",:method => :put ,:remote => true),:class =>"btn-group")
+      when IDEA_STATUS_REVIEWED_SUCCESS
+        content_tag(:div,link_to(I18n.t("app.idea.handle.#{idea.status}"),handle_idea_path(idea,:status => IDEA_STATUS_IN_THE_WORKS),:class => "btn btn-primary btn-large",:id=>"in-the-work-buton",:class => "btn btn-primary btn-large",:method => :put ,:remote => true),:class =>"btn-group")
+      when IDEA_STATUS_IN_THE_WORKS 
+        content_tag(:div,link_to(I18n.t("app.idea.handle.#{idea.status}"),handle_idea_path(idea,:status => IDEA_STATUS_LAUNCHED),:class => "handle-button btn btn-primary btn-large",:method => :put ,:remote => true),:class =>"btn-group")
       end
-      if name
-        submit_tag(name,:id=>"handle-idea",:class => "sub-btn")
-      end
-  end
-  
-  def status_span_tag2(idea,status,content)
-    statusClass ="ui-corner-all status" 
-    if idea.status == status 
-     statusClass = statusClass+" ui-state-active" 
-    else
-      statusClass = statusClass+" ui-state-default"
     end
-    content_tag(:span,content,:class => statusClass)
   end
 
-  def checkbox_status_tag(status,statusChecked,options)
-    checked = false
-    if statusChecked && statusChecked.include?("#{status}") 
-      checked = true
-    end
-    check_box_tag 'status-checkbox',status,checked,options    
+  def unfavor_idea_button(idea)
+	link_to I18n.t("app.idea.unfavoriate"),unfavoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}",:class=>"btn btn-danger"
   end
 
-  def comment_entry_tag(comment)
-    entryClass = "entry"
-    if comment.user.admin
-      entryClass = entryClass + " admin"
-    end
-    content_tag(:div,(raw RedCloth.new(comment.content,[:filter_html]).to_html()),:class => entryClass)
+  def favor_idea_button(idea)
+	link_to I18n.t("app.idea.favoriate"),favoriate_idea_path(idea),:remote => true,:id => "favor-link-#{idea.id}",:class=>"btn btn-success"
   end
 
-  def comment_anchor_tag(current,other,name)
-    if current == other
-      content_tag(:a,nil,:name => name)
+  def favor_unfavor_button(idea)
+    if can? :favoriate,idea
+      content_tag :div,idea.favorers.exists?(current_user.id)?unfavor_idea_button(idea):favor_idea_button(idea),:class=>"btn-group"
     end
   end
+
 end

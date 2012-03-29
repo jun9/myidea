@@ -32,7 +32,6 @@
       </div>
     </div>
   </div>
-
   <div class="container-fluid">
   <div class="content">
     <div class="row-fluid">
@@ -43,12 +42,12 @@
 			<li><%= link_to topics_path,:remote => true,:id => "nav-topic" do %><i class="icon-list"></i> 主题管理<% end %></li>
 			<li><%= link_to users_path,:remote => true,:id => "nav-user" do %><i class="icon-user"></i> 用户管理<% end %></li>
           </ul>
-        </div><!--/.well -->
-      </div><!--/span-->
+        </div>
+      </div>
       <div class="span9" id="admin-main">
         <%= yield %>
-      </div><!--/span-->
-    </div><!--/row-->
+      </div>
+    </div>
   </div>
   <%= render "common/footer"%>
   </div>

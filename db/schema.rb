@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316022202) do
+ActiveRecord::Schema.define(:version => 20120328070026) do
 
   create_table "activities", :force => true do |t|
     t.string   "action"
@@ -41,14 +41,14 @@ ActiveRecord::Schema.define(:version => 20120316022202) do
   create_table "ideas", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "points",          :default => 0
-    t.integer  "status",          :default => 0
+    t.string   "status"        
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "comments_count",  :default => 0
     t.integer  "topic_id"
     t.integer  "solutions_count", :default => 0
+    t.string   "fail"
   end
 
   create_table "ideas_tags", :id => false, :force => true do |t|
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20120316022202) do
     t.integer  "idea_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "pick",       :default => false
   end
 
   create_table "tags", :force => true do |t|

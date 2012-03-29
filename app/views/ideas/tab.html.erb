@@ -1,24 +1,9 @@
-  <div class="tab-header">
-    <div class="category-select-box">
-	  <label>选择类别:</label>&nbsp;
-      <%= select("category", "id", Category.all.collect {|c| [ c.name, c.id ] }, {:include_blank => '全部'}) %>
-    </div>
-    <div id="status-button-set" class="status-button-set">
-	  <label>选择状态:</label>&nbsp;
-	  <%= checkbox_status_tag IDEA_STATUS_UNDER_REVIEW,@status,:id=>"status-review" %><label for="status-review">审核中</label>&nbsp;<%= checkbox_status_tag IDEA_STATUS_REVIEWED,@status,:id=>"status-reviewed" %><label for="status-reviewed">已审核</label>&nbsp;<%= checkbox_status_tag IDEA_STATUS_IN_THE_WORKS,@status,:id=>"status-work" %><label for="status-work">实施中</label>&nbsp;<%= checkbox_status_tag IDEA_STATUS_LAUNCHED,@status,:id=>"status-launch" %><label for="status-launch">已实施</label>
-    </div>
-    <div class="clear"></div>
+<div class="row">
+  <div class="span2 offset7">
+	<select class="span2">
+	  <option>最新的</option>
+	  <option>24小时内最热门的</option>
+	</select>
   </div>
-	<!-- pagination -->
-  <div class="pagination-box-top ideas-pagination">
-    <%= will_paginate @ideas,:param_name => :ideas_page %><div class="clear"></div>
-    </div>
-  <!-- begin of ideas -->
-  <div class="ideas-all" id="ideas">
-    <%= render @ideas %>
-  </div>	
-  <!-- end of ideas -->
-    <!-- pagination -->
-  <div class="pagination-box-bottom ideas-pagination">
-    <%= will_paginate @ideas,:param_name => :ideas_page  %><div class="clear"></div>
-  </div>
+</div>
+<%= render @ideas %>

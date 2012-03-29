@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
-      redirect_to edit_user_path(@user), :notice => I18n.t('myidea.notice.user.edit')
+      redirect_to edit_user_path(@user), :notice => I18n.t('app.notice.user.edit')
     else
       render action:'edit',:layout => "profile"
     end

@@ -1,45 +1,43 @@
-                    <%= errors_msg_tag @user %>
-                    <%= flash_msg_tag flash[:notice],"alert-success" %>
-                    <%= form_for(@user,:html=>{:multipart => true,:class=>"form-horizontal",:id => "edit-user"}) do |f| %>
-					<fieldset>
-						<legend>修改个人资料</legend>
-						<div class="control-group">
-							<label class="control-label">用户名</label>
-							<label class="control-label span2"><%= @user.username %></label>
-						</div>
-						<div class="control-group">
-							<label class="control-label">角色</label>
-							<label class="control-label span2"><%= role_tag @user %></label>
-						</div>
-						<div class="control-group">
-                            <%= f.label :description,:class=>"control-label" %>
-							<div class="controls">
-                              <%= f.text_field :description,:class=>"input-xlarge" %>
-                              <p class="help-block">简短明了，不超过20个字符</p>
-							</div>
-						</div>
-						<div class="control-group">
-                            <%= f.label :website,:class=>"control-label" %>
-							<div class="controls">
-                              <%= f.text_field :website,:class=>"input-xlarge" %>
-                              <p class="help-block">以 http:// 开头，如 http://example.com</p>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label">个人头像</label>
-							<div class="controls"><%= image_tag @user.avatar.url(:medium) %></div>
-						</div>
-						<div class="control-group">
-							<label class="control-label">上传头像</label>
-							<div class="controls">
-                                <%= f.file_field :avatar,:class=>"input-xlarge" %>
-                                <p class="help-block">像素为120*120，不超过1M</p>
-							</div>
-						</div>
-						<div class="form-actions">
-                          <%= f.submit "修改",:class => "btn btn-large btn-primary" %>
-						</div>
-					</fieldset>
-				<% end %>
-			</div>
-			<!-- End 个人资料 -->
+<%= errors_msg_tag @user %>
+<%= flash_msg_tag flash[:notice],"alert-success" %>
+<%= form_for(@user,:html=>{:multipart => true,:class=>"form-horizontal",:id => "edit-user"}) do |f| %>
+  <fieldset>
+    <legend>修改个人资料</legend>
+	<div class="control-group">
+	  <label class="control-label">用户名</label>
+	  <label class="control-label span2"><%= @user.username %></label>
+	</div>
+	<div class="control-group">
+	  <label class="control-label">角色</label>
+	  <label class="control-label span2"><%= role_tag @user %></label>
+	</div>
+	<div class="control-group">
+      <%= f.label :description,:class=>"control-label" %>
+	  <div class="controls">
+        <%= f.text_field :description,:class=>"input-xlarge" %>
+        <p class="help-block">简短明了，不超过20个字符</p>
+	  </div>
+	</div>
+	<div class="control-group">
+      <%= f.label :website,:class=>"control-label" %>
+	  <div class="controls">
+        <%= f.text_field :website,:class=>"input-xlarge" %>
+        <p class="help-block">以 http:// 开头，如 http://example.com</p>
+	  </div>
+	</div>
+	<div class="control-group">
+	  <label class="control-label">个人头像</label>
+	  <div class="controls"><%= image_tag @user.avatar.url(:medium) %></div>
+	</div>
+	<div class="control-group">
+	  <label class="control-label">上传头像</label>
+	  <div class="controls">
+        <%= f.file_field :avatar,:class=>"input-xlarge" %>
+        <p class="help-block">像素为120*120，不超过1M</p>
+	  </div>
+	</div>
+	<div class="form-actions">
+      <%= f.submit "修改",:class => "btn btn-large btn-primary" %>
+	</div>
+  </fieldset>
+<% end %>

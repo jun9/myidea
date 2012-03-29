@@ -5,7 +5,7 @@ class Topic < ActiveRecord::Base
 
   def check_product_count
     unless self.ideas.count == 0
-      errors[:base] << I18n.t('myidea.errors.topic.zero_ideas')
+      errors[:base] << I18n.t('app.error.topic.zero_ideas')
       false
     end
   end

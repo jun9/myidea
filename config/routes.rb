@@ -8,7 +8,7 @@ Myidea::Application.routes.draw do
     match 'preview',:on => :collection
     match 'like',:on => :member
     match 'unlike',:on => :member
-    match 'handle',:on => :member
+    put 'handle',:on => :member
     match 'search',:on => :collection
     match 'favoriate',:on => :member
     match 'unfavoriate',:on => :member

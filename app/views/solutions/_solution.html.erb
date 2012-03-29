@@ -11,7 +11,9 @@
   </div>
   <div class="span1">
     <ul class="unstyled actions">
-	  <li></li>
+      <% if @idea_page && (can? :handle,solution.idea) && solution.idea.status == IDEA_STATUS_REVIEWED_SUCCESS %>
+	    <li><input class="solution-pick" type="checkbox" value="<%= solution.id %>"> 实施</input></li>
+      <% end %>
 	  <li><a href="#"><span class="label"><i class="icon-chevron-up icon-white"></i><span></a></li>
 	  <li><a href="#"><span class="label label-info"><i class="icon-chevron-down icon-white"></i></span></a></li>
 	  <li><a href="#">修改</a></li>

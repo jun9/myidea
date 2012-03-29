@@ -43,18 +43,26 @@ body {
 img.profile_picture {
   width: 50px;
   height: 50px;
-  border-radius: 3px;
+  padding: 2px;
+  border:1px solid #DDD;
 }
 img.profile_picture_small {
   width: 32px;
   height: 32px;
-  border-radius: 3px;
+  padding: 2px;
+  border:1px solid #DDD;
+}
+.plain{
+  color: #08C;
 }
 .shallow{
   color: #999;
 }
 .highlight{
   color:#F89406;
+}
+.pick{
+  background-color:#6dcff6
 }
 span.bold{
   font-weight:bold;
