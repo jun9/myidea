@@ -15,37 +15,10 @@
   <div class="container">
     <div class="content">
       <div class="row">
-        <div class="span9" id="app-main"><%= yield %></div>
-        <div class="span3">
-		  <form class="form-search">
-		    <input type="text" class="span2 search-query" placeholder="搜索主意">
-			<button type="submit" class="btn"><i class="icon-search"></i></button>
-		  </form>
-		  <ul class="nav nav-pills nav-stacked">
-			<li class="active"><a href="#">所有的主意</a></li>
-			<li><a href="#">发布的主意</a></li>
-			<li><a href="#">关注的主意</a></li>
-		  </ul>
-          <% if Topic.count > 0 %>
-		    <h4>主题</h4>
-		    <ul class="nav nav-pills nav-stacked">
-              <% Topic.order("created_at desc").each do |topic| %>
-			    <li><a href="#"><i class="icon-list"></i>&nbsp;<%= topic.name %></a></li>
-              <% end %>
-			</ul>
-          <% end %>
-          <% if Tag.count > 0 %>
-			<h4>热门标签</h4>
-			<ul class="unstyled hot-tags">
-              <% Tag.limit(15).order("ideas_count desc").each do |tag| %>
-				<li><i class="icon-tag"></i>&nbsp;<a href="#"><%= tag.name %></a><span class="shallow">&nbsp;x&nbsp;<%= tag.ideas_count %></span></li>
-              <% end %>
-			</ul>
-          <% end %>
-	    </div>
-      </div>
-    </div>
-    <%= render 'common/footer' %>          
+        <%= yield %>
+	  </div>
+	</div>
+    <%= render "common/footer"%>
   </div>
 </body>
 </html>

@@ -51,7 +51,7 @@ module Myidea
 
     config.to_prepare do
       Devise::SessionsController.layout "account"
-      Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "profile" : "account" }
+      Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "account" }
       Devise::ConfirmationsController.layout "account"
       Devise::UnlocksController.layout "account"            
       Devise::PasswordsController.layout "account"        

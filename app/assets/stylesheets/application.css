@@ -40,6 +40,12 @@ body {
 .label{
   font-size:13px;
 }
+img.profile_picture_medium {
+  width: 120px;
+  height: 120px;
+  padding: 2px;
+  border:1px solid #DDD;
+}
 img.profile_picture {
   width: 50px;
   height: 50px;
@@ -121,4 +127,16 @@ div.show-more{
 }
 form.login-dropdown{
  margin:10px;
+}
+ul.favor-avatar li{
+ float:left;
+ margin:2px;
+}
+ul.user-info li{
+ margin-top:5px;
+}
+p.more-ideas{
+ padding-top:5px;
+ border-top:1px dashed #EEE;
+ text-align:right;
 }

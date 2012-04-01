@@ -17,6 +17,7 @@ zh-CN:
         tag_names: "标签"
         tags: "标签"
         status: "状态"
+        topic: "主题"
       user:
         username: "用户名"
         password: "密码"
@@ -31,6 +32,8 @@ zh-CN:
         owner: "网站持有者"
         admin: "管理员"
         normal: "注册用户"
+        avatar_file_size: "头像大小"
+        avatar_content_type: "头像格式"
       comment:
         content: "评论"
       solution:
@@ -48,11 +51,14 @@ zh-CN:
         zero_ideas: "不能删除主意数量不为零的主题"
       user:
         username_format: "只能包含字母和数字"
+        avatar_size: "最大为50KB"
+        avatar_content_type: "只能为JPEG和PNG"
       idea:
         tags_number: "不能超过3个"
         status: "修改主意为 %{status} 失败"
         pick_solution: "请选择实施主意的方案"
         launched: "主意已经实施，不能再修改状态"
+        edit: "是实施中或已实施的主意不能被修改"
     notice:
       user:
         edit: "修改成功"
@@ -60,13 +66,6 @@ zh-CN:
       admin:
         radio_yes: "是"
         radio_no: "否"
-    activity:
-      create: "发布了"
-      comment: "评论了"
-      like: "顶了"
-      unlike: "踩了"
-      favorite: "关注了"
-      unfavorite: "取消关注"
     idea:
       status:
         under_review: "审核中"
@@ -86,6 +85,7 @@ zh-CN:
         in_the_works: "完成实施"
       favoriate: "关注动向"
       unfavoriate: "取消关注"
+      edit: "修改"
     comment:
       new: "发布评论"
     solution:

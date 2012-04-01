@@ -8,7 +8,7 @@
   <li><%= link_to '已实施',tab_ideas_path(:status => IDEA_STATUS_LAUNCHED),:remote=>true  %></li>
 </ul>
 <div id="ideas-main">
-	<div class="row">
+  <div class="row">
 	  <div class="span2 offset7">
 		<select class="span2">
 		  <option>最新的</option>
@@ -20,6 +20,7 @@
 		  <option>最新评论的</option>
 		</select>
 	  </div>
-	</div>
-    <%= render @ideas %>
+  </div>
+  <%= render @ideas %>
+  <%= will_paginate @ideas,:class => "pagination pagination-right",:id => "ideas-pagination",:params => {:controller => "ideas",:action => "tab",:status => IDEA_STATUS_REVIEWED_SUCCESS} %>
 </div>

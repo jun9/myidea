@@ -1,9 +1,34 @@
-  <div id="user-tabs">
-	<ul>
-	  <li><%= link_to '近期活动',act_user_path,:title =>'tab-box' %></li>
-	  <li><%= link_to '发布的',act_user_path(:activity => ACTIVITY_CREATE_IDEA),:title =>'tab-box'%></li>
-	  <li><%= link_to '评论的',act_user_path(:activity => ACTIVITY_COMMENT_IDEA),:title =>'tab-box' %></li>
-	  <li><%= link_to '投票的',act_user_path(:activity => ACTIVITY_LIKE_IDEA),:title =>'tab-box' %></li>
-	  <li><%= link_to '关注的',act_user_path(:activity => ACTIVITY_FAVORITE_IDEA),:title =>'tab-box' %></li>
-	</ul>
-  </div>
+<div class="span8 offset2">
+  <ul class="unstyled user-info">
+    <li><h3><%= @user.username %></h3></li>
+    <li><%= role_tag @user %></li>
+    <li>积分：<%= @user.points %></li>
+    <li><%= image_tag @user.avatar.url(:medium),:class => "profile_picture_medium" %></li>
+    <li><%= link_to @user.website,@user.website %></li>
+    <li class="shallow"><%= @user.description %></li>
+  </ul>
+  <% if @user.ideas.count > 0 %>
+  <div class="page-header"><h3>发布的主意</h3></div>
+  <ul>
+    <% @user.ideas.each do |idea| %>
+      <li><%= link_to idea.title,idea %></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <% if @user.favored_ideas.count > 0 %>
+  <div class="page-header"><h3>关注的主意</h3></div>
+  <ul>
+    <% @user.favored_ideas.each do |idea| %>
+      <li><%= link_to idea.title,idea %></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <% if @user.voted_ideas.count > 0 %>
+  <div class="page-header"><h3>投票的主意</h3></div>
+  <ul>
+    <% @user.voted_ideas.each do |idea| %>
+      <li><%= link_to idea.title,idea %></li>
+    <% end %>
+  </ul
+  <% end %>
+</div>

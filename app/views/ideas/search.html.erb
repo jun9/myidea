@@ -1,8 +1,12 @@
-<div id="search-tabs">
-	<ul>
-	  <li><a href="#search-tabs-box">搜索</a></li>
-	</ul>
-    <div id="search-tabs-box" class="tab-content">
-      <%= render :partial => "search_tab",:locals => { :ideas => @ideas } %>
-    </div>
+<div class="span9">
+  <%= form_tag(search_ideas_path,:method => "get",:class=>"form-search well",:style=>"text-align:center") do %>
+    <%=text_field_tag(:q,@query,:class=> "input-xlarge search-query") %>
+    <%= button_tag "搜索主意",:class=>"btn" %>
+  <% end %>
+  <div id="ideas-main">
+    <%= render @ideas %>
+    <%= will_paginate @ideas,:class => "pagination pagination-right",:params => {:controller => "ideas",:action => "search",:q => @query} %>
+  </div>
+</div>
+<div class="span3">
 </div>

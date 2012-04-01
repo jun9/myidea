@@ -1,6 +1,16 @@
 root = exports ? this
-root.showForm = (type,target) ->
- addBtn = $(target) 
+root.showEditForm = (type,target) ->
+ editLink = $(target)
+ $("#idea-"+editLink.data('idea')).hide()
+ $(type+editLink.data('idea')).show().find('a.close').click ->
+  closeX = $(this)
+  form = closeX.parent()
+  form.parent().parent().hide()
+  form.prev().remove()
+  $("#idea-"+closeX.data('idea')).show()
+
+showForm = (type,target) ->
+ addBtn = $(target)
  addBtn.parent().parent().hide()
  $(type+addBtn.data('idea')).show().find('a.close').click ->
   closeX = $(this)
@@ -23,15 +33,51 @@ showMore = (target) ->
  row.remove()
 
 active = (target) -> $(target).parent().addClass("active").siblings().removeClass("active")
+activeIcon = (target) ->
+ li = $(target).parent().addClass("active")
+ li.siblings().removeClass("active").find("i").removeClass("icon-white")
+ li.find("i").addClass("icon-white")
+
+getActiveLinkParam = (id) ->
+ url=$(id).children(".active").find("a").attr("href")
+ url.substring(url.indexOf("?")+1) if url
 
 fillIdeas = (html) -> $("#ideas-main").html(html)
-fillApp = (html) -> $("#app-main").html(html)
+fillIdea = (html) -> $("#idea-main").html(html)
+
+initStatusTab = ->
+ $('#nav-status a')
+  .bind("ajax:beforeSend",(evt,xhr,settings) ->
+   activeLinkParam = getActiveLinkParam('#nav-owner-ideas')
+   settings.url = settings.url+"&"+(activeLinkParam or= getActiveLinkParam('#nav-topic-ideas'))
+   active(this))
+  .bind("ajax:success",(evt,data,status,xhr) -> initIdeas(xhr.responseText))
+
+initRightNav = ->
+ $('#nav-owner-ideas a')
+  .bind("ajax:beforeSend",(evt,xhr,settings) ->
+   settings.url = settings.url+"&"+getActiveLinkParam('#nav-status')
+   $('#nav-topic-ideas').children().removeClass("active").find("i").removeClass("icon-white")
+   active(this))
+  .bind("ajax:success",(evt,data,status,xhr) -> initIdeas(xhr.responseText))
+ $('#nav-topic-ideas a')
+  .bind("ajax:beforeSend",(evt,xhr,settings) ->
+   settings.url = settings.url+"&"+getActiveLinkParam('#nav-status')
+   $('#nav-owner-ideas').children().removeClass("active")
+   activeIcon(this))
+  .bind("ajax:success",(evt,data,status,xhr) -> initIdeas(xhr.responseText))
 
 initIdeas = (html) ->
- fillIdeas(html) if html
+ if html
+  fillIdeas(html)
+ else
+  initStatusTab()
+  initRightNav()
  $('.comment-btn').click -> showForm("#add-comment-",this)
  $('.solution-btn').click -> showForm("#add-solution-",this)
  $('.show-more > a').click -> showMore(this)
+ $('.edit-idea-link').click -> showEditForm("#edit-idea-",this)
+ $('#ideas-pagination li:not(.disabled,.active) a').attr('data-remote','true').bind('ajax:complete',(evt, xhr, status) -> initIdeas(xhr.responseText))
 
 pickSolution = (target) ->
  checkbox = $(target)
@@ -40,24 +86,22 @@ pickSolution = (target) ->
  else
   checkbox.parent().parent().parent().parent().removeClass("pick").prev().removeClass("pick")
 
-changeInTheWorkButtonLink = (settings) ->
+changeInTheWorkButtonLink = (target) ->
+ link = $(target)
  solutionIds = ''
  $('.solution-pick:checked').each ->
   solutionIds += "&solutionIds[]="+this.value
- settings.url = settings.url+solutionIds
+ link.attr('href',link.attr('href')+solutionIds)
 
 initIdea = (html) ->
- fillApp(html) if html
+ fillIdea(html) if html
+ $('.comment-btn').click -> showForm("#add-comment-",this)
+ $('.solution-btn').click -> showForm("#add-solution-",this)
+ $('.edit-idea-link').click -> showEditForm("#edit-idea-",this)
  $('.solution-pick').change -> pickSolution(this)
- $('.handle-button').bind("ajax:success",(evt,data,status,xhr) -> initIdea(xhr.responseText))
- $('#in-the-work-buton')
-  .bind("ajax:beforeSend",(evt,xhr,settings) -> changeInTheWorkButtonLink(settings))
-  .bind("ajax:success",(evt,data,status,xhr) -> initIdea(xhr.responseText))
+ $('#in-the-work-buton').click -> changeInTheWorkButtonLink(this)
 
 jQuery ($) ->
- initIdeas()
- initIdea()
  $('#inbox').tooltip selector: "a[rel=tooltip]"
- $('#nav-status a')
-  .bind("ajax:beforeSend",(evt,xhr,settings) -> active(this))
-  .bind("ajax:success",(evt,data,status,xhr) -> initIdeas(xhr.responseText))
+ initIdeas() if $('#ideas-main').length > 0
+ initIdea() if $('#idea-main').length > 0

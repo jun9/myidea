@@ -1,0 +1,39 @@
+<div class="row" id="idea-<%=idea.id%>">
+  <div class="span6">
+    <div class="idea-title"><%= link_to idea.title,idea,:title => idea.title %></div>
+	<div class="idea-label"><%= status_span_tag idea %><%= fail_span_tag idea %><span><i class="icon-list"></i>&nbsp;<a href="#"><%= idea.topic.name %></a></span>
+      <% if idea.tags.any? %>
+        <span><i class="icon-tags"></i>
+        <% idea.tags.each do |tag| %>
+          <%= link_to tag.name,'#' %>
+        <% end %>
+        </span>
+      <% end %>
+    </div>
+    <div class="idea-entry"><%= idea.description %></div>
+    <div class="idea-info shallow"><%= distance_of_time_in_words_to_now idea.created_at %></div>
+  </div>
+  <div class="span1">
+    <ul class="unstyled actions">
+      <%= edit_idea_link idea %>
+	</ul>
+  </div>
+</div>
+
+<div class="row" id="edit-idea-<%=idea.id%>" style="display:none">
+  <div class="span7">
+    <%= form_for(idea,:remote => true,:method=>:put,:html =>{:class=>"well"}) do |f| %>
+      <a class="close" data-idea="<%= idea.id %>" style="cursor:hand">&times;</a>
+	  <%= f.label :title %>
+      <%= f.text_field :title, :class => "span5" %>
+	  <%= f.label :description %>
+	  <%= f.text_area :description,:class=>"span5",:style => "height:100px;overflow-y:auto" %>
+	  <%= f.label :tag_names %>
+      <%= f.text_field :tag_names, :class => "span3" %>
+      <span class="help-inline">空格间隔，最多3个</span>
+	  <%= f.label :topic %>
+      <%= f.select :topic_id, Topic.all.collect{|t|[t.name,t.id]} %><br/>
+      <%= f.submit "修改",:class => "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

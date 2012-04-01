@@ -1,2 +1,15 @@
-<%= flash_msg_tag flash[:alert],"alert-error" %>
-<%= render @idea %>
+<div class="span9">
+  <%= flash_msg_tag flash[:alert],"alert-error" %>
+  <div id="idea-main"><%= render @idea %></div>
+</div>
+<div class="span3" style="padding-top:18px">
+  <%= handle_idea_button @idea %>
+  <% if @idea.favorers.count > 0%>
+  <h4 style="margin:10px 0"><span class="plain"><%= @idea.favorers.count %></span> 人关注了此主意</h4>
+  <ul class="unstyled favor-avatar">
+    <% @idea.favorers.each do |favorer| %>
+      <li><%= link_to image_tag(favorer.avatar.url(:thumb),:class=>"profile_picture_small"),user_path(favorer),:title => favorer.username %></li>
+    <% end %>
+  </ul>
+  <% end %>
+</div>

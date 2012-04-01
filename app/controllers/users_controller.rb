@@ -12,7 +12,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    render :layout => "account"
   end
  
   def authority
@@ -28,7 +27,7 @@ class UsersController < ApplicationController
     elsif request.xhr?
       render :layout => false
     else
-      render :layout => "profile"
+      render 
     end
   end
 
@@ -37,24 +36,8 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       redirect_to edit_user_path(@user), :notice => I18n.t('app.notice.user.edit')
     else
-      render action:'edit',:layout => "profile"
+      render action:'edit'
     end
   end
 
-  def act
-    user = User.find(params[:id])
-    if params[:activity]
-      template = "ideas" 
-      @ideas = case
-      when params[:activity] == ACTIVITY_CREATE_IDEA then user.ideas.paginate(:page => params[:page]).order("created_at desc")
-      when params[:activity] == ACTIVITY_COMMENT_IDEA then user.commented_ideas.paginate(:page => params[:page]).order("comments.created_at desc").group(:id)    
-      when params[:activity] == ACTIVITY_LIKE_IDEA then user.voted_ideas.paginate(:page => params[:page]).order("votes.created_at desc")    
-      when params[:activity] == ACTIVITY_FAVORITE_IDEA then user.favored_ideas.paginate(:page => params[:page]).order("favors.created_at desc")    
-      end
-    else
-      template = "act"
-      @activities = user.activities.order("created_at desc").limit(30).includes(:idea) 
-    end
-    render template,:layout => false
-  end
 end

@@ -1,3 +1,4 @@
+<div class="span8 offset2">
 <%= errors_msg_tag @user %>
 <%= flash_msg_tag flash[:notice],"alert-success" %>
 <%= form_for(@user,:html=>{:multipart => true,:class=>"form-horizontal",:id => "edit-user"}) do |f| %>
@@ -27,13 +28,13 @@
 	</div>
 	<div class="control-group">
 	  <label class="control-label">个人头像</label>
-	  <div class="controls"><%= image_tag @user.avatar.url(:medium) %></div>
+	  <div class="controls"><%= image_tag @user.avatar.url(:medium),:class => "profile_picture_medium" %></div>
 	</div>
 	<div class="control-group">
 	  <label class="control-label">上传头像</label>
 	  <div class="controls">
         <%= f.file_field :avatar,:class=>"input-xlarge" %>
-        <p class="help-block">像素为120*120，不超过1M</p>
+        <p class="help-block">头像格式为JPEG和PNG，并且大小不超过50KB</p>
 	  </div>
 	</div>
 	<div class="form-actions">
@@ -41,3 +42,4 @@
 	</div>
   </fieldset>
 <% end %>
+</div>

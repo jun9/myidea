@@ -2,7 +2,17 @@ class IdeasController < ApplicationController
   authorize_resource
 
   def index
-    @ideas = Idea.includes(:tags,:user,:topic,:comments,:solutions).where("status=?",IDEA_STATUS_REVIEWED_SUCCESS)
+    @ideas = Idea.paginate(:page => params[:page]).includes(:tags,:user,:topic,:comments,:solutions).where("status=?",IDEA_STATUS_REVIEWED_SUCCESS)
+    render :layout => "list"
+  end
+
+  def search
+    search = Idea.search do
+      keywords params[:q]
+      paginate :page => params[:page],:per_page => Idea.per_page 
+    end
+    @ideas = search.results
+    @query = params[:q]
   end
 
   def promotion
@@ -14,7 +24,7 @@ class IdeasController < ApplicationController
   end
   
   def show
-    @idea = Idea.includes(:tags,:user,:topic,:comments,:solutions).find(params[:id])
+    @idea = Idea.includes(:tags,:user,:topic,:comments,:solutions,:favorers).find(params[:id])
     @idea_page = true
   end
 
@@ -25,18 +35,9 @@ class IdeasController < ApplicationController
     @idea.save
   end
 
-  def edit
-    @idea = Idea.find(params[:id])
-  end
-
   def update
     @idea = Idea.find(params[:id])
-    @idea.category_id = params[:cate][:id]
-    if @idea.save
-      redirect_to @idea
-    else
-      render action: 'edit'
-    end
+    @idea.update_attributes(params[:idea])
   end
 
   def handle
@@ -52,32 +53,38 @@ class IdeasController < ApplicationController
       check_status(IDEA_STATUS_UNDER_REVIEW)
     when IDEA_STATUS_REVIEWED_SUCCESS
       if !params[:solutionIds]
-        flash.now[:alert] = I18n.t('app.error.idea.pick_solution') 
+        flash[:alert] = I18n.t('app.error.idea.pick_solution') 
       else
         check_status(IDEA_STATUS_IN_THE_WORKS)
       end
     when IDEA_STATUS_IN_THE_WORKS
       check_status(IDEA_STATUS_LAUNCHED)
     when IDEA_STATUS_LAUNCHED 
-      flash.now[:alert] = I18n.t('app.error.idea.launched') 
+      flash[:alert] = I18n.t('app.error.idea.launched') 
     end
     if !flash[:alert]
       @idea.update_attributes(:status => params[:status],:fail => params[:fail])
       Solution.find(params[:solutionIds]).each{|solution| solution.update_attribute(:pick,true)} if params[:solutionIds]
     end
-    @idea_page = true
-    render action: 'show',:layout=>false
+    redirect_to @idea 
   end
 
   def tab
-    status = params[:status]
     conditions = {}
-    unless status.blank?
-      @status = status
-      conditions[:status] = status 
+    conditions[:status] = params[:status] if params[:status] 
+    conditions[:topic_id] = params[:topic_id] if params[:topic_id]
+    conditions[:user_id] = params[:user_id] if params[:user_id]
+    if params[:favorer_id]
+      @ideas = User.find(params[:favorer_id]).favored_ideas.paginate(:page => params[:page]).includes(:tags,:user,:topic,:comments,:solutions).where(conditions)
+    else
+      @ideas = Idea.paginate(:page => params[:page]).includes(:tags,:user,:topic,:comments,:solutions).where(conditions)
     end
-    @ideas = Idea.includes(:tags,:user,:topic,:comments,:solutions).where(conditions)
     render :layout => false
+  end
+
+  def tag
+    @tag = Tag.find(params[:tag_id])
+    @ideas = @tag.ideas.paginate(:page => params[:page])
   end
 
   def like
@@ -106,15 +113,10 @@ class IdeasController < ApplicationController
     @idea.favorers.destroy(current_user)
   end
 
-  def preview
-    @description = RedCloth.new(params[:description],[:filter_html]).to_html()
-    render :layout => false
-  end
-
   private
   def check_status(status)
     if params[:status] != status
-        flash.now[:alert] = I18n.t('app.error.idea.status',:status => I18n.t("app.idea.status.#{status}"))
+        flash[:alert] = I18n.t('app.error.idea.status',:status => I18n.t("app.idea.status.#{status}"))
     end
   end
 end

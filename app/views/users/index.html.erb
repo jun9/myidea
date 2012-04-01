@@ -32,7 +32,7 @@
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @users,:class => "pagination pagination-right" %>
+<%= will_paginate @users,:class => "pagination pagination-right",:id=>"users-pagination" %>
 <%= form_tag authority_user_path(0),:method => :put ,:remote => true,:id => "authority-user-form" do %>
   <%= hidden_field_tag(:admin,params[:admin]) %>
 <% end %>

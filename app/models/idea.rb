@@ -18,12 +18,17 @@ class Idea < ActiveRecord::Base
   validate :tags_number_not_greater_than_three
 
   after_create do |idea|
-    Activity.create(:action =>ACTIVITY_CREATE_IDEA,:idea => idea,:user => idea.user)
     idea.user.points += 3
     idea.user.save
     idea.tags.each do |tag|
       tag.ideas_count = tag.ideas_count+1
       tag.save
+    end
+  end
+
+  before_update do |idea|
+    if idea.status == IDEA_STATUS_IN_THE_WORKS || idea.status == IDEA_STATUS_LAUNCHED 
+      errors.add(:status,I18n.t('app.error.idea.edit'))      
     end
   end 
 

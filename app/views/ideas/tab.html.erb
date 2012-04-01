@@ -7,3 +7,4 @@
   </div>
 </div>
 <%= render @ideas %>
+<%= will_paginate @ideas,:class => "pagination pagination-right",:id => "ideas-pagination",:params => {:controller => "ideas",:action => "tab"} %>

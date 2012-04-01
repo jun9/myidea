@@ -24,7 +24,7 @@ gem 'RedCloth', '~> 4.2.9'
 gem 'therubyracer'
 gem 'devise'
 gem 'rails-i18n'
-gem 'paperclip',"~> 2.7"
+gem 'paperclip','~> 3.0'
 
 # Use unicorn as the web server
 # gem 'unicorn'

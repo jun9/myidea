@@ -51,7 +51,7 @@
 	    <%= f.label :tag_names %>
         <%= f.text_field :tag_names, :class => "span3" %>
         <span class="help-inline">空格间隔，最多3个</span>
-	    <%= f.label :tag_names %>
+	    <%= f.label :topic %>
         <%= collection_select(:idea, :topic_id, Topic.all, :id, :name) %>
       </div>
     </div>

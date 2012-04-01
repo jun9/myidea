@@ -27,7 +27,7 @@ authorityUserForm = (id,admin) ->
 
 initNavUser = (html) ->
  fill(html)
- $('.pagination li:not(.disabled,.active) a').attr('data-remote','true').bind('ajax:complete',(evt, xhr, status) -> initNavUser(xhr.responseText))
+ $('#users-pagination li:not(.disabled,.active) a').attr('data-remote','true').bind('ajax:complete',(evt, xhr, status) -> initNavUser(xhr.responseText))
  $('#user-query-form').bind('ajax:complete',(evt, xhr, status) -> initNavUser(xhr.responseText))
  $('.admin_radio_yes').change -> authorityUserForm(this.value,true)
  $('.admin_radio_no').change -> authorityUserForm(this.value,false)
